@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @menu.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @menu.desc %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @menu.rank %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @menu.avatar %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @menu.store %>
+</p>
+
+<%= link_to 'Edit', edit_store_menu_path(@store, @menu) %> |
+<%= link_to 'Back', store_menus_path(@store) %>

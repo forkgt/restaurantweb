@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @store.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @store.desc %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @store.rank %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @store.avatar %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @store.phone %>
+</p>
+
+<p>
+  <strong>Fax:</strong>
+  <%= @store.fax %>
+</p>
+
+<p>
+  <strong>Delivery minimum:</strong>
+  <%= @store.delivery_minimum %>
+</p>
+
+<p>
+  <strong>Delivery fee:</strong>
+  <%= @store.delivery_fee %>
+</p>
+
+<p>
+  <strong>Delivery radius:</strong>
+  <%= @store.delivery_radius %>
+</p>
+
+<p>
+  <strong>Admin:</strong>
+  <%= @store.admin %>
+</p>
+
+<%= link_to 'Edit', edit_store_path(@store) %> |
+<%= link_to 'Back', stores_path %>

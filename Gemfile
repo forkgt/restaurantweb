@@ -51,4 +51,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "devise", "~> 3.1.1"
-gem "bootstrap-sass", "~> 3.0.0.0"
+#gem "bootstrap-sass", "~> 3.0.0.0"
+gem "zurb-foundation", "~> 4.3.2"
+gem "jquery-ui-sass-rails", "~> 4.0.3.0"
+
+gem "simple_form", "~> 3.0.0"

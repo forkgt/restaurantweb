@@ -1,25 +1,87 @@
-<h1>Q#index</h1>
-<p>Find me in app/views/q/index.html.erb</p>
-
-
-<h1>For Users</h1>
-<% if user_signed_in? %>
-    <%= link_to current_user.email, edit_user_registration_path %>
-    <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
-<% else %>
-    <%= link_to "Sign in", new_user_session_path %>
-    <br/><br/>
-    <%= link_to 'Sign up', new_user_registration_path %>
-<% end %>
-
 <br/><br/>
 
-<h1>For Admins</h1>
-<% if admin_signed_in? %>
-    <%= link_to current_admin.email, edit_admin_registration_path %>
-    <%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %>
-<% else %>
-    <%= link_to "Sign in", new_admin_session_path %>
+<div class="row">
+  <div class="large-12 columns">
+    <ul data-orbit>
+      <%= image_tag "a.jpg" %>
+      <%= image_tag "b.jpg" %>
+      <%= image_tag "c.jpg" %>
+      <%= image_tag "d.jpg" %>
+    </ul>
+    <br/><hr /><br/>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns" role="content">
+    <article>
+      <div class="row">
+        <div class="large-8 columns">
+          <h3><a href="#">快速上线</a></h3>
+          <p>针对用户上传的数据，我们都会创建至少三副本并跨IDC存储到多个数据中心，保证数据的高可用性和可靠性。另，用户可通过七牛的身份验证机制设置不同的访问权限和访问级别。</p>
+        </div>
+        <div class="large-4 columns">
+          <%= image_tag "safe.png" %>
+        </div>
+      </div>
+    </article>
+    <hr /><br/>
+
+    <article>
+      <div class="row">
+        <div class="large-4 columns">
+          <%= image_tag "speed.png" %>
+        </div>
+        <div class="large-8 columns">
+          <h3><a href="#">电脑平板手机</a></h3>
+          <p>所有的故障（IDC故障、设备故障等）和升级（系统升级、扩容等）对企业以及移动应用透明化，您感觉到的是持续可用的服务。我们的服务7x24小时在线，避免服务升级或服务器宕机而导致数据不可访问。</p>
+        </div>
+      </div>
+    </article>
+    <hr /><br/>
+
+    <article>
+      <div class="row">
+        <div class="large-8 columns">
+          <h3><a href="#">没订单不要钱</a></h3>
+          <p>我们的存储系统支持弹性扩容，让您无需担心存储空间不足。我们的存储节点和加速节点遍布全球，且每个节点都是读/写/同步IO，真正做到数据实时一致，从而保障了读写性能不会随着数据量增长而降低。</p>
+        </div>
+        <div class="large-4 columns">
+          <%= image_tag "cloud.png" %>
+        </div>
+      </div>
+    </article>
+    <hr /><br/>
+
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="large-12 columns" style="text-align: center;">
+    <%= link_to "现在就注册", new_admin_registration_path, class: "button large" %>
+    <br/>
+    Have a question? Give our sales team a call. (877) 563-4311.
+  </div>
+</div>
+
+<br/>
+<div class="row">
+  <div class="large-6 columns">
+    <b>For Users:</b>
+    <% if user_signed_in? %>
+        <%= link_to current_user.email, edit_user_registration_path %>
+        | <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
+    <% else %>
+        <%= link_to "Sign in", new_user_session_path %>
+        | <%= link_to 'Sign up', new_user_registration_path %>
+    <% end %>
+  </div>
+</div>
+<br/>
+
+<% @stores.each do |st| %>
+    <%= link_to st.name, root_url( subdomain: st.desc ) %>
     <br/><br/>
-    <%= link_to 'Sign up', new_admin_registration_path %>
 <% end %>

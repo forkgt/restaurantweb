@@ -1,0 +1,44 @@
+<h1>Listing dishes</h1>
+
+>> <%= link_to 'Stores', stores_path %>
+>> <%= link_to 'Menus', store_menus_path(@category.menu.store) %>
+>> <%= link_to 'Categories', menu_categories_path(@category.menu) %>
+>> <%= link_to 'Dishes', category_dishes_path(@category) %>
+
+<br/><br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Rank</th>
+      <th>Avatar</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dishes.each do |dish| %>
+      <tr>
+        <td><%= dish.name %></td>
+        <td><%= dish.desc %></td>
+        <td><%= dish.rank %></td>
+        <td><%= dish.avatar %></td>
+        <td><%= dish.price %></td>
+        <td><%= dish.category.name %></td>
+        <td><%= link_to 'Show', category_dish_path(@category, dish) %></td>
+        <td><%= link_to 'Edit', edit_category_dish_path(@category, dish) %></td>
+        <td><%= link_to 'Destroy', [@category, dish], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dish', new_category_dish_path(@category) %>

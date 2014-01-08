@@ -1,15 +1,41 @@
 Ibm::Application.routes.draw do
-  devise_for :admins
-  devise_for :users
 
-  get "q/index"
-  get "q/stores"
-  get "q/store"
+  resources :addresses
+  resources :orders
+  resources :cart_items
+  resources :carts
+  resources :coupons
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  resources :subscriptions, :templates
 
-  # You can have the root of your site routed with "root"
+  resources :stores do
+    resources :menus
+  end
+
+  resources :menus do
+    resources :categories
+  end
+
+  resources :categories do
+    resources :dishes
+  end
+
+  devise_for :admins, controllers: { registrations: 'admins/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  get "h/index", "h/profile", "h/store"
+
+  get "q/index", "q/stores"
+  get "q/store_home",      to: "q#store_home",      as: "q_store_home"
+  get "q/store_menus",     to: "q#store_menus",     as: "q_store_menus"
+  get "q/store_map",       to: "q#store_map",       as: "q_store_map"
+  get "q/store_order",     to: "q#store_order",     as: "q_store_order"
+
+  require 'subdomain' # File in lib
+  constraints(Subdomain) do
+    get '/', to: "q#store_home"
+  end
+
   root 'q#index'
 
   # Example of regular route:

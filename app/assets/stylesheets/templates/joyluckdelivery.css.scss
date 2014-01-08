@@ -1,0 +1,413 @@
+// jquery ui
+// =============================================================================
+@import 'jquery.ui.all';
+
+// basic.css
+// =============================================================================
+* {font:100% Arial,Helvetica,sans-serif;font-size:14px;}
+body {margin:0px auto;padding:0px 0px;width:960px;background-image:url("/assets/templates/joyluckdelivery/logos/bkg_joyluckdelivery.jpg");}
+/*background-color:background:#FFFFD6;*/
+/*background-image:url(images/sushi.jpg)*/
+
+h1 {font-size:20px;color:#FFFFFF;font-weight:bold;line-height:40px;height:40px;margin:10px 10px;padding-left:10px;}
+h2 {font-size:16px;color:#0044DD;line-height:30px;}
+h3 {font-size:14px;color:#0044DD;line-height:30px;}
+h4 {font-size:16px;padding:4px;font-style:italic;}
+h5 {font-size:12px;color:#F58805;font-weight:normal;line-height:20px;display:inline-block;}
+h6 {margin:0px;padding:0px;color:#777;line-height:20px;height:20px;font-weight:normal;}
+
+p {font-size:14px;}
+p.success{color:#fff;font-size:14px;font-style:italic;margin:10px 20px 0 5px;padding-left:40px;background:url(images/icon-success.png) top left no-repeat}
+br.clear{clear:both;line-height:0;display:block;}
+input.hidden{display:none!important;visibility:hidden!important}
+h2.blue-bkg{padding:0 10px;font-size:18px;color:#fff;background:url(images/splash-bars.png) no-repeat -10px -10px;width:279px;height:30px}
+h2.orange-bkg{padding:0 10px;font-size:18px;color:#fff;background:url(images/splash-bars.png) no-repeat -10px -60px;width:279px;height:30px}
+h2.green-bkg{padding:0 10px;font-size:18px;color:#fff;background:url(images/splash-bars.png) no-repeat -10px -110px;width:279px;height:30px}
+input:focus,textarea:focus{-moz-box-shadow:0 0 5px rgba(85,156,210,.5);-webkit-box-shadow:0 0 5px rgba(85,156,210,.5);box-shadow:0 0 5px rgba(85,156,210,.5);}
+
+/*
+ * #header {width:960px;height:108px;background-image:url(images/maintenance_header.png);}
+ */
+#header {width:960px;height:160px;background:#7B0B17;}
+#header_1 {width:960px;height:10px;background-color:#8FB247;/*#FAA2C6;*/}
+#logo {
+  width:900px;height:auto;margin-top:15px;margin-left:20px;text-align:left;line-height:40px;color:#FCE1B4;font-weight:bolder;font-size:35px;font-style:italic;float:left;
+
+  p {line-height:20px;font-size:16px;font-weight:bold;}
+}
+
+#nav_small {
+  position:absolute;left:100px;width:850px;height:30px;margin-top:10px;float:right;
+
+  ul {
+    list-style:none;margin:0px;
+
+    li {
+      float:right;padding:0px 10px;
+
+      a {
+        color:#FFF;font-size:14px;line-height:30px;font-weight:bold;
+      }
+    }
+  }
+}
+#nav {
+  width:800px;
+  height:40px;
+  margin-top:10px;
+  float:right;
+
+  ul {
+    list-style:none;
+    padding:0px;
+    margin:0px;
+
+    li {
+      float:right;
+      padding:0px 10px;
+
+      a {
+        font-size:18px;
+        text-decoration:none;
+        display:block;
+        width:160px;
+        height:40px;
+        line-height:40px;
+        text-align:center;
+        color:#FFF;
+        font-weight:bold;
+      }
+      a:hover {background-color:#FF9933;background-color:#8FB247;}
+      a.selected {background-color:#FF9933;background-color:#8FB247;}
+    }
+  }
+}
+
+#main {
+  width:960px;min-height:300px;color:#8FB247;border:solid 0px #BBBBBB;float:left;margin:20px 16px 10px 1px;
+
+  h1 {color:#FF9933;}
+  p.contact {color:#000099;font-weight:bold;font-size:20px;margin:40px;}
+  .message {color:#0044DD;font-size:30px;margin:40px;text-align:center;}
+  .message a {color:#0044DD;font-size:20px;}
+}
+
+#content {
+  width:960px;float:left;border:0;margin:0px 0px;
+
+  table th h2,table th h3,table th p,dt,dd {color:#8FB247;font-weight:bold;margin:0;}
+  table th h2 {font-size:24px;}
+  table th h3{font-size:20px;}
+  table th p{font-size:15px;padding:15px;line-height:30px;}
+  dt,dd {font-size:18px;}
+}
+
+#side {
+  width:280px;padding-bottom:15px;float:right;margin:20px 0px 30px 0px;padding-bottom:10px;
+
+  dl {border:0;font-family:Arial;}
+  dt {text-align:center;font-size:21px;font-weight:bold;color:#FF9933;font-family:happy;margin-top:20px;margin-bottom:8px;}
+  dd,address {text-align:center;font-size:16px;font-weight:bold;padding:6px;margin:auto;}
+  table td {padding:0px;font-size:14px;margin:0 10px;color:#000099;font-weight:normal;line-height:20px;}
+  p {font-size:14px;margin:0 10px;color:#000099;font-weight:normal;line-height:25px;}
+}
+
+.cartSide {background:#7B0B17;}
+
+#minor {width:960px;}
+#center {width:960px;/*background-color:#FFFFFF;border:solid 1px #BBBBBB;*/margin:10px 0px 20px 0px;}
+span.header{margin-bottom:15px;font-size:240%;font-weight:900;font-family:happy;}
+span.tel {font-size:30px;font-weight:bold;}
+
+#footer {
+  width:960px;margin:20px 0px;background:#7B0B17;clear:both;
+
+  p {
+    color:#FFFFFF;
+  }
+
+  ul{
+    display:block;clear:both;width:960px;padding-top:20px;
+
+    li{display:inline;float:left;padding:0 60px;font-weight:bold;font-size:14px;color:#FFFFFF;background:url(images/bucket_separator.png) repeat-y right}
+    li.no-separator{background-image:none;}
+    li a{display:block;text-decoration:none;color:#fff;}
+    li a:hover{text-decoration:underline;}
+  }
+
+  p.copyright{display:block;clear:both;font-weight:500;font-size:12px;color:#666;padding:8px 15px}
+  p.copyright a{font-size:12px;color:#666;text-decoration:none;}
+  p.copyright a:hover{text-decoration:underline;}
+}
+
+// tool.css
+// =============================================================================
+
+/* Gallery styles */
+.gallery {
+  padding:0px;overflow:hidden;margin:0px auto;
+
+  #gallery_slides {height:450px;width:958px;overflow:hidden;}
+  .gallery_slide {float:left;}
+  #gallery_menu {
+    height:50px;
+
+    ul {
+      margin:0px;
+      padding:0px;
+
+      li {width:60px;height:50px;float:left;list-style:none;}
+      li.inact:hover{background:url(/assets/templates/joyluckdelivery/icons/pic_bg.png) repeat;}
+      li.act,.gallery #gallery_menu li.act:hover{background:url(/assets/templates/joyluckdelivery/icons/active_bg.png) no-repeat;}
+      li.act a {cursor:default;}
+      .gallery_fbar {width:2px;background:url(images/divider.png) no-repeat right;}
+      li a {display:block;background:url(images/divider.png) no-repeat right;height:35px;padding-top:10px;}
+    }
+    a img {border:none;}/*常用的工具*/
+  }
+}
+.column{display:inline;float:left;position:relative;margin-left:10px;margin-right:10px;padding-bottom:10px;}
+.container{width:960px;margin:0 auto;padding:0;display:block;position:relative;clear:both;}.top-bar .container div#logo img{margin:13px 20px 0 20px;float:left;}.round-corners-five{-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+.round-corners-ten{-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;background:#7B0B17;}.shadow{-moz-box-shadow:1px 2px 3px #333;-webkit-box-shadow:1px 2px 3px #333;box-shadow:1px 2px 3px #333;}.redline{display:block;clear:both;border-bottom:#c90117 dotted 3px;margin-bottom:3px;width:100%;margin:10px 0;}
+
+/*切换div内容的标题*/.tabs {height:36px;margin:0px 20px 0px 0px;border-bottom:1px solid #F58805;width:640px;}
+.tabs ul {list-style-type:none;}
+.tabs li {width:94px;float:left;margin-right:4px;display:inline;}
+.tabs li a {display:block;height:36px;line-height:36px;text-align:center;font-weight:bold;color:#FFFFFF;text-decoration:none;background:url('/Tpl/default/Images/tabs.png') no-repeat;}.tabs li a:hover {color:#0044DD;text-decoration:none;background-position:0 -36px;cursor:pointer;}
+.tabs li.selected a {background-position:0 -72px!important;font-size:13px;color:#0044DD;position:relative;bottom:-1px;}
+
+/*纵向数列透明div*/
+#BodyContainer {
+  width:100%;margin:0 auto 20px auto;display:block;position:relative;clear:both;
+
+  a {color:#fff;outline:0;}
+}
+#BodyContainerPrefix {background:url(/assets/templates/joyluckdelivery/icons/bg-prefix.png) top left;width:960px;height:25px;margin:0 auto;padding:0;clear:both}
+#BodyContainerOuter {background:url(/assets/templates/joyluckdelivery/icons/bg-stripe.png) top left;width:960px;height:auto;margin:0 auto;padding:0}
+#BodyContainerInner {background:-moz-linear-gradient(top,rgba(0,0,0,0)0%,rgba(0,0,0,.7)100%)!important;background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(0,0,0,0)),color-stop(100%,rgba(0,0,0,.7)))!important;background:-webkit-linear-gradient(top,rgba(0,0,0,0)0%,rgba(0,0,0,.7)100%)!important;background:-o-linear-gradient(top,rgba(0,0,0,0)0%,rgba(0,0,0,.7)100%)!important;background:-ms-linear-gradient(top,rgba(0,0,0,0)0%,rgba(0,0,0,.7)100%)!important;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#b3000000',GradientType=0)!important;background:linear-gradient(top,rgba(0,0,0,0) 0%,rgba(0,0,0,.7) 100%)!important}
+#BodyContainer.grey-bkg {
+  width:960px;
+  overflow:hidden;
+
+  .column {
+    width:300px;
+    height:175px;
+    margin:15px 0 50px 12px;
+    background:url(/assets/templates/joyluckdelivery/icons/bucket_separator.png) repeat-y right;
+    padding-bottom:20px!important;
+
+    a#ReadMore{
+      font-family:"museo-slab-1","museo-slab-2";
+      font-weight:700;
+      font-size:18px;
+      color:#fff}
+  }
+
+  .no-separator{
+    background:none;
+  }
+
+  p.press{margin-bottom:5px}
+  p {padding:5px 15px 5px 0;}
+  #email form#EmailCapture{width:277px}
+  #email form input{font-family:Arial,sans-serif;font-size:11px;color:#555;margin:.25em 0 .75em 0!important;padding:5px 0;border:1px solid #999;display:block;position:relative;float:left}
+  #email form input:hover{text-decoration:underline}
+  #email form input#sub_email {width:165px;margin-right:10px!important}
+  #email form input#sub_zipcode {width:100px;}
+  #email form input#subscribe{background:none;text-align:left;border:none!important;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;font-weight:700;font-size:18px;color:#fff;cursor:pointer;outline:0}
+}
+
+/*可以折叠展开的菜谱*/
+.menus_window {
+  display:block;margin-left:10px;
+
+  dl.listOfDishes {
+    width:600px;
+    background:#FFFFFF;
+
+    div.dishCategory {width:600px;height:40px;margin-top:20px;color:#FFFFFF;background:#7B0B17;}
+    div.dishCategoryName {width:300px;height:30px;line-height:30px;font-size:20px;font-weight:bold;padding:5px 20px;float:left;}
+    div.dishCategoryDesc {width:50px;height:30px;font-size:12px;float:right;}
+    div.dishCategoryDesc a {color:#FFFFFF;}
+    div.dish {position:relative;font-size:14px;}
+    a.preAddToCart {color:#000099;position:absolute;left:610px;line-height:30px;font-size:12px;font-weight:bold;cursor:pointer;}
+    a.addToCart {}
+    dt {position:relative;width:600px;height:30px;line-height:30px;border-bottom:1px solid #DDDDDD;color:#000099;cursor:pointer;
+      div.dishName {position:absolute;top:0px;left:0px;line-height:30px;font-weight:bold;}
+      div.dishPrice {position:absolute;top:0px;left:450px;line-height:30px;font-weight:bold;}
+      div.dishFeatureSpicy {position:absolute;top:5px;left:300px;width:20px;height:20px;background:url('images/dishIcon_spicy.png') no-repeat 0 0;}
+      div.dishFeatureNew {position:absolute;top:5px;left:400px;width:20px;height:20px;background:url('images/dishIcon_new.png') no-repeat 0 0;}
+      div.dishFeatureRaw {position:absolute;top:5px;left:380px;width:20px;height:20px;background:url('images/dishIcon_raw.png') no-repeat 0 0;}
+      div.dishFeatureVege {position:absolute;top:5px;left:320px;width:20px;height:20px;background:url('images/dishIcon_vege.png') no-repeat 0 0;}
+      div.dishFeatureChef {position:absolute;top:5px;left:340px;width:20px;height:20px;background:url('images/dishIcon_chef.png') no-repeat 0 0;}
+      div.dishFeaturePopular {position:absolute;top:5px;left:360px;width:20px;height:20px;background:url('images/dishIcon_star.png') no-repeat 0 0;}
+      div.toggleArrow {position:absolute;top:13px;left:560px;width:9px;height:7px;background:url('images/bg-help-title-arrow.png') no-repeat 0 0;}
+      div.dishFeatureHealthy {position:absolute;top:5px;left:280px;width:20px;height:20px;background:url('images/dishIcon_healthy.png') no-repeat 0 0;}
+    }
+    dt.fold {}
+    dt.unfold {
+      background-color:#EEEEEE;
+      div.toggleArrow {background-position:0 -150px;}
+    }
+    dd {
+      position:relative;
+      left:0px;
+      display:none;
+
+      div {
+        position:absolute;
+        padding:10px;
+        bottom:0;width:580px;height:40px;color:#FFF;font-weight:bold;background:#000000;filter:alpha(opacity=70); opacity:0.7;
+      }
+    }
+  }
+}
+
+/*结账表格*/
+#guestcheck {margin:10px;font-size:16px;font-weight:bold;color:#000099;line-height:50px;}
+#guestcheck table {margin:0 10px;}
+#guestcheck table th {font-size:14px;color:#000099;font-weight:bold;line-height:25px;}
+#guestcheck table td {font-size:14px;color:#000099;font-weight:normal;line-height:15px;}
+#guestcheck a {text-decoration:none;color:red;}
+#guestcheck .subtotal {font-size:16px;color:#000099;font-weight:bold;}
+#guestcheck .subtotal span {font-size:16px;color:#000099;font-weight:bold;}
+#guestcheck .total {font-size:16px;color:red;font-weight:bold;}
+#guestcheck .total span {font-size:16px;color:red;font-weight:bold;}
+#guestcheck_bottom table {width:260px;}
+#guestcheck_bottom table td {font-size:16px;color:#000099;font-weight:bold;line-height:30px;}
+#guestcheck_bottom p {font-size:16px;color:#000099;font-weight:bold;line-height:25px;}
+#guestcheck_bottom input#check_out {border:0px;width:158px; height:38px;color:#394712;font-weight:bold;line-height:30px;background:#FFFFFF url('images/checkout_grey_button.png') no-repeat center center;}
+
+/*点单信息填写页面*/
+#order_table {height:540px;}
+#order_table .left_order_table {background-color:#DDDDDD;float:left;margin-left:80px;border:solid 1px #BBBBBB;padding:30px;margin-bottom:40px;}
+#order_table .right_order_table {background-color:#DDDDDD;float:right;margin-right:80px;border:1px solid #BBBBBB;padding:30px;margin-bottom:40px;}
+
+/*在页面中插入菜单页*/
+#menu_tabs_hat {width:958px;height:10px;background-color:#FFFFFF;}
+#menu_tabs_shoe {text-align:center;width:958px;height:60px;background-color:#EEEEEE;}
+#menu_tabs_shoe .menu_hour {color:#8FB247;font-size:16px;font-weight:bold;}
+#menu_tabs {margin:0px auto;padding:0;background-color:#FFFFFF;width:958px;height:160px;}
+#menu_tabs li {width:290px;margin:5px 10px;list-style:none;float:left;background:#7B0B17;cursor:pointer;}
+#menu_tabs li a {color:#7B0B17;background:#DDDDDD;padding-left:5px;width:285px;display:block;float:left;text-decoration:none;height:40px;line-height:40px;font-size:16px;font-weight:bold;}
+#menu_tabs li.selected a {color:#ffffff;background:#7B0B17;}
+
+.menu_pages {width:660px;margin-left:10px;display:none;}
+
+/*facebook,twitter按钮*/
+.fb, .tw, .yp {background:url(/assets/templates/joyluckdelivery/icons/fb_tw_yp.png) no-repeat 0px 0px;display:inline-block;height:30px;width:30px;}
+.fb {background-position:-66px 0px;}
+.yp {background-position:-33px 0px;}
+
+/*COUPON*/
+.coupon {float:left;width:270px;height:200px;margin:20px;color:#8FB247;padding:5px;text-align:center;border:3px dashed #ccc;background:#FFF;}
+.coupon table td.couponRest{width:150px;font-weight:bold;height:50px;}
+.coupon table td.couponInfo{width:150px;height:50px;font-size:12px;}
+.coupon table td.couponDescription{font-size:20px;font-weight:bold;height:50px;color:#FF9933;}
+.coupon table td.couponDiscount{font-size:30px;font-style:italic;font-weight:bold;height:50px;color:#FF9933;}
+.coupon table td.couponValidDate {width:300px;height:50px;font-size:12px;}
+
+/* orderEditorTable */
+table.orderEditorTable {padding:20px;}
+table.orderEditorTable td {height:40px;}
+table.orderEditorTable td.tableLabel {width:180px;font-weight:bold;text-align:right;}
+table.orderEditorTable td.tableSpace {width:20px;}
+table.orderEditorTable td.tableInput {width:260px;}
+table.orderEditorTable td.tableError {width:200px;color:red;}
+
+#employForm {margin:50px 0px 0px 50px;}
+#employForm label {font-weight:bold;}
+#employForm label em {font-weight:bold;color:red;font-size:20px;}
+#employForm table td input {width:200px;height:30px;}
+
+.table {width:640px;margin-left:150px;}
+.table tr td, .table tr th {height:40px;color:#666;}
+.table input {width:220px;height:30px;line-height:30px;}
+.table input.reme {margin:0px 0px 0px 00px;width:16px;height:16px;vertical-align:middle;}
+.table select {width:224px;height:30px;line-height:30px;}
+.table textarea {width:220px;height:90px;line-height:30px;}
+.table div {height:38px;line-height:38px;text-indent:40px;font-size:10px;}
+.table p {line-height:19px;text-indent:0px;margin:0px 0px 0px 40px;padding:0px;font-size:10px;}
+.table span {font-size:11px;line-height:40px;}
+.table a {font-size:11px;}
+ul.tableHat {width:900px;height:75px;}
+ul.tableHat li {float:left;display:block;width:270px;height:50px;text-align:center;}
+ul.tableHat li a {font-weight:bold;font-size:16px;color:#8FB247;line-height:50px;}
+ul.tableHat li a.selected {font-size:30px;}
+
+table.orderListTable {margin:0px 0px 20px 100px;}
+table.orderListTable th {font-size:16px;font-weight:bold;color:#7B0B17;border-bottom:1px solid #000;}
+table.orderListTable td {color:#000;}
+
+
+
+
+
+
+// cart.css
+// =============================================================================
+
+/* 结账表格 */
+/* 购物车中基本设置 */
+ul#cart {
+  width:260px;
+  min-height:100px;
+  margin:0px;
+  padding:10px;
+  color:#FCE1B4;
+  background:#7B0B17;
+
+  li.cart_title {
+    height: 60px;
+    line-height: 60px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  li.cart_item {
+    width:260px;
+    height:40px;
+    line-height:20px;
+    list-style:none;
+    border-bottom:1px #FFFFFF dashed;
+    margin:0px 0px 10px 0px;
+    padding:0px;
+
+    a {
+      color: #ffffff;
+      text-decoration: none;
+
+      .left {
+        float:left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      .cart_item_note {
+        color: yellow;
+        font-size: 10px;
+      }
+    }
+  }
+
+  li.cart_summary {
+    height:20px;
+    text-align:right;
+    color:#FCE1B4;
+    font-size:16px;
+    margin:0px;
+    padding:0px;
+  }
+
+  li.cart_action {
+    a {
+      color:#FCE1B4;
+      line-height:60px;
+    }
+    width:130px;
+    margin:0px;
+    height:60px;
+  }
+}

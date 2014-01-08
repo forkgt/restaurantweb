@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @coupon.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @coupon.desc %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @coupon.rank %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @coupon.avatar %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @coupon.price %>
+</p>
+
+<p>
+  <strong>Minimum:</strong>
+  <%= @coupon.minimum %>
+</p>
+
+<p>
+  <strong>Start at:</strong>
+  <%= @coupon.start_at %>
+</p>
+
+<p>
+  <strong>End at:</strong>
+  <%= @coupon.end_at %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @coupon.store %>
+</p>
+
+<%= link_to 'Edit', edit_coupon_path(@coupon) %> |
+<%= link_to 'Back', coupons_path %>

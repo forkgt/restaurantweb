@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @category.desc %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @category.rank %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @category.avatar %>
+</p>
+
+<p>
+  <strong>Menu:</strong>
+  <%= @category.menu %>
+</p>
+
+<%= link_to 'Edit', edit_menu_category_path(@menu, @category) %> |
+<%= link_to 'Back', menu_categories_path(@menu) %>

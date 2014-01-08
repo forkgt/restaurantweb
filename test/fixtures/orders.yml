@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  note: MyString
+  payment_type: MyString
+  payment_status: MyString
+  tip: 9.99
+  store_id: 
+  cart_id: 
+  user_id: 
+
+two:
+  note: MyString
+  payment_type: MyString
+  payment_status: MyString
+  tip: 9.99
+  store_id: 
+  cart_id: 
+  user_id: 

@@ -1,0 +1,40 @@
+<%= simple_form_for @store do |f| %>
+    <fieldset>
+      <legend>Edit Your Profile:</legend>
+
+      <%= f.error_notification %>
+
+      <%= f.input :name, label: 'Your store name please' %>
+      <%= f.input :desc, hint: 'Your store description please' %>
+      <%= f.input :phone, :hint => "Eg. : 9790009988. Don't use - or ()." %>
+      <%= f.input :fax, :hint => "Eg. : 9790009988. Don't use - or ()." %>
+      <%= f.input :delivery_minimum %>
+      <%= f.input :delivery_fee %>
+      <%= f.input :delivery_radius %>
+
+      <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button' %>
+    </fieldset>
+<% end %>
+
+<%= simple_form_for @store do |f| %>
+    <fieldset>
+      <legend>Edit Your Address:</legend>
+      <%= f.fields_for :address do |addr| %>
+          <%= addr.input :address1 %>
+          <%= addr.input :address2 %>
+          <%= addr.input :city %>
+          <%= addr.input :state %>
+          <%= addr.input :country, :as => :string %>
+          <%= addr.input :zip %>
+      <% end %>
+      <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button' %>
+    </fieldset>
+<% end %>
+
+<%= simple_form_for @store do |f| %>
+    <fieldset>
+      <legend>Purchase Your Templates:</legend>
+      <%= f.association :templates, as: :check_boxes, collection: @templates %>
+      <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button' %>
+    </fieldset>
+<% end %>

@@ -1,0 +1,38 @@
+<% if cart.cart_items.empty? %>
+    <li class="cart_title bullet-item">Nothing left in your cart!</li>
+<% else %>
+    <li class="cart_title bullet-item"><%= @cart.store.name %></li>
+
+    <%= render(cart.cart_items) %>
+
+    <li class="cart_summary bullet-item">
+      <span>Subtotal:</span>
+      <span><%= number_to_currency(cart.subtotal_price) %></span>
+    </li>
+    <li class="cart_summary bullet-item">
+      <span>Tax:</span>
+      <span><%= number_to_currency(cart.subtotal_price*0.0825) %></span>
+    </li>
+    <% if cart.delivery_fee > 0 %>
+        <li class="cart_summary bullet-item">
+          <span>Delivery Fee:</span>
+          <span><%= number_to_currency(cart.delivery_fee) %></span>
+        </li>
+    <% end %>
+    <li class="cart_summary bullet-item">
+      <span>Total:</span>
+      <span><%= number_to_currency(cart.total_price) %></span>
+    </li>
+
+    <!--Be able to edit order if not checkout page-->
+    <% unless ( params[:controller] == "q" && params[:action] == "store_order" ) %>
+        <li class="cart_action cta-button">
+          <% if (cart.delivery_type == "delivery" || cart.delivery_type == "melivery") && (cart.total_price < cart.store.delivery_minimum) %>
+              <%= link_to "Min. #{number_to_currency(cart.store.delivery_minimum)}", 'javascript:;', :class => 'small button' %>
+          <% else %>
+              <%= link_to 'Proceed', q_store_order_path(cart.store), :class => 'small button' %>
+          <% end %>
+          <%= link_to 'Empty cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </li>
+    <% end %>
+<% end %>

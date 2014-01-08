@@ -1,0 +1,13 @@
+<%= simple_form_for(@cart) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :delivery_type %>
+    <%= f.input :delivery_fee %>
+    <%= f.association :store %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

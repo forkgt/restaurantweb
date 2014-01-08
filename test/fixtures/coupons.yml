@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  desc: MyString
+  rank: 1
+  avatar: MyString
+  price: 9.99
+  minimum: 9.99
+  start_at: 2013-11-25 19:21:39
+  end_at: 2013-11-25 19:21:39
+  store_id: 
+
+two:
+  name: MyString
+  desc: MyString
+  rank: 1
+  avatar: MyString
+  price: 9.99
+  minimum: 9.99
+  start_at: 2013-11-25 19:21:39
+  end_at: 2013-11-25 19:21:39
+  store_id: 

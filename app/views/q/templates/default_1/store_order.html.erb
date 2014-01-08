@@ -1,0 +1,85 @@
+<div class="row">
+
+  <!-- Side Bar -->
+  <div class="large-4 columns">
+    <ul class="pricing-table" id="cart">
+      <% if @cart %>
+          <%= render @cart %>
+      <% else %>
+          <li class="bullet-item">Your Cart Is Empty!</li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- End Side Bar -->
+
+  <!-- Thumbnails -->
+  <div class="large-8 columns">
+    <%= simple_form_for(@order, validate: true, html: { style: "padding: 10px 15px;", class: 'hide_input_label' } ) do |f| %>
+        <fieldset>
+          <legend>Finish the order</legend>
+          <%= f.error_notification %>
+
+          <div class="row">
+            <div class="large-6 columns">
+              <%= f.fields_for :user do |builder| %>
+                  <%= builder.input :firstname, :placeholder => 'Firstname', :wrapper_html => { :class => "sf_2_in_1" } %>
+                  <%= builder.input :lastname, :placeholder => 'Lastname', :wrapper_html => { :class => "sf_2_in_1" } %>
+                  <%= builder.input :phone, :placeholder => 'Phone' %>
+                  <% if @cart.delivery_type == 'delivery' %>
+                      <%= builder.fields_for :address do |addr| %>
+                          <%= addr.input :address1, placeholder: 'Address' %>
+                          <%= addr.input :address2, placeholder: 'Apt / Building / Suite' %>
+                          <%= addr.input :city, placeholder: 'City' %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+            </div>
+
+            <div class="large-6 columns">
+              <%= f.input :payment_type, collection: @order.payment_types, as: :radio_buttons %>
+              <%= f.input :payment_status %>
+              <%= f.input :tip, collection: Order::TIP_RATES, prompt: nil, selected: Order::TIP_RATES[0] %>
+              <%= f.input :note, as: :text, input_html: {cols: 50, rows: 2}, placeholder: 'Special instructions' %>
+
+              <%= f.input :store_id, :as => :hidden %>
+              <%= f.input :cart_id, :as => :hidden %>
+              <%= link_to "Back to Store", q_store_menus_path(@order.store), :class => "button" %>
+              <%= f.button :submit, :class => "button", data: { disable_with: "Saving..." } %>
+            </div>
+          </div>
+        </fieldset>
+    <% end %>
+
+    <% unless user_signed_in? %>
+        <%= simple_form_for("user", url: user_session_path, html: { style: "padding: 10px 15px;", class: 'hide_input_label' }) do |f| %>
+            <fieldset>
+              <legend>Already has an account?</legend>
+
+              <div class="row">
+                <div class="large-6 columns">
+                  <%= f.input :email, :placeholder => 'Email' %>
+                </div>
+                <div class="large-6 columns">
+                  <%= f.input :password, :placeholder => 'Password' %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="large-6 columns">
+                  <%= f.input :remember_me, :as => :boolean, label: false, :inline_label => 'Remember me' %>
+                </div>
+                <div class="large-6 columns">
+                  <%= f.button :submit, 'Sign in', class: 'button', data: { disable_with: "Please wait..." } %>
+                  <br/><br/>
+                  <%= link_to "Forgot your password?", new_password_path('user') %>
+                </div>
+              </div>
+            </fieldset>
+        <% end %>
+    <% end %>
+
+  </div>
+  <!-- End Thumbnails -->
+</div>
+
+<%= @order.inspect %>

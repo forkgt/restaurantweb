@@ -1,0 +1,43 @@
+<h1>Listing categories</h1>
+
+>> <%= link_to 'Stores', stores_path %>
+>> <%= link_to 'Menus', store_menus_path(@menu.store) %>
+>> <%= link_to 'Categories', menu_categories_path(@menu) %>
+
+<br/><br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Rank</th>
+      <th>Avatar</th>
+      <th>Menu</th>
+      <th>Dishes</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.desc %></td>
+        <td><%= category.rank %></td>
+        <td><%= category.avatar %></td>
+        <td><%= category.menu.name %></td>
+        <td><%= link_to 'Dishes', category_dishes_path(category) %></td>
+        <td><%= link_to 'Show', menu_category_path(@menu, category) %></td>
+        <td><%= link_to 'Edit', edit_menu_category_path(@menu, category) %></td>
+        <td><%= link_to 'Destroy', [@menu, category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_menu_category_path(@menu) %>

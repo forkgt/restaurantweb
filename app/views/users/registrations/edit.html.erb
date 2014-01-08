@@ -1,0 +1,89 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <fieldset>
+      <%= f.error_notification %>
+      <legend>
+        Edit Your Profile
+      </legend>
+
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :firstname %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :lastname %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :email, :required => true, :autofocus => true %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :phone %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-4 columns">
+          <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+        </div>
+        <div class="large-4 columns">
+          <%= f.input :password_confirmation, :required => false %>
+        </div>
+        <div class="large-4 columns">
+          <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+        </div>
+      </div>
+
+      <%= f.fields_for :address do |addr| %>
+          <div class="row">
+            <div class="large-6 columns">
+              <%= addr.input :address1 %>
+            </div>
+            <div class="large-6 columns">
+              <%= addr.input :address2 %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-6 columns">
+              <%= addr.input :city %>
+            </div>
+            <div class="large-6 columns">
+              <%= addr.input :state %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-6 columns">
+              <%= addr.input :country, :as => :string %>
+            </div>
+            <div class="large-6 columns">
+              <%= addr.input :zip %>
+            </div>
+          </div>
+      <% end %>
+
+      <div class="row">
+        <div class="large-12 columns">
+          <%= f.button :submit, "Update", class: "button" %>
+        </div>
+      </div>
+    </fieldset>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+
+<%= link_to "Back", :back %>

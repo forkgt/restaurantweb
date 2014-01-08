@@ -1,0 +1,67 @@
+<div class="row">
+
+  <!-- Thumbnails -->
+  <div class="large-8 columns">
+    <div class="section-container auto" data-section>
+      <% @store.menus.each_with_index do |menu, index| %>
+          <section <%= "class=active" if index == 0 %>>
+            <p class="title" data-section-title><a href="#"><%= menu.name %></a></p>
+            <div class="content" data-section-content>
+              <% menu.categories.each do |category| %>
+                  <div class="row">
+                    <div class="large-12 columns">
+                      <div class="panel">
+                        Category: <%= category.name %>
+                      </div>
+                    </div>
+                    <% category.dishes.each do |dish| %>
+                        <div class="large-6 columns">
+                          <a href="#" data-reveal-id="dish_modal_<%= dish.id %>">
+                            <div class="panel">
+                              <h6 class="subheader"><%= dish.name %></h6>
+                              <h5><%= number_to_currency dish.price %></h5>
+                            </div>
+                          </a>
+
+                          <div id="dish_modal_<%= dish.id %>" class="reveal-modal medium">
+                            <h2><%= dish.name %>.</h2>
+                            <p class="lead"><%= number_to_currency dish.price %></p>
+                            <%= form_tag(cart_items_path, :method => 'post', :remote => true) do %>
+                                <%= label_tag(:quantity, "Choose Quantity:") %>
+                                <%= select_tag :quantity, options_for_select([1, 2, 3, 4, 5]) %>
+
+                                <%= label_tag(:note, "Special Instructions:") %>
+                                <%= text_field_tag(:note) %>
+
+                                <%= hidden_field_tag :price_adjustment, 0 %>
+                                <%= hidden_field_tag :dish_id, dish.id %>
+                                <%= hidden_field_tag :store_id, dish.category.menu.store.id %>
+
+                                <%= submit_tag("Confirm") %>
+                            <% end %>
+                            <a class="close-reveal-modal">&#215;</a>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+              <% end %>
+            </div>
+          </section>
+      <% end %>
+    </div>
+  </div>
+  <!-- End Thumbnails -->
+
+  <!-- Side Bar -->
+  <div class="large-4 columns">
+    <ul class="pricing-table" id="cart">
+      <% if @cart %>
+          <%= render @cart %>
+      <% else %>
+          <li class="bullet-item">Your Cart Is Empty!</li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- End Side Bar -->
+
+</div>

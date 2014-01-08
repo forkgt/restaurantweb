@@ -1,0 +1,86 @@
+<script>
+    $(document).ready(function(){
+        $('#index').attr("class","selected");
+
+        /* This code is executed after the DOM has been completely loaded */
+        var totWidth=0;
+        var positions = new Array();
+        $('#gallery_slides .gallery_slide').each(function(i) {
+            /* Loop through all the slides and store their accumulative widths in totWidth */
+            positions[i]= totWidth;
+            totWidth += $(this).width();
+            /* The positions array contains each slide's commulutative offset from the left part of the container */
+            if(!$(this).width()) {
+                alert("Please, fill in width & height for all your images!");
+                return false;
+            }
+        });
+
+        $('#gallery_slides').width(totWidth);
+        /* Change the cotnainer div's width to the exact width of all the slides combined */
+        $('#gallery_menu ul li a').click(function(e){
+            /* On a thumbnail click */
+            $('li.act').removeClass('act').addClass('inact');
+            $(this).parent().addClass('act');
+            var pos = $(this).parent().prevAll('.gallery_menuItem').length;
+            $('#gallery_slides').stop().animate({marginLeft:-positions[pos]+'px'},450);
+            /* Start the sliding animation */
+            e.preventDefault();
+            /* Prevent the default action of the link */
+        });
+
+        setInterval(showpic,5000);
+
+        function showpic(){
+            var x = $('#gallery_menu ul li.act');
+            x.removeClass('act').addClass('inact');
+            if (x.is('#gallery_menu ul li:last-child')) {
+                $('#gallery_menu ul li.gallery_menuItem:first').removeClass('inact').addClass('act');
+                var pos = $('#gallery_menu ul li.gallery_menuItem:first').prevAll('.gallery_menuItem').length;
+            } else {
+                x.next().removeClass('inact').addClass('act');
+                var pos = x.next().prevAll('.gallery_menuItem').length;
+            }
+
+            $('#gallery_slides').stop().animate({marginLeft:-positions[pos]+'px'},450);
+        }
+
+        $('#gallery_menu ul li.gallery_menuItem:first').addClass('act').siblings().addClass('inact');
+        /* On page load, mark the first thumbnail as active */
+    });
+</script>
+
+<div id="main">
+  <div class="gallery">
+    <div id="gallery_slides">
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352079043168.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352079253660.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352079355857.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352080069724.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352080654630.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352080741611.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352081143373.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352081389323.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352081482343.jpg", width: 660, height: 500, border: 0) %></div>
+      <div class="gallery_slide"><%= image_tag("templates/yumasian/dishes/1352081553802.jpg", width: 660, height: 500, border: 0) %></div>
+
+    </div>
+    <div id="gallery_menu">
+      <ul>
+        <li class="gallery_fbar">&nbsp;</li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352079043168.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352079253660.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352079355857.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352080069724.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352080654630.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352080741611.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352081143373.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352081389323.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352081482343.jpg", width: 58, height: 40) %></li>
+        <li class="gallery_menuItem"><%= link_to image_tag("templates/yumasian/dishes/1352081553802.jpg", width: 58, height: 40) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%= render "q/templates/#{@template}/side" %>

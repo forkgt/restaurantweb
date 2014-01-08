@@ -1,28 +1,17 @@
-== README
+2013-11-07
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Create the project on rails 4, and add devise, bootstrap, simple_form.
 
-Things you may want to cover:
+2. Create repo on github as origin, and add openshift in remote.
 
-* Ruby version
+3. When registering an admin, one of its stores is created.
 
-* System dependencies
+4. Store Edit Page displayed and managed somewhere, including profile, menus, themes, and payment/shipping.
 
-* Configuration
+5. Different themes (erb templates) can be apply to your store.
+   Two ways to save themes: a. write a total html file, b. save parts in database
+   肯定还是要存数据库的，因为价格等信息；页肯定要有单独写网页的，因为要有顾客定制的
 
-* Database creation
+2013-11-16
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+1. templates in /assets/stylesheets/template/*, /views/layouts/template/*, /views/q/template/*

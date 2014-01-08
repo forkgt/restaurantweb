@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="description" content="Provides great asian/chinese food." />
+  <meta name="keywords" content="chinese food,asian food,restaurant, college station, bryan, delivery" />
+  <title>Yum Asian Bistro</title>
+  <%= stylesheet_link_tag    "templates/#{@template}" %>
+  <%= javascript_include_tag "templates/#{@template}" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<!--header start-->
+<div id="header">
+  <div id="nav_small">
+    <ul>
+      <li><a class="yp" target="_blank" href="http://www.yelp.com/biz/joy-luck-chinese-and-sushi-college-station"></a></li>
+      <li><a class="fb" target="_blank" href="http://www.facebook.com/pages/Joy-Luck-Asian-Food-and-delivery/125220384251824"></a></li>
+      <li><a class="tw" target="_blank" href="https://www.twitter.com/#!/JoyLuck16888"></a></li>
+      <li><a>Follow Us:</a></li>
+    </ul>
+  </div>
+  <div id="logo">
+    <span class="header">Joy Luck </span>Chinese & Sushi <span class="tel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;979-693-9999</span><br>
+  </div>
+  <div id="nav">
+    <ul>
+      <li><%= link_to "Find Us", q_store_map_path, id: "location" %></li>
+      <li><%= link_to "Order Online!", q_store_menus_path, id: "menus", style: "font-size:30px;width:240px;height:55px;line-height:55px;font-style:italic;" %></li>
+      <li><%= link_to "Welcome", q_store_home_path, id: "index" %></li>
+    </ul>
+  </div>
+</div>
+<div id="header_1"></div>
+<!--header end-->
+
+<%= yield %>
+
+<!--footer start-->
+<div id="footer">
+  <ul>
+    <li><%= link_to "Welcome", q_store_home_path(@store), id: "index" %></li>
+    <li><%= link_to "Order Online!", q_store_menus_path(@store) %></li>
+    <li class="no-separator"><%= link_to "Find Us", q_store_map_path(@store) %></li>
+  </ul>
+  <p style="margin-left:20px;">
+    <br /><br />Joy Luck Chinese & Sushi is the Best Asian in Town For Delivery and Takeout. Free Delivery (Minimum $12.0 Within Limited Area)
+    <br />1702 George Bush East #101-B, College Station, TX 77840. Behind Fuddruckers, and next to Sweet Eugene.
+  </p>
+  <p class="copyright">
+    &copy; 2011 Joy Luck Chinese & Sushi. All Rights Reserved.
+    &bull; <a href="http://www.paypal.com">PayPal</a>
+    &bull; <a href="http://www.interfax.net">Fax</a>
+    &bull; <a href="/Test/tsweb/admin">Management</a>
+    &bull; <%= link_to "Index", root_url(subdomain: false) %>
+  </p>
+</div><!--footer-->
+<div id="footer_1"></div>
+<!--footer end-->
+
+</body>
+</html>

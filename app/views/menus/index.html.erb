@@ -1,0 +1,42 @@
+<h1>Listing menus</h1>
+
+>> <%= link_to 'Stores', stores_path %>
+>> <%= link_to 'Menus', store_menus_path(@store) %>
+
+<br/><br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Rank</th>
+      <th>Avatar</th>
+      <th>Store</th>
+      <th>Categories</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @menus.each do |menu| %>
+      <tr>
+        <td><%= menu.name %></td>
+        <td><%= menu.desc %></td>
+        <td><%= menu.rank %></td>
+        <td><%= menu.avatar %></td>
+        <td><%= menu.store.name %></td>
+        <td><%= link_to 'Categories', menu_categories_path(menu) %></td>
+        <td><%= link_to 'Show', store_menu_path(@store, menu) %></td>
+        <td><%= link_to 'Edit', edit_store_menu_path(@store, menu) %></td>
+        <td><%= link_to 'Destroy', [@store, menu], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Menu', new_store_menu_path(@store) %>

@@ -1,0 +1,120 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#menus").attr('class','selected');
+        $("#side").smartFloat();
+    });
+</script>
+
+<div id="major">
+  <div id="menus_nav">
+    <div id="menus_nav_top">
+      <ul id="menu_tabs">
+        <% @store.menus.each do |menu| %>
+            <li><a href="javascript:$('.xxx, .yyy').hide();$('#xxx_<%= menu.id %>, #yyy_<%= menu.id %>').show();void(0);"
+            ><%= menu.name %></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <% @store.menus.each_with_index do |menu, mi| %>
+        <div id="xxx_<%= menu.id %>" class="xxx" <%= "style='display:none;'".html_safe unless mi == 0 %>>
+          <div id="menus_nav_middle">
+            <div class="menu_hour">Menu Hours: 11:0 - 21:59</div>
+          </div>
+          <div id="menus_nav_bottom">
+            <% menu.categories.each do |category| %>
+                <a class="goToCategory" href="#goToCateg<%= category.id %>"><%= category.name %></a>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="main">
+  <br /><br />
+  <div class="dishFeatureIcons">
+    <%= image_tag "templates/yumasian/icons/dishIcon_chef.png", alt: "777POS", border: 0 %> New,
+    <%= image_tag "templates/yumasian/icons/dishIcon_new.png", alt: "777POS", border: 0 %> Spicy,
+    <%= image_tag "templates/yumasian/icons/dishIcon_raw.png", alt: "777POS", border: 0 %> Raw,
+    <%= image_tag "templates/yumasian/icons/dishIcon_spicy.png", alt: "777POS", border: 0 %> Chef Special,
+    <%= image_tag "templates/yumasian/icons/dishIcon_star.png", alt: "777POS", border: 0 %> Most Popular<br />
+  </div>
+
+  <% @store.menus.each_with_index do |menu, mi| %>
+      <div id="yyy_<%= menu.id %>" class="yyy" <%= "style='display:none;'".html_safe unless mi == 0 %>>
+        <div class="menus_window">
+          <dl class="listOfDishes">
+            <% menu.categories.each do |category| %>
+                <div class="dishCategory" id="goToCateg<%= category.id %>">
+                  <div class="dishCategoryName"><%= category.name %></div>
+                  <div class="dishCategoryDesc"><br /><a href="#header">[Top]</a></div>
+                </div>
+                <% category.dishes.each do |dish| %>
+                    <div class="dish">
+                      <a href="javascript:;" class="preAddToCart" id="opener_<%= dish.id %>">Order</a>
+                      <dt>
+                      <div class="dishName"><%= dish.name %></div>
+                      <div class="dishPrice"><%= number_to_currency dish.price %></div>
+                      <div class="toggleArrow"></div>
+                      </dt>
+                      <dd>
+                        <div><%= dish.desc %></div>
+                      </dd>
+
+                      <div id="dialog_<%= dish.id %>" class="dish_dialog" title="Basic dialog">
+                        <h2><%= dish.name %>.</h2>
+                        <p class="lead"><%= number_to_currency dish.price %></p>
+                        <%= form_tag(cart_items_path, :method => 'post', :remote => true) do %>
+                            <%= label_tag(:quantity, "Choose Quantity:") %>
+                            <%= select_tag :quantity, options_for_select([1, 2, 3, 4, 5]) %>
+
+                            <%= label_tag(:note, "Special Instructions:") %>
+                            <%= text_field_tag(:note) %>
+
+                            <%= hidden_field_tag :price_adjustment, 0 %>
+                            <%= hidden_field_tag :dish_id, dish.id %>
+                            <%= hidden_field_tag :store_id, dish.category.menu.store.id %>
+
+                            <%= submit_tag("Confirm") %>
+                        <% end %>
+                      </div>
+                      <script>
+                          $(function() {
+                              $( "#dialog_<%= dish.id %>" ).dialog({
+                                  autoOpen: false
+                              });
+                              $( "#opener_<%= dish.id %>" ).click(function() {
+                                  $( "#dialog_<%= dish.id %>" ).dialog( "open" );
+                              });
+                          });
+                      </script>
+                    </div>
+                <% end %>
+            <% end %>
+          </dl>
+        </div>
+      </div>
+  <% end %>
+
+  <br />
+  <div class="dishFeatureIcons">
+    <%= image_tag "templates/yumasian/icons/dishIcon_chef.png", alt: "777POS", border: 0 %> New,
+    <%= image_tag "templates/yumasian/icons/dishIcon_new.png", alt: "777POS", border: 0 %> Spicy,
+    <%= image_tag "templates/yumasian/icons/dishIcon_raw.png", alt: "777POS", border: 0 %> Raw,
+    <%= image_tag "templates/yumasian/icons/dishIcon_spicy.png", alt: "777POS", border: 0 %> Chef Special,
+    <%= image_tag "templates/yumasian/icons/dishIcon_star.png", alt: "777POS", border: 0 %> Most Popular<br />
+  </div>
+  <br /><br />
+</div>
+
+<div id="side" >
+  <p style="font-size:16px;line-height:30px;color:red;"><br/>Delivery available within 4 miles!<br/> Call us if over 4 miles.</p>
+  <ul id="cart">
+    <% if @cart %>
+        <%= render @cart %>
+    <% else %>
+        <li class="bullet-item">Your Cart Is Empty!</li>
+    <% end %>
+  </ul>
+</div>

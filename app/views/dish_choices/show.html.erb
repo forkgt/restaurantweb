@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dish_choice.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @dish_choice.desc %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @dish_choice.content %>
+</p>
+
+<p>
+  <strong>Input type:</strong>
+  <%= @dish_choice.input_type %>
+</p>
+
+<p>
+  <strong>Must:</strong>
+  <%= @dish_choice.must %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @dish_choice.store %>
+</p>
+
+<p>
+  <strong>Checked:</strong>
+  <%= @dish_choice.checked %>
+</p>
+
+<%= link_to 'Edit', edit_dish_choice_path(@dish_choice) %> |
+<%= link_to 'Back', dish_choices_path %>

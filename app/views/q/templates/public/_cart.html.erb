@@ -1,0 +1,10 @@
+<div id="cart_container">
+  <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
+  <ul id="cart">
+    <% if @cart %>
+        <%= render @cart %>
+    <% else %>
+        <li class="bullet-item">Your Cart Is Empty!</li>
+    <% end %>
+  </ul>
+</div>

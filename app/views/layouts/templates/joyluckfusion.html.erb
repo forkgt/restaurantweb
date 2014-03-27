@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="description" content="Provides great asian/chinese food." />
+  <meta name="keywords" content="chinese food,asian food,restaurant, college station, bryan, delivery" />
+  <title>Joy Luck Fusion</title>
+  <%= stylesheet_link_tag    "templates/#{@template}" %>
+  <%= javascript_include_tag "templates/#{@template}" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<!--header start-->
+<div id="header">
+  <!--<div id="header_nav_small">-->
+  <!--<ul>-->
+  <!--<li><a class="yp" target="_blank" href="http://www.yelp.com/biz/joy-luck-chinese-and-sushi-college-station">Yelp</a></li>-->
+  <!--<li><a class="fb" target="_blank" href="http://www.facebook.com/pages/Joy-Luck-Asian-Food-and-delivery/125220384251824">Facebook</a></li>-->
+  <!--<li><a class="tw" target="_blank" href="https://www.twitter.com/#!/JoyLuck16888">Twitter</a></li>-->
+  <!--<li><a>Follow Us:</a></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <div id="header_logo">
+    <!--<span class="header">Joy Luck </span>Chinese & Sushi -->
+    <!--<span class="tel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;979-693-9999</span><br>-->
+  </div>
+  <div id="header_nav_large">
+    <ul>
+      <li><%= link_to "Location", q_store_map_path, id: "location" %></li>
+      <li><%= link_to "Order Online!", q_store_menus_path, id: "menus" %></li>
+      <li><%= link_to "Welcome", q_store_home_path, id: "index" %></li>
+    </ul>
+  </div>
+</div>
+<!--header end-->
+
+<%= yield %>
+
+<%= render "q/templates/public/footer" %>
+
+</body>
+</html>

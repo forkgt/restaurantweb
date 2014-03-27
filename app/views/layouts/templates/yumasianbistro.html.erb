@@ -18,11 +18,23 @@
 
 <!--header start-->
 <div id="header">
-  <div id="nav">
+  <!--<div id="header_nav_small">-->
+    <!--<ul>-->
+      <!--<li><a class="yp" target="_blank" href="http://www.yelp.com/biz/joy-luck-chinese-and-sushi-college-station">Yelp</a></li>-->
+      <!--<li><a class="fb" target="_blank" href="http://www.facebook.com/pages/Joy-Luck-Asian-Food-and-delivery/125220384251824">Facebook</a></li>-->
+      <!--<li><a class="tw" target="_blank" href="https://www.twitter.com/#!/JoyLuck16888">Twitter</a></li>-->
+      <!--<li><a>Follow Us:</a></li>-->
+    <!--</ul>-->
+  <!--</div>-->
+  <div id="header_logo">
+    <!--<span class="header">Joy Luck </span>Chinese & Sushi -->
+    <!--<span class="tel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;979-693-9999</span><br>-->
+  </div>
+  <div id="header_nav_large">
     <ul>
-      <li><%= link_to "Welcome", q_store_home_path, id: "index" %></li>
-      <li><%= link_to "Order Online!", q_store_menus_path, id: "menus" %></li>
       <li><%= link_to "Location", q_store_map_path, id: "location" %></li>
+      <li><%= link_to "Order Online!", q_store_menus_path, id: "menus" %></li>
+      <li><%= link_to "Welcome", q_store_home_path, id: "index" %></li>
     </ul>
   </div>
 </div>
@@ -30,38 +42,7 @@
 
 <%= yield %>
 
-<!--footer start-->
-<div id="footer">
-  <div id="footer_top">
-    <ul id="footer_nav_large">
-      <li><%= link_to "Home", q_store_home_path %></li>
-      <li><%= link_to "Menus", q_store_menus_path %></li>
-      <li class="no-separator"><%= link_to "Location", q_store_map_path %></li>
-    </ul>
-  </div>
-  <div id="footer_middle">
-    <div id="footer_intro">
-      <br />Yum Asian Bistro is the Best Asian Food in Town For Delivery and Takeout. Delivery (Minimum $15.00 Within 4 Miles)
-      <br />2721 Little Elm Parkway, Suite #215, Little Elm, TX 75068. (at Kroger Shopping Center)
-    </div>
-  </div>
-  <div id="footer_bottom">
-    <div id="footer_nav_small">
-      &copy; 2012 Yum Asian Bistro. All Rights Reserved.
-      &bull; <a href="http://www.paypal.com">PayPal</a>
-      &bull; <a href="http://www.interfax.net">Fax</a>
-      &bull; <a href="/Test/tsweb/admin">Management</a>
-    </div>
-    <div class="tspos">
-      <br />
-      Webside Created and Maitained by
-      <a href="http://www.777pos.com">777POS</a>
-      <br /><br />
-    </div>
-  </div>
-</div>
-<div id="footer_bottom_line"></div>
-<!--footer end-->
+<%= render "q/templates/public/footer" %>
 
 </body>
 </html>

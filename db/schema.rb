@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127164554) do
+ActiveRecord::Schema.define(version: 20140322141236) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -102,6 +102,48 @@ ActiveRecord::Schema.define(version: 20131127164554) do
 
   add_index "coupons", ["store_id"], name: "index_coupons_on_store_id"
 
+  create_table "dish_choices", force: true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.string   "content",    default: "abc:0,def:1"
+    t.string   "input_type", default: "radio"
+    t.boolean  "must",       default: false
+    t.integer  "store_id"
+    t.integer  "checked",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dish_choices", ["store_id"], name: "index_dish_choices_on_store_id"
+
+  create_table "dish_choices_dishes", id: false, force: true do |t|
+    t.integer "dish_choice_id", null: false
+    t.integer "dish_id",        null: false
+  end
+
+  add_index "dish_choices_dishes", ["dish_choice_id", "dish_id"], name: "index_dish_choices_dishes_on_dish_choice_id_and_dish_id"
+  add_index "dish_choices_dishes", ["dish_id", "dish_choice_id"], name: "index_dish_choices_dishes_on_dish_id_and_dish_choice_id"
+
+  create_table "dish_features", force: true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.integer  "rank"
+    t.integer  "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "avatar"
+  end
+
+  add_index "dish_features", ["store_id"], name: "index_dish_features_on_store_id"
+
+  create_table "dish_features_dishes", id: false, force: true do |t|
+    t.integer "dish_feature_id", null: false
+    t.integer "dish_id",         null: false
+  end
+
+  add_index "dish_features_dishes", ["dish_feature_id", "dish_id"], name: "index_dish_features_dishes_on_dish_feature_id_and_dish_id"
+  add_index "dish_features_dishes", ["dish_id", "dish_feature_id"], name: "index_dish_features_dishes_on_dish_id_and_dish_feature_id"
+
   create_table "dishes", force: true do |t|
     t.string   "name"
     t.string   "desc"
@@ -129,14 +171,15 @@ ActiveRecord::Schema.define(version: 20131127164554) do
 
   create_table "orders", force: true do |t|
     t.string   "note"
-    t.string   "payment_type",                           default: "cash",     null: false
-    t.string   "payment_status",                         default: "not_paid", null: false
-    t.decimal  "tip",            precision: 8, scale: 2, default: 0.0
+    t.string   "payment_type",                            default: "cash",     null: false
+    t.string   "payment_status",                          default: "not_paid", null: false
+    t.decimal  "tip",             precision: 8, scale: 2, default: 0.0
     t.integer  "store_id"
     t.integer  "cart_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "transfer_status"
   end
 
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id"

@@ -1,144 +1,24 @@
 <script>
     $(document).ready(function(){
         $('#index').attr("class","selected");
-
-        /* This code is executed after the DOM has been completely loaded */
-        var totWidth=0;
-        var positions = new Array();
-        $('#gallery_slides .gallery_slide').each(function(i) {
-            /* Loop through all the slides and store their accumulative widths in totWidth */
-            positions[i]= totWidth;
-            totWidth += $(this).width();
-            /* The positions array contains each slide's commulutative offset from the left part of the container */
-            if(!$(this).width()) {
-                alert("Please, fill in width & height for all your images!");
-                return false;
-            }
-        });
-
-        $('#gallery_slides').width(totWidth);
-        /* Change the cotnainer div's width to the exact width of all the slides combined */
-        $('#gallery_menu ul li a').click(function(e){
-            /* On a thumbnail click */
-            $('li.act').removeClass('act').addClass('inact');
-            $(this).parent().addClass('act');
-            var pos = $(this).parent().prevAll('.gallery_menuItem').length;
-            $('#gallery_slides').stop().animate({marginLeft:-positions[pos]+'px'},450);
-            /* Start the sliding animation */
-            e.preventDefault();
-            /* Prevent the default action of the link */
-        });
-
-        setInterval(showpic,5000);
-
-        function showpic(){
-            var x = $('#gallery_menu ul li.act');
-            x.removeClass('act').addClass('inact');
-            if (x.is('#gallery_menu ul li:last-child')) {
-                $('#gallery_menu ul li.gallery_menuItem:first').removeClass('inact').addClass('act');
-                var pos = $('#gallery_menu ul li.gallery_menuItem:first').prevAll('.gallery_menuItem').length;
-            } else {
-                x.next().removeClass('inact').addClass('act');
-                var pos = x.next().prevAll('.gallery_menuItem').length;
-            }
-
-            $('#gallery_slides').stop().animate({marginLeft:-positions[pos]+'px'},450);
-        }
-
-        $('#gallery_menu ul li.gallery_menuItem:first').addClass('act').siblings().addClass('inact');
-        /* On page load, mark the first thumbnail as active */
     });
 </script>
 
+<div id="major">
+  <%= render "q/templates/public/gallery" %>
+</div>
 
-<div id="main"  class="gallery">
-  <div id="gallery_slides">
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck1.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck2.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck3.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck4.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck5.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck6.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck7.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck8.jpg", width: 960, height: 500, border: 0), "" %></div>
-    <div class="gallery_slide"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck9.jpg", width: 960, height: 500, border: 0), "" %></div>
-  </div>
-  <div id="gallery_menu">
-    <ul>
-      <li class="gallery_fbar">&nbsp;</li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck1.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck2.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck3.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck4.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck5.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck6.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck7.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck8.jpg", width: 58, height: 40) %></li>
-      <li class="gallery_menuItem"><%= link_to image_tag("templates/joyluckdelivery/dishes/joyluck9.jpg", width: 58, height: 40) %></li>
-    </ul>
+<div id="main">
+  <div id="greetings">
+    <br/><br/>
+    <h2>Welcome to <br/>Joy Luck Chinese & Sushi!</h2>
+    <br/>
+    <h3>Enjoy Our Great Asian Food! &nbsp;&nbsp;&nbsp;MSG FREE!&nbsp;&nbsp;&nbsp;TRANS-FAT FREE!</h3>
+    <br/><br/>
+    <p>We're proud to have served the B/CS communities during the past 15 years. We'll be offering the best of two worlds: Chinese Cuisine and newly-added Japanese Sushi ! Incredible taste, reasonable prices, and best of all, we deliver to your home!</p>
   </div>
 </div>
 
-<div id="content">
-  <table>
-    <tr>
-      <th colspan="2" width="960px" height="100px">
-        <h2>Welcome to Joy Luck Chinese&Sushi</h2>
-        <br/>
-        <h3>Enjoy Our Great Asian Food ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSG FREE !&nbsp;&nbsp;&nbsp;&nbsp; TRANS-FAT FREE !</h3>
-      </th>
-    </tr>
-    <tr>
-      <th width="620px"><p>We're proud to have served the B/CS communities during the past 15 years. We'll be offering the best of two worlds: Chinese Cuisine and newly-added Japanese Sushi ! Incredible taste, reasonable prices, and best of all, we deliver to your home!</p></th>
-      <th rowspan="2"><%= image_tag "templates/joyluckdelivery/logos/kitchenpic.jpg" %></th>
-    </tr>
-    <tr>
-      <th width="620px" height="350px"><iframe width="560" height="315" src="http://www.youtube.com/embed/tD0PKDGlwiw" frameborder="0" allowfullscreen></iframe></th>
-    </tr>
-  </table>
-</div>
-
-<div id="minor">
-  <div id="BodyContainerPrefix"></div>
-  <div id="BodyContainerOuter">
-    <div id="BodyContainerInner">
-      <div id="BodyContainer" class="grey-bkg">
-        <div class="container">
-          <div class="column">
-            <div id="email">
-              <h2 class="blue-bkg">Get Insider Access</h2>
-              <p style="color:#A34F6A;font-weight:bold;">Share your email and we'll hook you up with promotions, discounts and more.</p>
-              <form name="subscribeForm" action="" method="post" >
-                <input type="text" name="sub_email" id="sub_email" value="Email Address" onfocus="if (this.value == 'Email Address') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Email Address';}" />
-                <input type="text" name="sub_zipcode" id="sub_zipcode" value="Zip/Post Code" onfocus="if (this.value == 'Zip/Post Code') {this.value = '';}"	onblur="if (this.value == '') {this.value = 'Zip/Post Code';}" />
-                <input id="subscribe" class="button-email" type="submit" value="Join! &raquo;" />
-              </form>
-            </div><!--email-->
-          </div><!--column-->
-
-          <div class="column">
-            <h2 class="orange-bkg" >Let's be Friends</h2>
-            <p style="color:#E8781F;font-weight:bold;">Like us and share us with friends on Social Media!</p>
-            <div class="addthis_toolbox addthis_default_style ">
-              <table>
-                <tr>
-                  <td width="150">
-                    <%= link_to image_tag("/assets/templates/joyluckdelivery/icons/facebook.png", width: 75, height: 75, border: 0), "http://www.facebook.com/pages/Joy-Luck-Asian-Food-and-delivery/125220384251824" %>
-                  </td>
-                  <td>
-                    <%= link_to image_tag("/assets/templates/joyluckdelivery/icons/twitter.png", width: 75, height: 75, border: 0), "https://www.twitter.com/#!/JoyLuck16888" %>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div><!--column-->
-
-          <div class="column no-separator">
-            <h2 class="green-bkg">Know more about us</h2>
-            <p style="color:#A9AD0B;font-weight:bold;">If you like , get to know more about us here. Our events and gallery are coming soon...</p>
-          </div><!--column-->
-        </div><!--container-->
-      </div><!--bodycontainer-->
-    </div><!-- BodyContainerInner -->
-  </div><!-- BodyContainerOuter -->
+<div id="side">
+  <%= image_tag "templates/joyluckdelivery/logos/kitchenpic.jpg" %>
 </div>

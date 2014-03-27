@@ -4,15 +4,16 @@
     });
 </script>
 
-<div id="center">
-  <center>
+<div id="main">
+  <div id="google_map">
     <br />
-    <iframe width="900" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=2721+Little+Elm+Parkway,+Little+Elm,+TX&amp;aq=1&amp;oq=2721+Little+Elm&amp;sll=30.590851,-96.291661&amp;sspn=0.203331,0.341263&amp;ie=UTF8&amp;hq=&amp;hnear=Little+Elm+Pkwy,+Little+Elm,+Denton,+Texas+75068&amp;t=m&amp;ll=33.187559,-96.889973&amp;spn=0.068957,0.154324&amp;z=13&amp;iwloc=A&amp;output=embed"></iframe>
+    <iframe style="margin-left:50px;" width="570" height="410" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?oe=utf-8&amp;client=firefox-a&amp;q=1702+George+Bush+East+%23101-College+Station,+TX+77840&amp;ie=UTF8&amp;hq=&amp;hnear=1702+George+Bush+Dr+E,+College+Station,+Texas+77840&amp;gl=us&amp;t=m&amp;vpsrc=6&amp;hl=zh-CN&amp;view=map&amp;ll=30.623067,-96.316195&amp;spn=0.017727,0.027466&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
     <br />
-    <small>
-      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=2721+Little+Elm+Parkway,+Little+Elm,+TX&amp;aq=1&amp;oq=2721+Little+Elm&amp;sll=30.590851,-96.291661&amp;sspn=0.203331,0.341263&amp;ie=UTF8&amp;hq=&amp;hnear=Little+Elm+Pkwy,+Little+Elm,+Denton,+Texas+75068&amp;t=m&amp;ll=33.187559,-96.889973&amp;spn=0.068957,0.154324&amp;z=13&amp;iwloc=A" style="color:#0000FF;text-align:left">View Larger Map</a>
-    </small>
-    <br />
-    <br />
-  </center>
+    <small><a style="margin-left:150px;" href="http://maps.google.com/maps?oe=utf-8&amp;client=firefox-a&amp;q=1702+George+Bush+East+%23101-College+Station,+TX+77840&amp;ie=UTF8&amp;hq=&amp;hnear=1702+George+Bush+Dr+E,+College+Station,+Texas+77840&amp;gl=us&amp;t=m&amp;vpsrc=6&amp;hl=zh-CN&amp;view=map&amp;ll=30.623067,-96.316195&amp;spn=0.017727,0.027466&amp;z=15&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">
+      See Big Map
+    </a></small>
+    <br/><br/>
+  </div>
 </div>
+
+<%= render "q/templates/#{@template}/side" %>

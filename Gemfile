@@ -56,3 +56,9 @@ gem "zurb-foundation", "~> 4.3.2"
 gem "jquery-ui-sass-rails", "~> 4.0.3.0"
 
 gem "simple_form", "~> 3.0.0"
+
+gem "carrierwave", "~> 0.9.0"
+gem "carrierwave-dropbox", "~> 1.2.1"
+gem "rmagick", "~> 2.13.2"
+
+gem 'savon', '~> 2.3.3'

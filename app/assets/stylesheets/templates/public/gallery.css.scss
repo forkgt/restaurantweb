@@ -1,0 +1,42 @@
+// Gallery styles
+// Url: /q/store_home
+//
+// Example:
+//
+//$gallery_width: 640px;
+//$gallery_height: 500px;
+//@import "gallery.css.scss";
+//
+// =============================================================================
+.gallery {
+  padding:0px;
+  margin:0px auto;
+  overflow:hidden;
+
+  #gallery_slides {
+    width: $gallery_width;
+    height: $gallery_height;
+    overflow:hidden;
+
+    .gallery_slide {
+      float:left;
+    }
+  }
+
+  #gallery_menu {
+    height:50px;
+
+    ul {
+      margin:0px;padding:0px;
+
+      li.gallery_fbar {width:2px;background:url(/assets/templates/public/divider.png) no-repeat right;}
+      li {width:60px;height:50px;float:left;list-style:none;}
+      li.inact:hover{background:url(/assets/templates/public/pic_bg.png) repeat;}
+      li.act,.gallery #gallery_menu li.act:hover{background:url(/assets/templates/public/active_bg.png) no-repeat;}
+      li.act a {cursor:default;}
+      li a {display:block;background:url(/assets/templates/public/divider.png) no-repeat right;height:35px;padding-top:10px;}
+    }
+
+    a img {border:none;}
+  }
+}

@@ -1,0 +1,75 @@
+// Css For Cart
+// Url: /q/store_menus
+//
+// Example:
+//
+//$cart_color: #FFFFFF;
+//$cart_bg_color: $dark_color;
+//@import "public/cart";
+//
+// ===================================================================================
+div#cart_container {
+  padding: 10px;
+  border: 1px solid #bbbbbb;
+  color: $cart_color;
+  background-color: $cart_bg_color;
+
+  div#cart_message {font-size: 16px;color:red;margin-top: 20px;}
+
+  ul#cart {
+    width:258px;margin-top:20px;padding:0px;
+
+    li {width:258px;height:40px;line-height:20px;list-style:none;margin:0px 0px 10px 0px;padding:0px;}
+
+    li.cart_title {color: $light_color;font-size: 20px;font-weight: bold;}
+
+    li.cart_type {
+      margin-bottom: 20px;height:40px;border-bottom: 1px $cart_color dashed;
+
+      a {
+        color: $cart_color;
+        width: 90px;
+        text-align: center;
+        display: inline-block;
+        line-height:30px;
+        text-decoration: none;
+        margin-left:20px;
+      }
+
+      a.active {
+        color: #FFFFFF;font-weight: bold;
+        background-color: $light_color;
+      }
+    }
+
+    li.cart_item {
+      border-bottom: 1px $cart_color dashed;height:40px;line-height:20px;
+      list-style:none;margin:0px 0px 10px 0px;padding:0px;
+
+      a {
+        text-decoration: none;color: $cart_color;
+
+        .left {float:left;}
+        .right {float: right;}
+        .cart_item_note {color: $cart_color;font-size: 10px;}
+      }
+    }
+
+    li.cart_summary {height:20px;text-align:right;font-size:16px;margin:0px;padding:0px;}
+    li.cart_action {
+      margin-top:20px;height:40px;
+
+      a {
+        width: 90px;
+        text-align: center;
+        font-weight: bold;
+        display: inline-block;
+        color:#ffffff;
+        background-color:$light_color;
+        line-height:30px;
+        text-decoration: none;
+        margin-left:20px;
+      }
+    }
+  }
+}

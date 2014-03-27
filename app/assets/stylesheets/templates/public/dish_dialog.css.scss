@@ -1,0 +1,29 @@
+// The dialog presented when order a dish
+// Url: /q/store_order
+//
+// Example:
+//
+//$dish_dialog_title_color: $dark_color;
+//@import "public/dish_dialog";
+//
+// ===================================================================================
+
+.dish_dialog_title {
+  color: $dish_dialog_title_color;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+.dish_dialog_choices {
+  //color: yellow;
+  margin: 20px 0px;
+
+  em {
+    color: #ff0000;
+  }
+}
+
+.dish_dialog_submit {
+  //color: #0000FF;
+}

@@ -1,6 +1,6 @@
 class QController < ApplicationController
 
-  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_order]
+  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_order, :store_order_success, :store_order_failure]
 
   def index
     @stores = Store.all
@@ -9,7 +9,12 @@ class QController < ApplicationController
   def stores
   end
 
+  def missing
+  end
+
   def store_home
+    @dishes = nil
+
     # set erb for this store
     render action: "templates/#{@template}/store_home", layout: "templates/#{@template}"
   end
@@ -24,6 +29,7 @@ class QController < ApplicationController
     render action: "templates/#{@template}/store_map", layout: "templates/#{@template}"
   end
 
+  # The page for customers to create and submit orders
   def store_order
     @has_cart = true # Show the cart toggle
 
@@ -54,12 +60,27 @@ class QController < ApplicationController
     render action: "templates/#{@template}/store_order", layout: "templates/#{@template}"
   end
 
+  # If success after a customer order was submitted
+  def store_order_success
+    render layout: "templates/#{@template}"
+  end
+
+  # If failure after a customer order was submitted
+  def store_order_failure
+    render layout: "templates/#{@template}"
+  end
+
   private
   def set_store
     #@store = Store.find(params[:id])   # Find Store through id in the params
     @store = Store.find_by_desc(request.subdomain) if request.subdomain.present? && request.subdomain != "www"
-    @template = @store.get_current_template
-    @cart = current_cart(@store.id, false)
+    if @store.nil?
+      redirect_to q_missing_path
+      return
+    else
+      @template = @store.get_current_template
+      @cart = current_cart(@store.id, false)
+    end
   end
 
 end

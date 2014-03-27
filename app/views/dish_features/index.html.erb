@@ -1,0 +1,33 @@
+<h1>Listing dish_features</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Rank</th>
+      <th>Store</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dish_features.each do |dish_feature| %>
+      <tr>
+        <td><%= dish_feature.name %></td>
+        <td><%= dish_feature.desc %></td>
+        <td><%= dish_feature.rank %></td>
+        <td><%= dish_feature.store.name %></td>
+        <td><%= link_to 'Show', dish_feature %></td>
+        <td><%= link_to 'Edit', edit_dish_feature_path(dish_feature) %></td>
+        <td><%= link_to 'Destroy', dish_feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dish feature', new_dish_feature_path %>

@@ -1,0 +1,51 @@
+// Menu for a store
+// Url: /q/store_order
+//
+// Example:
+//
+//$menu_color: #000000;
+//$menu_bg_color: #ffffff;
+//$category_color: $dark_color;
+//$category_bg_color: $light_color;
+//$dish_color: #000099;
+//$dish_bg_color: #ffffff;
+//@import "public/menu";
+//
+// =============================================================================
+div.menu {
+  color: $menu_color;
+  background-color: $menu_bg_color;
+  padding: 0px 20px;
+  margin:0px;
+  border: 1px solid #bbbbbb;
+  min-height: 500px;
+
+  div.category {
+    color:$category_color;
+    background-color:$category_bg_color;
+    width:620px;height:40px;margin-top:20px;
+
+    span.category_name {
+      width:300px;height:30px;line-height:30px;font-size:20px;font-weight:bold;padding:5px 20px;float:left;
+    }
+    span.category_desc {
+      width:50px;height:30px;font-size:12px;float:right;
+
+      a {color:#FFFFFF;}
+    }
+  }
+
+  div.dish {
+    color: $dish_color;
+    background-color: $dish_bg_color;
+    position:relative;
+    cursor:pointer;
+    width:620px;height:30px;
+    line-height:30px;font-size:14px;
+    border-bottom:1px solid #DDDDDD;
+
+    div.dish_name {position:absolute;top:0px;left:0px;line-height:30px;font-weight:bold;}
+    div.dish_price {position:absolute;top:0px;left:570px;line-height:30px;font-weight:bold;}
+    div.dish_features {position:absolute;top:0px;left:420px;line-height:30px;font-weight:bold;}
+  }
+}

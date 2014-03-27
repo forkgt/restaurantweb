@@ -24,7 +24,17 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new order_params
+    p = params[:order]
+
+    if user_signed_in?
+      @user = User.find(p[:user_attributes][:id])
+      @user.update_attributes!(p[:user_attributes])
+      p.delete(:user_attributes)
+      @order = Order.new(p)
+      @order.user = @user
+    else
+      @order = Order.new order_params
+    end
 
     if @order.user.email.blank? && @order.user.password.blank? && @order.user.password_confirmation.blank?
       @order.user.email = "guest_#{Time.now.to_i}#{rand(99)}@meals4.me"
@@ -33,15 +43,32 @@ class OrdersController < ApplicationController
       #@order.user.skip_confirmation! # Skip sending emails
     end
 
-    ## Need to validate the phone number for the order
+    # Need to validate the phone number for the order
     #@order.user.validate_phone = true
+
+    # Set the status of this order
+    @order.transfer_status = "unconfirmed"
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }
+        # Clear the cart in the session
+        session.delete "cart_id_for_store_id_#{@order.store_id}"
+
+        if @order.payment_type == 'paypal'
+          # Redirect to Paypal Page
+          format.html { redirect_to @order.paypal_url }
+        else
+          # Send Fax through Interfax
+          #@order.to_fax
+
+          format.html { redirect_to @order, notice: 'Order was successfully created.' }
+          format.json { render json: @order, status: :created, location: @order }
+        end
       else
-        format.html { render action: 'new' }
+        @cart = current_cart(@order.store_id, false)
+        @order.user.email = ""
+
+        format.html { render action: "new" }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -79,7 +106,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:note, :payment_type, :payment_status, :tip, :store_id, :cart_id, :user_id,
+      params.require(:order).permit(:note, :payment_type, :payment_status, :transfer_status, :tip, :store_id, :cart_id, :user_id,
                                     :user_attributes => [:id, :firstname, :lastname, :phone, :address_attributes => [:id, :address1, :address2, :city]])
     end
 end

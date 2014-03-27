@@ -1,0 +1,27 @@
+// Order Form Css
+// Url: /q/store_order
+// =============================================================================
+#store_order_form {
+  border: 1px solid #bbbbbb;
+  width: 628px;
+  padding-left: 30px;
+  background-color: #ffffff;
+
+  div.input {
+    label {
+      margin-top: 20px;
+      display: block;
+    }
+
+    label.radio {
+      margin-top: 0px;
+    }
+  }
+
+  a {
+    width: 120px;
+    text-align: center;
+    display: inline-block;
+    margin-left:20px;
+  }
+}

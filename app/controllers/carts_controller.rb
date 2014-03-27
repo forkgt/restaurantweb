@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:show, :edit, :update, :destroy, :delivery_type]
 
   # GET /carts
   # GET /carts.json
@@ -60,6 +60,15 @@ class CartsController < ApplicationController
       format.js
       format.html { redirect_to carts_url }
       format.json { head :no_content }
+    end
+  end
+
+  def delivery_type
+    @cart.delivery_type = params[:delivery_type]
+    @cart.save
+
+    respond_to do |format|
+       format.js
     end
   end
 

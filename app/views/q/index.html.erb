@@ -81,7 +81,11 @@
 </div>
 <br/>
 
-<% @stores.each do |st| %>
-    <%= link_to st.name, root_url( subdomain: st.desc ) %>
-    <br/><br/>
+<% if @stores.blank? %>
+    <h1>No Stores Found!</h1>
+<% else %>
+    <% @stores.each do |st| %>
+        <%= link_to st.name, root_url( subdomain: st.desc ) %>
+        <br/><br/>
+    <% end %>
 <% end %>

@@ -20,3 +20,9 @@
 
 # Ignore from Openshift
 .project
+
+# Ignore uploaded files
+/public/uploads
+
+# Ignore app config
+/config/app_config.yml

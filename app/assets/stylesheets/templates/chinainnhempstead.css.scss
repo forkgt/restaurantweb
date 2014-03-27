@@ -1,0 +1,72 @@
+// jquery ui
+// =============================================================================
+@import 'jquery.ui.all';
+
+$light_color: #D9711A;
+$dark_color: #730C00;
+$color_three: #FFF9AB;
+
+$body_bg: #FFFFFF url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_bg.jpg');
+$header_width: 960px;
+$header_height: 250px;
+$header_bg: $dark_color url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_header_bg.gif');
+$header_logo_width: 960px;
+$header_logo_height: 200px;
+$header_logo_bg: transparent url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_birthday.png') no-repeat 90% center;
+@import "public/base";
+
+$gallery_width: 658px;
+$gallery_height: 450px;
+@import "templates/public/gallery.css.scss";
+
+$menu_color: #000000;
+$menu_bg_color: $dark_color;
+$category_color: $dark_color;
+$category_bg_color: $light_color;
+$dish_color: #ffffff;
+$dish_bg_color: $dark_color;
+@import 'public/menu';
+
+$cart_color: #FFFFFF;
+$cart_bg_color: $dark_color;
+@import "public/cart";
+
+$dish_dialog_title_color: $dark_color;
+@import "public/dish_dialog";
+
+@import "public/order";
+
+// The nav bar above menus
+// Url: /q/store_menus
+// =============================================================================
+div#menus_nav {
+  background-color:#FFFFFF;border:1px solid #bbbbbb;
+
+  #menu_tabs {
+    height:50px;
+
+    ul {
+      width:958px;height:50px;background:$light_color;
+
+      li {float:left;width:200px;height:50px;line-height:50px;text-align:center;list-style:none;}
+      li a {width:200px;height:50px;text-decoration:none;font-size:18px;font-weight:bold;color:#FFF;}
+      li.selected {background:#FFF;}
+      li.selected a {color:$dark_color;}
+    }
+  }
+
+  #menu_details {
+    .menu_hour {
+      width:958px;height:50px;line-height:50px;
+      font-size:16px;font-weight:bold;
+    }
+
+    .category_tabs {
+      margin:0px auto;padding:0 20px;
+      width:918px;height:170px;
+
+      a {color:#FFF;background:$dark_color;float:left;font-weight:bold;width:140px;display:block;float:left;text-decoration:none;height:30px;line-height:30px;text-align:center;margin:5px 20px;}
+      a:hover {color:#FFF;background:$light_color;}
+    }
+  }
+}

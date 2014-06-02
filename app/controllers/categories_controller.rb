@@ -2,6 +2,8 @@ class CategoriesController < ApplicationController
   before_action :set_menu
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
+  layout "h"
+
   # GET /categories
   # GET /categories.json
   def index
@@ -66,6 +68,7 @@ class CategoriesController < ApplicationController
   private
     def set_menu
       @menu = Menu.find(params[:menu_id])
+      @store = @menu.store
     end
 
     def set_category

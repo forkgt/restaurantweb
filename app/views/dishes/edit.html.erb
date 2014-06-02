@@ -1,6 +1,26 @@
+<br/><br/>
+
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    >> <%= link_to 'Stores', stores_path %>
+    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
+    >> <%= link_to 'Categories for ' + @category.menu.name, menu_categories_path(@category.menu) %>
+    >> <%= link_to 'Dishes for ' + @category.name, category_dishes_path(@category) %>
+<% else %>
+    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
+    >> <%= link_to @category.menu.name, menu_categories_path(@category.menu) %>
+<% end %>
+
 <h1>Editing dish</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', category_dish_path(@category, @dish) %> |
-<%= link_to 'Back', category_dishes_path(@category) %>
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    <%= link_to 'Show', category_dish_path(@category, @dish) %> |
+    <%= link_to 'Back', category_dishes_path(@category) %>
+<% else %>
+    <%= link_to 'Back', menu_categories_url(@category.menu) %>
+<% end %>
+
+
+
+

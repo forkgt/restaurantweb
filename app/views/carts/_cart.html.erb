@@ -1,7 +1,7 @@
 <% if cart.cart_items.empty? %>
     <li class="cart_title bullet-item">Nothing left in your cart!</li>
 <% else %>
-    <li class="cart_title bullet-item"><%= @cart.store.name %></li>
+    <li class="cart_title bullet-item"><%= cart.store.name %></li>
 
     <li class="cart_type bullet-item">
       <%= link_to 'Delivery', delivery_type_cart_path(cart, delivery_type: :delivery), class: (cart.delivery_type == 'delivery') ? 'active' : nil, remote: true %>

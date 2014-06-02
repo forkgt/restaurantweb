@@ -21,4 +21,6 @@ class Dish < ActiveRecord::Base
 
   has_and_belongs_to_many :dish_features
   has_and_belongs_to_many :dish_choices
+
+  mount_uploader :avatar, PhotoUploader
 end

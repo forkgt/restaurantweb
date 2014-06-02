@@ -3,7 +3,16 @@ class QController < ApplicationController
   before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_order, :store_order_success, :store_order_failure]
 
   def index
-    @stores = Store.all
+    # Match the host to all stores
+    # Yes => Go to the matched store
+    # No  => Go to the index page
+    @store = Store.find_by desc: request.host
+    if @store.nil?
+      @stores = Store.all
+    else
+      redirect_to q_store_menus_path
+      return
+    end
   end
 
   def stores
@@ -20,6 +29,8 @@ class QController < ApplicationController
   end
 
   def store_menus
+    @menus = @store.menus.includes(categories: {dishes: [:dish_features, :dish_choices]})
+
     # set erb for this store
     render action: "templates/#{@template}/store_menus", layout: "templates/#{@template}"
   end
@@ -73,7 +84,12 @@ class QController < ApplicationController
   private
   def set_store
     #@store = Store.find(params[:id])   # Find Store through id in the params
-    @store = Store.find_by_desc(request.subdomain) if request.subdomain.present? && request.subdomain != "www"
+    #@store = Store.find_by_desc(request.subdomain) if request.subdomain.present? && request.subdomain != "www"   # Deal with Subdomain
+
+    # Check if there is session[:store] and session[:store][:desc] matches the host name
+    # Yes => No need to reload the store
+    # No  => Must reload the store
+    @store = Store.find_by desc: request.host
     if @store.nil?
       redirect_to q_missing_path
       return

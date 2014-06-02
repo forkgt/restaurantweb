@@ -2,6 +2,8 @@ class DishesController < ApplicationController
   before_action :set_category
   before_action :set_dish, only: [:show, :edit, :update, :destroy]
 
+  layout "h"
+
   # GET /dishes
   # GET /dishes.json
   def index
@@ -29,7 +31,8 @@ class DishesController < ApplicationController
 
     respond_to do |format|
       if @dish.save
-        format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully created.' }
+        #format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully created.' }
+        format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
         format.json { render action: 'show', status: :created, location: @dish }
       else
         format.html { render action: 'new' }
@@ -43,7 +46,8 @@ class DishesController < ApplicationController
   def update
     respond_to do |format|
       if @dish.update(dish_params)
-        format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully updated.' }
+        #format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully updated.' }
+        format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,6 +69,7 @@ class DishesController < ApplicationController
   private
     def set_category
       @category = Category.find(params[:category_id])
+      @store = @category.menu.store
     end
 
     def set_dish

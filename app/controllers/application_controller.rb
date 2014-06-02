@@ -3,10 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # ========== Shopping Cart ===========
-
+  # ========== Shopping Cart ========================
   def current_cart(store_id, create)
-    Cart.find(session["cart_id_for_store_id_#{store_id}"])
+    Cart.includes(cart_items: :cart_itemable).find(session["cart_id_for_store_id_#{store_id}"])
   rescue ActiveRecord::RecordNotFound
     if create
       store = Store.find(store_id)
@@ -15,9 +14,32 @@ class ApplicationController < ActionController::Base
       cart
     end
   end
+  # =================================================
 
-  # ========== Deal with Subdomain ===========
 
-  include UrlHelper
+
+  # ========== Deal with Subdomain ==================
+  #include UrlHelper
+  # =================================================
+
+
+
+  # ========== Deal with Layout ==================
+  layout :layout_by_resource
+
+  protected
+
+  def layout_by_resource
+    if devise_controller? && resource_name == :admin && admin_signed_in?
+      "h"
+    elsif ["h", "orders", "menus"].include?(controller_name)
+      "h"
+    elsif ["stores", "templates", "dish_choices", "dish_features", "coupons", "subscriptions"].include?(controller_name)
+      "z"
+    else
+      "application"
+    end
+  end
+  # =================================================
 
 end

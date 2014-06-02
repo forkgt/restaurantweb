@@ -25,17 +25,25 @@ class Store < ActiveRecord::Base
 
   has_one :address, :as => :addressable
 
-  has_many :subscriptions
-  has_many :templates, through: :subscriptions, :source => :subscribable, :source_type => 'Template'
   has_many :dish_features
   has_many :dish_choices
 
-  has_many :menus, :dependent => :destroy, :order => :rank
+  has_many :menus, -> { order(:rank) }, :dependent => :destroy
   has_many :orders
   has_many :carts
 
-  accepts_nested_attributes_for :subscriptions
   accepts_nested_attributes_for :address
+
+
+
+  has_many :subscriptions
+  has_many :templates, through: :subscriptions, :source => :subscribable, :source_type => 'Template'
+  accepts_nested_attributes_for :subscriptions
+
+  # ===== If one store can have only one template =====
+  #has_one :address, :as => :addressable
+  #has_one :subscription
+  #has_one :template, through: :subscription, :source => :subscribable, :source_type => 'Template'
 
   def get_current_template
     templates.first.name

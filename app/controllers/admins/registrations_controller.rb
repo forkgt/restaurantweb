@@ -16,6 +16,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @store = resource.stores.first
     super
   end
 

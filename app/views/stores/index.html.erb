@@ -9,34 +9,30 @@
     <tr>
       <th>Name</th>
       <th>Desc</th>
-      <th>Rank</th>
       <th>Phone/Fax</th>
-      <th>Delivery minimum</th>
-      <th>Delivery fee</th>
-      <th>Delivery radius</th>
       <th>Admin</th>
-      <th>Menus</th>
-      <th></th>
-      <th></th>
-      <th></th>
+
+      <th>Action</th>
+      <th>Manage</th>
     </tr>
   </thead>
 
   <tbody>
     <% @stores.each do |store| %>
       <tr>
-        <td><%= store.name %>: <%= store.id %></td>
+        <td><%= store.id %>. <%= store.name %></td>
         <td><%= store.desc %></td>
-        <td><%= store.rank %></td>
         <td><%= store.phone %><br/><%= store.fax %></td>
-        <td><%= store.delivery_minimum %></td>
-        <td><%= store.delivery_fee %></td>
-        <td><%= store.delivery_radius %></td>
         <td><%= store.admin.email %></td>
-        <td><%= link_to 'Menus', store_menus_path(store) %></td>
-        <td><%= link_to 'Show', store %></td>
-        <td><%= link_to 'Edit', edit_store_path(store) %></td>
-        <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to image_tag("/assets/View-Details-01-24.png"), store %>
+          <%= link_to image_tag("/assets/Data-Edit-24.png"), edit_store_path(store) %>
+          <%= link_to image_tag("/assets/Delete-24.png"), store, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+        <td>
+          <%= link_to 'Menus', store_menus_path(store) %> |
+          <%= link_to 'Orders', store_orders_path(store) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

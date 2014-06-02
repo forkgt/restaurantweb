@@ -35,5 +35,5 @@
   <%= @order.user %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Edit', edit_store_order_path(@store, @order) %> |
+<%= link_to 'Back', store_orders_path(@store) %>

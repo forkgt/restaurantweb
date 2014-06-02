@@ -1,6 +1,14 @@
+<br/><br/>
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    >> <%= link_to 'Stores', stores_path %>
+<% end %>
+>> <%= link_to 'Menus for ' + @store.name, store_menus_path(@store) %>
+
 <h1>Editing menu</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', store_menu_path(@store, @menu) %> |
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    <%= link_to 'Show', store_menu_path(@store, @menu) %> |
+<% end %>
 <%= link_to 'Back', store_menus_path(@store) %>

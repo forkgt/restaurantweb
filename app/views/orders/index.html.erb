@@ -1,4 +1,78 @@
-<h1>Listing orders</h1>
+<br/><br/>
+
+<h5>Today's orders</h5>
+
+<table>
+  <thead>
+  <tr>
+    <th>Note</th>
+    <th>Payment type</th>
+    <th>Payment status</th>
+    <th>Tip</th>
+    <th>Time</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orders_of_today.each do |order| %>
+      <tr>
+        <td><%= order.note %></td>
+        <td><%= order.payment_type %></td>
+        <td><%= order.payment_status %></td>
+        <td><%= order.tip %></td>
+        <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
+        <td><%= order.user.firstname + " " + order.user.lastname %></td>
+        <td><%= link_to 'Show', store_order_path(@store, order) %></td>
+        <td><%= link_to 'Edit', edit_store_order_path(@store, order) %></td>
+        <td><%= link_to 'Destroy', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<hr/>
+
+<h5>Yesterday's orders</h5>
+
+<table>
+  <thead>
+  <tr>
+    <th>Note</th>
+    <th>Payment type</th>
+    <th>Payment status</th>
+    <th>Tip</th>
+    <th>Time</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orders_of_yesterday.each do |order| %>
+      <tr>
+        <td><%= order.note %></td>
+        <td><%= order.payment_type %></td>
+        <td><%= order.payment_status %></td>
+        <td><%= order.tip %></td>
+        <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
+        <td><%= order.user.firstname + " " + order.user.lastname %></td>
+        <td><%= link_to 'Show', store_order_path(@store, order) %></td>
+        <td><%= link_to 'Edit', edit_store_order_path(@store, order) %></td>
+        <td><%= link_to 'Destroy', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<hr/>
+
+<h5>This month's orders</h5>
 
 <table>
   <thead>
@@ -7,8 +81,7 @@
       <th>Payment type</th>
       <th>Payment status</th>
       <th>Tip</th>
-      <th>Store</th>
-      <th>Cart</th>
+      <th>Time</th>
       <th>User</th>
       <th></th>
       <th></th>
@@ -17,23 +90,22 @@
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <% @orders_of_this_month.each do |order| %>
       <tr>
         <td><%= order.note %></td>
         <td><%= order.payment_type %></td>
         <td><%= order.payment_status %></td>
         <td><%= order.tip %></td>
-        <td><%= order.store %></td>
-        <td><%= order.cart %></td>
-        <td><%= order.user %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
+        <td><%= order.user.firstname + " " + order.user.lastname %></td>
+        <td><%= link_to 'Show', store_order_path(@store, order) %></td>
+        <td><%= link_to 'Edit', edit_store_order_path(@store, order) %></td>
+        <td><%= link_to 'Destroy', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<hr/>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to 'New Order', new_store_order_path %>

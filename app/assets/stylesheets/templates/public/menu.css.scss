@@ -40,12 +40,13 @@ div.menu {
     background-color: $dish_bg_color;
     position:relative;
     cursor:pointer;
-    width:620px;height:30px;
+    width:620px;
     line-height:30px;font-size:14px;
     border-bottom:1px solid #DDDDDD;
 
     div.dish_name {position:absolute;top:0px;left:0px;line-height:30px;font-weight:bold;}
     div.dish_price {position:absolute;top:0px;left:570px;line-height:30px;font-weight:bold;}
     div.dish_features {position:absolute;top:0px;left:420px;line-height:30px;font-weight:bold;}
+    div.dish_pic {padding-top: 30px;}
   }
 }

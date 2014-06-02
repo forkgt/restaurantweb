@@ -1,1 +1,73 @@
 <h1>Choose The Templates For My Store</h1>
+<h1><%=	@store.name %></h1>
+
+<table>
+  <% if @orders_of_today.blank? %>
+      <thead>
+      <tr>
+        <th>No Stores Found for Today!</th>
+      </tr>
+      </thead>
+  <% else %>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tip</th>
+        <th>Payment</th>
+        <th>Created At</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @orders_of_today.each do |order| %>
+          <tr>
+            <td><%= order.id.to_s %></td>
+            <td><%= order.tip %></td>
+            <td><%= order.payment_type + ", " + order.payment_status %></td>
+            <td><%= order.created_at %></td>
+            <td><%= order.user.firstname + " " + order.user.lastname %></td>
+            <td><%= order.user.phone %></td>
+            <td><%= order.user.address.address1 + "," + order.user.address.address2 %></td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+
+<table>
+  <% if @orders_of_yesterday.blank? %>
+      <thead>
+      <tr>
+        <th>No Stores Found for Yesterday!</th>
+      </tr>
+      </thead>
+  <% else %>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Payment</th>
+        <th>Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @orders_of_yesterday.each do |order| %>
+          <tr>
+            <td>
+              <%= order.id.to_s %>
+            </td>
+            <td>
+              <%= order.payment_type + " | " + order.payment_status %>
+            </td>
+            <td>
+              <%= order.created_at %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+
+
+

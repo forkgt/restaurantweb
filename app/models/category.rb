@@ -17,5 +17,5 @@ class Category < ActiveRecord::Base
 
   belongs_to :menu
 
-  has_many :dishes, :dependent => :destroy, :order => :rank
+  has_many :dishes, -> { order(:rank) }, :dependent => :destroy
 end

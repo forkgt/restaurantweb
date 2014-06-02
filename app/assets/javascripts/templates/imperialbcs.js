@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
+//= require ./public/dish_dialog_for_foundation
+
+// turbolinks conflicts with foundation
 
 $(function(){ $(document).foundation(); });

@@ -1,6 +1,26 @@
-<h1>Editing category</h1>
+<br/><br/>
 
-<%= render 'form' %>
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    >> <%= link_to 'Stores', stores_path %>
+    >> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
+    >> <%= link_to 'Categories for ' + @menu.name, menu_categories_path(@menu) %>
 
-<%= link_to 'Show', menu_category_path(@menu, @category) %> |
-<%= link_to 'Back', menu_categories_path(@menu) %>
+    <h1>Editing category</h1>
+
+    <%= render 'form' %>
+
+    <%= link_to 'Show', menu_category_path(@menu, @category) %> |
+    <%= link_to 'Back', menu_categories_path(@menu) %>
+<% else %>
+    >> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
+    >> <%= link_to @menu.name, menu_categories_path(@menu) %>
+
+    <h1>Editing category</h1>
+
+    <%= render 'form' %>
+
+    <%= link_to 'Back', menu_categories_path(@menu) %>
+<% end %>
+
+
+

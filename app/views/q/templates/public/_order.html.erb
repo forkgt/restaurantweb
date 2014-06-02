@@ -1,5 +1,5 @@
 <div id="store_order_form" >
-  <%= simple_form_for(@order, validate: true) do |f| %>
+  <%= simple_form_for([@store, @order], validate: true) do |f| %>
       <%= f.error_notification %>
 
       <div class="row">

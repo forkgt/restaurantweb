@@ -1,0 +1,39 @@
+@import 'foundation';
+
+
+
+$menu_color: #000000;
+$menu_bg_color: #DDD;
+$category_color: #FFFFFF;
+$category_bg_color: #7B0B17;
+$dish_color: #000099;
+$dish_bg_color: #ffffff;
+
+div.menu {
+  color: $menu_color;
+  background-color: $menu_bg_color;
+  min-height: 500px;
+
+  div.category {
+    color:$category_color;
+    background-color:$category_bg_color;
+    height:40px;
+
+    .category_name {
+      height:30px;line-height:30px;font-size:20px;font-weight:bold;padding:5px 20px;
+    }
+    .category_desc {
+      height:30px;line-height:30px;font-size:12px;
+
+      a {color:#FFFFFF;}
+    }
+  }
+
+  div.dish {
+    color: $dish_color;
+    background-color: $dish_bg_color;
+    line-height:30px;
+    font-size:14px;
+    border-bottom:1px solid #DDDDDD;
+  }
+}

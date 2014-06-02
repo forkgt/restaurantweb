@@ -1,43 +1,95 @@
-<h1>Listing categories</h1>
-
->> <%= link_to 'Stores', stores_path %>
->> <%= link_to 'Menus', store_menus_path(@menu.store) %>
->> <%= link_to 'Categories', menu_categories_path(@menu) %>
-
 <br/><br/>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Desc</th>
-      <th>Rank</th>
-      <th>Avatar</th>
-      <th>Menu</th>
-      <th>Dishes</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    >> <%= link_to 'Stores', stores_path %>
+    >> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
+    >> <%= link_to 'Categories for ' + @menu.name, menu_categories_path(@menu) %>
+    <br/><br/>
 
-  <tbody>
-    <% @categories.each do |category| %>
+    <table>
+      <thead>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= category.desc %></td>
-        <td><%= category.rank %></td>
-        <td><%= category.avatar %></td>
-        <td><%= category.menu.name %></td>
-        <td><%= link_to 'Dishes', category_dishes_path(category) %></td>
-        <td><%= link_to 'Show', menu_category_path(@menu, category) %></td>
-        <td><%= link_to 'Edit', edit_menu_category_path(@menu, category) %></td>
-        <td><%= link_to 'Destroy', [@menu, category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Desc</th>
+        <th>Rank</th>
+        <th>Avatar</th>
+        <th>Menu</th>
+        <th>Dishes</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<br>
+      <tbody>
+      <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td><%= category.desc %></td>
+            <td><%= category.rank %></td>
+            <td><%= category.avatar %></td>
+            <td><%= category.menu.name %></td>
+            <td><%= link_to 'Dishes', category_dishes_path(category) %></td>
+            <td><%= link_to 'Show', menu_category_path(@menu, category) %></td>
+            <td><%= link_to 'Edit', edit_menu_category_path(@menu, category) %></td>
+            <td><%= link_to 'Destroy', [@menu, category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-<%= link_to 'New Category', new_menu_category_path(@menu) %>
+    <br>
+
+    <%= link_to 'New Category', new_menu_category_path(@menu) %>
+
+    <br/>
+    <hr/>
+    <br/>
+<% end %>
+
+>> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
+>> <%= link_to @menu.name, menu_categories_path(@menu) %>
+
+<% @categories.each do |category| %>
+    <div class="panel" style="margin: 30px 0px 0px 0px;">
+      <span style="font-weight: bold;"><%= category.name %> (Rank: <%= category.rank %>) <%= category.desc %></span>
+      <div style="float: right;">
+        <%= link_to image_tag("/assets/Pencil-32.png"), edit_menu_category_path(category.menu, category) %>
+        <%= link_to image_tag("/assets/Delete-32.png"), [category.menu, category], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <div class="row">
+      <% category.dishes.each do |dish| %>
+          <div class="large-6 columns">
+            <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
+              <!--<%= dish.desc %>-->
+              <!--<% dish.dish_features.each do |df| %>  <%= df.name %> <% end %>-->
+              <!--<% dish.dish_choices.each do |dc| %>   <%= dc.name %> <% end %>-->
+
+              <%= dish.name %> (Rank: <%= dish.rank %>)
+              <%= number_to_currency dish.price %>
+
+              <div style="float: right;">
+                <%= link_to image_tag("/assets/Data-Edit-24.png"), edit_category_dish_path(category, dish) %>
+                <%= link_to image_tag("/assets/Delete-24.png"), [category, dish], method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <div class="large-6 columns" style="float: left;">
+        <div style="border-bottom: 1px dashed #000000;line-height: 30px;text-align: center;">
+          <%= link_to image_tag("/assets/Add-24.png"), new_category_dish_path(category) %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<div class="panel" style="margin: 30px 0px 0px 0px;">
+  <span style="font-weight: bold;">Add New Category</span>
+  <div style="float: right;">
+    <%= link_to image_tag("/assets/Add-32.png"), new_menu_category_path(@menu) %>
+  </div>
+</div>
+
+<br/><br/>
+<%= link_to "Back", store_menus_path(@menu.store) %>

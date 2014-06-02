@@ -1,42 +1,76 @@
-<h1>Listing menus</h1>
-
->> <%= link_to 'Stores', stores_path %>
->> <%= link_to 'Menus', store_menus_path(@store) %>
-
 <br/><br/>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Desc</th>
-      <th>Rank</th>
-      <th>Avatar</th>
-      <th>Store</th>
-      <th>Categories</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% if current_admin.email == "wanfenghuaian@gmail.com" %>
+    >> <%= link_to 'Stores', stores_path %>
+    >> <%= link_to 'Menus for ' + @store.name, store_menus_path(@store) %>
+    <br/><br/>
 
-  <tbody>
-    <% @menus.each do |menu| %>
+    <table>
+      <thead>
       <tr>
-        <td><%= menu.name %></td>
-        <td><%= menu.desc %></td>
-        <td><%= menu.rank %></td>
-        <td><%= menu.avatar %></td>
-        <td><%= menu.store.name %></td>
-        <td><%= link_to 'Categories', menu_categories_path(menu) %></td>
-        <td><%= link_to 'Show', store_menu_path(@store, menu) %></td>
-        <td><%= link_to 'Edit', edit_store_menu_path(@store, menu) %></td>
-        <td><%= link_to 'Destroy', [@store, menu], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Desc</th>
+        <th>Rank</th>
+        <th>Avatar</th>
+        <th>Store</th>
+        <th>Categories</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<br>
+      <tbody>
+      <% @menus.each do |menu| %>
+          <tr>
+            <td><%= menu.name %></td>
+            <td><%= menu.desc %></td>
+            <td><%= menu.rank %></td>
+            <td><%= menu.avatar %></td>
+            <td><%= menu.store.name %></td>
+            <td><%= link_to 'Categories', menu_categories_path(menu) %></td>
+            <td><%= link_to 'Show', store_menu_path(@store, menu) %></td>
+            <td><%= link_to 'Edit', edit_store_menu_path(@store, menu) %></td>
+            <td><%= link_to 'Destroy', [@store, menu], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <br/>
 
-<%= link_to 'New Menu', new_store_menu_path(@store) %>
+    <%= link_to 'New Menu', new_store_menu_path(@store) %>
+    <br/>
+    <hr/>
+    <br/>
+<% end %>
+
+>> <%= link_to 'Menus for ' + @store.name, store_menus_path(@store) %>
+<br/><br/>
+
+<div class="row">
+  <% @menus.each do |menu| %>
+      <div class="large-4 columns">
+        <div class="panel" style="height: 200px;">
+          <P>[ ID: <%= menu.id %> ]</P>
+          <h5><%= menu.name %></h5>
+          <p><%= menu.desc %></p>
+          <hr/>
+          <div style="text-align: center;">
+            <%= link_to image_tag("/assets/Document-01-32.png"), menu_categories_path(menu) %>
+            <%= link_to image_tag("/assets/Pencil-32.png"), edit_store_menu_path(@store, menu) %>
+            <%= link_to image_tag("/assets/Delete-32.png"), [@store, menu], method: :delete, :data => { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  <div class="large-4 columns" style="float: left;">
+    <div class="panel" style="height: 200px;">
+      <br/><br/>
+      <h5>Create New Menu</h5>
+      <hr/>
+      <div style="text-align: center;">
+        <%= link_to image_tag("/assets/Add-32.png").html_safe, new_store_menu_path(@store) %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,9 @@
+<br/><br/>
+>> <%= link_to 'Stores', stores_path %>
+>> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
+>> <%= link_to 'Categories for ' + @category.menu.name, menu_categories_path(@category.menu) %>
+>> <%= link_to 'Dishes for ' + @category.name, category_dishes_path(@category) %>
+
 <p id="notice"><%= notice %></p>
 
 <p>

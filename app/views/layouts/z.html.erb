@@ -57,7 +57,23 @@
 </nav>
 
 <div class="row">
-  <div class="large-12 columns">
+  <div class="large-2 columns">
+    <br/><br/>
+    <ul class="side-nav">
+      <li><img src="http://placehold.it/400x400&text=Z"/><br/><br/></li>
+      <li><%= link_to "Stores", stores_path %></li>
+      <li><%= link_to "Templates", templates_path %></li>
+      <li><%= link_to "Dish Choices", dish_choices_path %></li>
+      <li><%= link_to "Dish Features", dish_features_path %></li>
+      <li><%= link_to "Coupons", coupons_path %></li>
+      <li><%= link_to "Users", "#" %></li>
+      <li><%= link_to "Subscriptions", subscriptions_path %></li>
+
+      <li><a href="#">Section 5</a></li>
+      <li><a href="#">Section 6</a></li>
+    </ul>
+  </div>
+  <div class="large-10 columns">
     <%= yield %>
   </div>
 </div>

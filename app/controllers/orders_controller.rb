@@ -1,10 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :set_store
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders_of_today = @store.orders.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day)
+    @orders_of_yesterday = @store.orders.where(:created_at => Time.now.yesterday.beginning_of_day..Time.now.yesterday.end_of_day)
+    @orders_of_this_month = @store.orders.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month)
   end
 
   # GET /orders/1
@@ -14,7 +17,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
+    @order = @store.orders.build
   end
 
   # GET /orders/1/edit
@@ -61,14 +64,16 @@ class OrdersController < ApplicationController
           # Send Fax through Interfax
           #@order.to_fax
 
-          format.html { redirect_to @order, notice: 'Order was successfully created.' }
+          #format.html { redirect_to store_order_url(@store, @order), notice: 'Order was successfully created.' }
+          format.html { redirect_to q_store_order_success_url, notice: 'Order was successfully created.' }
           format.json { render json: @order, status: :created, location: @order }
         end
       else
         @cart = current_cart(@order.store_id, false)
         @order.user.email = ""
 
-        format.html { render action: "new" }
+        #format.html { render action: "new" }
+        format.html { redirect_to q_store_order_failure_url(@store, @order), notice: 'Order was successfully created.' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -79,7 +84,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to store_order_url(@store, @order), notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -99,7 +104,12 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    def set_store
+      @store = Store.find(params[:store_id])
+    end
+
+  # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
     end

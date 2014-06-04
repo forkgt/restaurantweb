@@ -1,4 +1,4 @@
-<%= simple_form_for([@store, @menu]) do |f| %>
+<%= simple_nested_form_for([@store, @menu]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -6,6 +6,21 @@
     <%= f.input :desc %>
     <%= f.input :rank %>
     <%= f.input :avatar %>
+    <hr/>
+
+    <h5>Open Hours:</h5>
+    <div class="row">
+      <%= f.fields_for :hours do |hour| %>
+          <div class="large-3 columns">
+            <%= hour.input :name %>
+            <%= hour.input :desc %>
+            <%= hour.input :open_at %>
+            <%= hour.input :close_at %>
+            <%= hour.link_to_remove "Remove", class: "button tiny" %>
+          </div>
+      <% end %>
+      <%= f.link_to_add "Add", :hours, class: "button" %>
+    </div>
   </div>
 
   <div class="form-actions">

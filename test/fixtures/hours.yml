@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  desc: MyString
+  open_at: MyString
+  close_at: MyString
+  hourable_id: 
+  hourable_type: Hourable
+
+two:
+  name: MyString
+  desc: MyString
+  open_at: MyString
+  close_at: MyString
+  hourable_id: 
+  hourable_type: Hourable

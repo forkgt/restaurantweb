@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322141236) do
+ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -156,6 +156,19 @@ ActiveRecord::Schema.define(version: 20140322141236) do
   end
 
   add_index "dishes", ["category_id"], name: "index_dishes_on_category_id"
+
+  create_table "hours", force: true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.string   "open_at"
+    t.string   "close_at"
+    t.integer  "hourable_id"
+    t.string   "hourable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "hours", ["hourable_id", "hourable_type"], name: "index_hours_on_hourable_id_and_hourable_type"
 
   create_table "menus", force: true do |t|
     t.string   "name"

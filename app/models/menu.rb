@@ -15,8 +15,13 @@ class Menu < ActiveRecord::Base
   #  end
   #end
 
+  include Hourable
 
   belongs_to :store
 
   has_many :categories, -> { order(:rank) }, :dependent => :destroy
+
+  has_many :hours, :dependent => :destroy, :as => :hourable
+  accepts_nested_attributes_for :hours, :allow_destroy => true
+
 end

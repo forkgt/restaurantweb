@@ -25,9 +25,9 @@
         <td><%= store.phone %><br/><%= store.fax %></td>
         <td><%= store.admin.email %></td>
         <td>
-          <%= link_to image_tag("/assets/View-Details-01-24.png"), store %>
-          <%= link_to image_tag("/assets/Data-Edit-24.png"), edit_store_path(store) %>
-          <%= link_to image_tag("/assets/Delete-24.png"), store, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to image_tag("View-Details-01-24.png"), store %>
+          <%= link_to image_tag("Data-Edit-24.png"), edit_store_path(store) %>
+          <%= link_to image_tag("Delete-24.png"), store, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
         <td>
           <%= link_to 'Menus', store_menus_path(store) %> |

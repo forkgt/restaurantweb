@@ -24,5 +24,5 @@
 # Ignore uploaded files
 /public/uploads
 
-# Ignore app config
-/config/app_config.yml
+# Ignore app config unless reading from openshift env
+# /config/app_config.yml

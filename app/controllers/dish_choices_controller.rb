@@ -69,6 +69,6 @@ class DishChoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dish_choice_params
-      params.require(:dish_choice).permit(:name, :desc, :content, :input_type, :must, :store_id, :checked)
+      params.require(:dish_choice).permit(:name, :bei, :content, :input_type, :must, :store_id, :checked)
     end
 end

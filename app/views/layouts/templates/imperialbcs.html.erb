@@ -27,59 +27,76 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <nav class="top-bar">
-      <ul class="title-area">
-        <li class="name">
-          <h1>
-            <a href="#">
-              <%= @store.name %>
-            </a>
-          </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="left">
-          <li><%= link_to "Home", q_store_home_path %></li>
-          <li><%= link_to "Menus", q_store_menus_path %></li>
-          <li><%= link_to "Map", q_store_map_path %></li>
-        </ul>
-        <ul class="right">
-          <li class="search">
-            <form>
-              <input type="search">
-            </form>
-          </li>
 
-          <li class="has-button">
-            <a class="small button" href="#">Search</a>
-          </li>
-        </ul>
-      </section>
-    </nav>
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+        <nav class="tab-bar show-for-small">
+          <section class="left-small">
+            <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+          </section>
+          <section class="right tab-bar-section">
+            <h1 class="title"><%= @store.name %></h1>
+          </section>
+        </nav>
+
+        <nav class="top-bar hide-for-small" data-topbar>
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="index.html"><%= @store.name %></a></h1>
+            </li>
+          </ul>
+          <section class="top-bar-section">
+            <ul class="right">
+              <li class="divider"></li>
+              <li><%= link_to "Home", q_store_home_path %></li>
+              <li class="divider"></li>
+              <li class="active"><%= link_to "Menus", q_store_menus_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Map", q_store_map_path %></li>
+            </ul>
+          </section>
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li><label>Foundation</label></li>
+            <li><%= link_to "Home", q_store_home_path %></li>
+            <li><%= link_to "Menus", q_store_menus_path %></li>
+            <li><%= link_to "Map", q_store_map_path %></li>
+          </ul>
+        </aside>
+
+        <section class="main-section">
+          <%= yield %>
+
+          <footer class="row">
+            <div class="large-12 columns">
+              <hr />
+              <div class="row">
+                <div class="large-6 columns">
+                  <p>&copy; Copyright no one at all. Go to town.</p>
+                </div>
+                <div class="large-6 columns">
+                  <ul class="inline-list right">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><%= link_to "777POS", q_index_url(subdomain:false) %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </section>
+
+        <a class="exit-off-canvas"></a>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<%= yield %>
-
-<footer class="row">
-  <div class="large-12 columns">
-    <hr />
-    <div class="row">
-      <div class="large-6 columns">
-        <p>&copy; Copyright no one at all. Go to town.</p>
-      </div>
-      <div class="large-6 columns">
-        <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><%= link_to "777POS", q_index_url(subdomain:false) %></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</footer>
-
 </body>
+
 </html>

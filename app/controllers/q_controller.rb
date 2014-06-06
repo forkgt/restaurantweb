@@ -6,7 +6,7 @@ class QController < ApplicationController
     # Match the host to all stores
     # Yes => Go to the matched store
     # No  => Go to the index page
-    @store = Store.find_by desc: request.host
+    @store = Store.find_by domain: request.host
     if @store.nil?
       @stores = Store.all
     else
@@ -86,10 +86,10 @@ class QController < ApplicationController
     #@store = Store.find(params[:id])   # Find Store through id in the params
     #@store = Store.find_by_desc(request.subdomain) if request.subdomain.present? && request.subdomain != "www"   # Deal with Subdomain
 
-    # Check if there is session[:store] and session[:store][:desc] matches the host name
+    # Check if there is session[:store] and session[:store][:domain] matches the host name
     # Yes => No need to reload the store
     # No  => Must reload the store
-    @store = Store.find_by desc: request.host
+    @store = Store.find_by domain: request.host
     if @store.nil?
       redirect_to q_missing_path
       return

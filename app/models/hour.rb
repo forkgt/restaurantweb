@@ -5,7 +5,7 @@ class Hour < ActiveRecord::Base
   #  def change
   #    create_table :hours do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
   #      t.string :open_at
   #      t.string :close_at
   #      t.references :hourable, polymorphic: true, index: true
@@ -14,6 +14,7 @@ class Hour < ActiveRecord::Base
   #    end
   #  end
   #end
+
 
 
   belongs_to :hourable, polymorphic: true

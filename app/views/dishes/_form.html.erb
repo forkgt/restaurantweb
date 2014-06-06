@@ -3,10 +3,10 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :desc %>
+    <%= f.input :bei %>
     <%= f.input :rank %>
-    <%= image_tag @dish.avatar_url.to_s, title: @dish.name if @dish.avatar? %>
-    <%= f.input :avatar %>
+    <%= image_tag @dish.image_url.to_s, title: @dish.name if @dish.image? %>
+    <%= f.input :image %>
     <%= f.input :price %>
     <%= f.association :dish_features, as: :check_boxes, collection: @category.menu.store.dish_features %>
     <%= f.association :dish_choices, as: :check_boxes, collection: @category.menu.store.dish_choices, item_wrapper_class: 'inline' %>

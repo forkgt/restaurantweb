@@ -3,11 +3,11 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :desc %>
+    <%= f.input :bei %>
     <%= f.input :rank %>
     <%= f.association :store %>
-    <%= image_tag @dish_feature.avatar_url(:small).to_s if @dish_feature.avatar? %>
-    <%= f.input :avatar %>
+    <%= image_tag @dish_feature.image_url(:small).to_s if @dish_feature.image? %>
+    <%= f.input :image %>
   </div>
 
   <div class="form-actions">

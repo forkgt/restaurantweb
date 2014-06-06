@@ -10,9 +10,9 @@
       <thead>
       <tr>
         <th>Name</th>
-        <th>Desc</th>
+        <th>Bei</th>
         <th>Rank</th>
-        <th>Avatar</th>
+        <th>Image</th>
         <th>Menu</th>
         <th>Dishes</th>
         <th></th>
@@ -25,9 +25,9 @@
       <% @categories.each do |category| %>
           <tr>
             <td><%= category.name %></td>
-            <td><%= category.desc %></td>
+            <td><%= category.bei %></td>
             <td><%= category.rank %></td>
-            <td><%= category.avatar %></td>
+            <td><%= category.image %></td>
             <td><%= category.menu.name %></td>
             <td><%= link_to 'Dishes', category_dishes_path(category) %></td>
             <td><%= link_to 'Show', menu_category_path(@menu, category) %></td>
@@ -52,7 +52,7 @@
 
 <% @categories.each do |category| %>
     <div class="panel" style="margin: 30px 0px 0px 0px;">
-      <span style="font-weight: bold;"><%= category.name %> (Rank: <%= category.rank %>) <%= category.desc %></span>
+      <span style="font-weight: bold;"><%= category.name %> (Rank: <%= category.rank %>) <%= category.bei %></span>
       <div style="float: right;">
         <%= link_to image_tag("Pencil-32.png"), edit_menu_category_path(category.menu, category) %>
         <%= link_to image_tag("Delete-32.png"), [category.menu, category], method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -62,7 +62,7 @@
       <% category.dishes.each do |dish| %>
           <div class="large-6 columns">
             <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
-              <!--<%= dish.desc %>-->
+              <!--<%= dish.bei %>-->
               <!--<% dish.dish_features.each do |df| %>  <%= df.name %> <% end %>-->
               <!--<% dish.dish_choices.each do |dc| %>   <%= dc.name %> <% end %>-->
 

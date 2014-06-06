@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
-    t.string   "avatar"
+    t.string   "image"
     t.integer  "menu_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -88,11 +88,11 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "coupons", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
-    t.string   "avatar"
+    t.string   "image"
     t.decimal  "price",      precision: 8, scale: 2
-    t.decimal  "minimum",    precision: 8, scale: 2
+    t.decimal  "minimum",    precision: 8, scale: 2, default: 0.0
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer  "store_id"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "dish_choices", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.string   "content",    default: "abc:0,def:1"
     t.string   "input_type", default: "radio"
     t.boolean  "must",       default: false
@@ -126,12 +126,12 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "dish_features", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
+    t.string   "image"
     t.integer  "store_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
   end
 
   add_index "dish_features", ["store_id"], name: "index_dish_features_on_store_id"
@@ -146,10 +146,10 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "dishes", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
-    t.string   "avatar"
-    t.decimal  "price"
+    t.string   "image"
+    t.decimal  "price",       precision: 8, scale: 2
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "hours", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.string   "open_at"
     t.string   "close_at"
     t.integer  "hourable_id"
@@ -172,9 +172,9 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "menus", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
-    t.string   "avatar"
+    t.string   "image"
     t.integer  "store_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -186,13 +186,13 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.string   "note"
     t.string   "payment_type",                            default: "cash",     null: false
     t.string   "payment_status",                          default: "not_paid", null: false
+    t.string   "transfer_status"
     t.decimal  "tip",             precision: 8, scale: 2, default: 0.0
     t.integer  "store_id"
     t.integer  "cart_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "transfer_status"
   end
 
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id"
@@ -201,13 +201,14 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "stores", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
     t.integer  "rank"
-    t.string   "avatar"
+    t.string   "image"
+    t.string   "domain"
     t.string   "phone"
     t.string   "fax"
-    t.decimal  "delivery_minimum"
-    t.decimal  "delivery_fee"
+    t.decimal  "delivery_minimum", precision: 8, scale: 2, default: 0.0
+    t.decimal  "delivery_fee",     precision: 8, scale: 2, default: 0.0
     t.integer  "delivery_radius"
     t.integer  "admin_id"
     t.datetime "created_at"
@@ -230,11 +231,12 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "templates", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "bei"
+    t.string   "framework"
     t.integer  "rank"
-    t.string   "avatar"
-    t.decimal  "price"
-    t.integer  "interval"
+    t.string   "image"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.integer  "interval",                           default: 12
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -255,7 +257,7 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "phone"
-    t.string   "avatar"
+    t.string   "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

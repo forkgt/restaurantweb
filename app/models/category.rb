@@ -5,15 +5,16 @@ class Category < ActiveRecord::Base
   #  def change
   #    create_table :categories do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
   #      t.integer :rank
-  #      t.string :avatar
+  #      t.string :image
   #      t.references :menu, index: true
   #
   #      t.timestamps
   #    end
   #  end
   #end
+
 
   belongs_to :menu
 

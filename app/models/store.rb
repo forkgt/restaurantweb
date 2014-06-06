@@ -5,12 +5,13 @@ class Store < ActiveRecord::Base
   #  def change
   #    create_table :stores do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
   #      t.integer :rank
-  #      t.string :avatar
+  #      t.string :image
+  #      t.string :domain
   #      t.string :phone
   #      t.string :fax
-  #      t.decimal :delivery_minimum
+  #      t.decimal :delivery_minimum, :default => 0, :precision => 8, :scale => 2
   #      t.decimal :delivery_fee, :default => 0, :precision => 8, :scale => 2
   #      t.integer :delivery_radius
   #      t.references :admin, index: true
@@ -19,6 +20,7 @@ class Store < ActiveRecord::Base
   #    end
   #  end
   #end
+
 
 
   belongs_to :admin
@@ -46,7 +48,7 @@ class Store < ActiveRecord::Base
   #has_one :template, through: :subscription, :source => :subscribable, :source_type => 'Template'
 
   def get_current_template
-    templates.first.name
+    templates.take.name
   end
 
   def has_delivery_service?

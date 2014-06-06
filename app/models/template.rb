@@ -5,9 +5,10 @@ class Template < ActiveRecord::Base
   #  def change
   #    create_table :templates do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
+  #      t.string :framework
   #      t.integer :rank
-  #      t.string :avatar
+  #      t.string :image
   #      t.decimal :price , precision: 8, scale: 2
   #      t.integer :interval, default: 12
   #
@@ -15,6 +16,7 @@ class Template < ActiveRecord::Base
   #    end
   #  end
   #end
+
 
   has_many :subscriptions, as: :subscribable
   has_many :stores, through: :subscriptions

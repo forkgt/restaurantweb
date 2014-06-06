@@ -3,9 +3,9 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :desc %>
+    <%= f.input :bei %>
     <%= f.input :rank %>
-    <%= f.input :avatar %>
+    <%= f.input :image %>
     <hr/>
 
     <h5>Open Hours:</h5>
@@ -13,7 +13,7 @@
       <%= f.fields_for :hours do |hour| %>
           <div class="large-3 columns">
             <%= hour.input :name %>
-            <%= hour.input :desc %>
+            <%= hour.input :bei %>
             <%= hour.input :open_at %>
             <%= hour.input :close_at %>
             <%= hour.link_to_remove "Remove", class: "button tiny" %>

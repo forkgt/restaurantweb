@@ -25,9 +25,9 @@
       <% @dishes.each do |dish| %>
           <tr>
             <td><%= dish.name %></td>
-            <td><%= dish.desc %></td>
+            <td><%= dish.bei %></td>
             <td><%= dish.rank %></td>
-            <td><%= dish.avatar %></td>
+            <td><%= dish.image %></td>
             <td><%= dish.price %></td>
             <td><%= dish.category.name %></td>
             <td><%= link_to 'Show', category_dish_path(@category, dish) %></td>
@@ -52,7 +52,7 @@
 >> <%= link_to @category.name, category_dishes_path(@category) %>
 
 <div class="panel" style="margin: 30px 0px 0px 0px;">
-  <span style="font-weight: bold;"><%= @category.name %> (Rank: <%= @category.rank %>) <%= @category.desc %></span>
+  <span style="font-weight: bold;"><%= @category.name %> (Rank: <%= @category.rank %>) <%= @category.bei %></span>
   <%= link_to '[Enter]', category_dishes_path(@category) %>
   <%= link_to '[Edit]', edit_menu_category_path(@category.menu, @category) %>
   <%= link_to '[x]', [@category.menu, @category], method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -61,7 +61,7 @@
   <% @category.dishes.each do |dish| %>
       <div class="large-6 columns">
         <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
-          <!--<%= dish.desc %>-->
+          <!--<%= dish.bei %>-->
           <!--<% dish.dish_features.each do |df| %>  <%= df.name %> <% end %>-->
           <!--<% dish.dish_choices.each do |dc| %>   <%= dc.name %> <% end %>-->
 

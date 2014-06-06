@@ -69,6 +69,6 @@ class DishFeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dish_feature_params
-      params.require(:dish_feature).permit(:name, :desc, :rank, :store_id, :avatar)
+      params.require(:dish_feature).permit(:name, :bei, :rank, :store_id, :image)
     end
 end

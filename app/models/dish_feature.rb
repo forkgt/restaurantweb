@@ -5,24 +5,20 @@ class DishFeature < ActiveRecord::Base
   #  def change
   #    create_table :dish_features do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
   #      t.integer :rank
+  #      t.string :image
   #      t.references :store, index: true
   #
   #      t.timestamps
   #    end
   #  end
   #end
-  #
-  #class AddAvatarToDishFeatures < ActiveRecord::Migration
-  #  def change
-  #    add_column :dish_features, :avatar, :string
-  #  end
-  #end
+
 
   belongs_to :store
 
   has_and_belongs_to_many :dishes
 
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :image, AvatarUploader
 end

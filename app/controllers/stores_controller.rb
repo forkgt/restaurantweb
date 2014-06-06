@@ -73,7 +73,7 @@ class StoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_params
-      params.require(:store).permit(:name, :desc, :rank, :avatar, :phone, :fax, :delivery_minimum, :delivery_fee, :delivery_radius, :admin_id,
+      params.require(:store).permit(:name, :bei, :domain, :rank, :image, :phone, :fax, :delivery_minimum, :delivery_fee, :delivery_radius, :admin_id,
                                     :address_attributes => [:id, :address1, :address2, :city, :state, :country, :zip],
                                     :template_ids => [])
     end

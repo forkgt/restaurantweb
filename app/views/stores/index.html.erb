@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Desc</th>
+      <th>Domain</th>
       <th>Phone/Fax</th>
       <th>Admin</th>
 
@@ -21,7 +21,7 @@
     <% @stores.each do |store| %>
       <tr>
         <td><%= store.id %>. <%= store.name %></td>
-        <td><%= store.desc %></td>
+        <td><%= store.domain %></td>
         <td><%= store.phone %><br/><%= store.fax %></td>
         <td><%= store.admin.email %></td>
         <td>

@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Desc</th>
+      <th>Bei</th>
       <th>Rank</th>
       <th>Store</th>
       <th></th>
@@ -17,7 +17,7 @@
     <% @dish_features.each do |dish_feature| %>
       <tr>
         <td><%= dish_feature.name %></td>
-        <td><%= dish_feature.desc %></td>
+        <td><%= dish_feature.bei %></td>
         <td><%= dish_feature.rank %></td>
         <td><%= dish_feature.store.name %></td>
         <td><%= link_to 'Show', dish_feature %></td>

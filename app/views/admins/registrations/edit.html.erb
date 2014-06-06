@@ -35,10 +35,10 @@
     <h2>My Store:</h2>
     <% resource.stores.each do |st| %>
         <hr/>
-        <b><%= st.name %></b> | <%= st.desc %><br/><br/>
+        <b><%= st.name %></b> | <%= st.domain %><br/><br/>
         Phone: <%= st.phone %> | Fax: <%= st.fax %>
         <br/><br/>
-        <%= link_to st.name, root_url( subdomain: st.desc ) %>
+        <%= link_to st.name, root_url( subdomain: st.domain ) %>
 
     <% end %>
   </div>

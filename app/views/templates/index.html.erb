@@ -4,9 +4,9 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Desc</th>
+      <th>Framework</th>
       <th>Rank</th>
-      <th>Avatar</th>
+      <th>Image</th>
       <th>Price</th>
       <th>Interval</th>
       <th></th>
@@ -19,9 +19,9 @@
     <% @templates.each do |template| %>
       <tr>
         <td><%= template.name %>: <%= template.id %></td>
-        <td><%= template.desc %></td>
+        <td><%= template.framework %></td>
         <td><%= template.rank %></td>
-        <td><%= template.avatar %></td>
+        <td><%= template.image %></td>
         <td><%= template.price %></td>
         <td><%= template.interval %></td>
         <td><%= link_to 'Show', template %></td>

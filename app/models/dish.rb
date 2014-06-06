@@ -5,9 +5,9 @@ class Dish < ActiveRecord::Base
   #  def change
   #    create_table :dishes do |t|
   #      t.string :name
-  #      t.string :desc
+  #      t.string :bei
   #      t.integer :rank
-  #      t.string :avatar
+  #      t.string :image
   #      t.decimal :price, :precision => 8, :scale => 2
   #      t.references :category, index: true
   #
@@ -17,10 +17,11 @@ class Dish < ActiveRecord::Base
   #end
 
 
+
   belongs_to :category
 
   has_and_belongs_to_many :dish_features
   has_and_belongs_to_many :dish_choices
 
-  mount_uploader :avatar, PhotoUploader
+  mount_uploader :image, PhotoUploader
 end

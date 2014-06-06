@@ -9,9 +9,9 @@
       <thead>
       <tr>
         <th>Name</th>
-        <th>Desc</th>
+        <th>Bei</th>
         <th>Rank</th>
-        <th>Avatar</th>
+        <th>Image</th>
         <th>Store</th>
         <th>Categories</th>
         <th></th>
@@ -24,9 +24,9 @@
       <% @menus.each do |menu| %>
           <tr>
             <td><%= menu.name %></td>
-            <td><%= menu.desc %></td>
+            <td><%= menu.bei %></td>
             <td><%= menu.rank %></td>
-            <td><%= menu.avatar %></td>
+            <td><%= menu.image %></td>
             <td><%= menu.store.name %></td>
             <td><%= link_to 'Categories', menu_categories_path(menu) %></td>
             <td><%= link_to 'Show', store_menu_path(@store, menu) %></td>
@@ -53,7 +53,7 @@
         <div class="panel" style="height: 200px;">
           <P>[ ID: <%= menu.id %> ]</P>
           <h5><%= menu.name %><span style="color: red;float: right;"><%= menu.still_open? ? "Open" : "Closed" %></span></h5>
-          <p><%= menu.desc %></p>
+          <p><%= menu.bei %></p>
           <hr/>
           <div style="text-align: center;">
             <%= link_to image_tag("Document-01-32.png"), menu_categories_path(menu) %>

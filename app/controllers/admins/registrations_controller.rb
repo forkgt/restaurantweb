@@ -23,6 +23,6 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << { stores_attributes: [:name, :desc, :phone, :fax] }
+    devise_parameter_sanitizer.for(:sign_up) << { stores_attributes: [:name, :bei, :phone, :fax] }
   end
 end

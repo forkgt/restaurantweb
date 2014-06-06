@@ -54,8 +54,8 @@
                                 <%= link_to number_to_currency(dish.price), "#", data: { :'reveal-id' => "dish_dialog_" +dish.id.to_s } %>
                               </div>
                               <div class="dish_pic large-12 columns" style="display: none ">
-                                <% if dish.avatar? %>
-                                    <%= image_tag dish.avatar_url.to_s, title: dish.name %>
+                                <% if dish.image? %>
+                                    <%= image_tag dish.image_url.to_s, title: dish.name %>
                                 <% else %>
                                     <%= image_tag "http://placehold.it/620x450&text=" + @store.name %>
                                 <% end %>

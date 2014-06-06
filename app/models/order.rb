@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   #      t.string :note
   #      t.string :payment_type, :default => 'cash', :null => false
   #      t.string :payment_status, :default => 'not_paid', :null => false
+  #      t.string :transfer_status
   #      t.decimal :tip, :default => 0, :precision => 8, :scale => 2
   #      t.references :store, index: true
   #      t.references :cart, index: true
@@ -16,12 +17,7 @@ class Order < ActiveRecord::Base
   #    end
   #  end
   #end
-  #
-  #class AddTransferStatusToOrders < ActiveRecord::Migration
-  #  def change
-  #    add_column :orders, :transfer_status, :string
-  #  end
-  #end
+
 
   belongs_to :store
   belongs_to :cart

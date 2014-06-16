@@ -11,6 +11,9 @@ defaults: &defaults
   interfax_usr:    <%=ENV['interfax_usr']%>
   interfax_pwd:    <%=ENV['interfax_pwd']%>
 
+  # Google Information
+  google_usr:            <%=ENV['google_usr']%>
+  google_pwd:            <%=ENV['google_pwd']%>
 
 
   # IBM Mode (test/production)

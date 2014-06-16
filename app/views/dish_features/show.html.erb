@@ -20,5 +20,5 @@
   <%= @dish_feature.store %>
 </p>
 
-<%= link_to 'Edit', edit_dish_feature_path(@dish_feature) %> |
-<%= link_to 'Back', dish_features_path %>
+<%= link_to 'Edit', edit_store_dish_feature_path(@store, @dish_feature) %> |
+<%= link_to 'Back', store_dish_features_path(@store) %>

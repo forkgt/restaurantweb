@@ -38,13 +38,13 @@ class CartItemsController < ApplicationController
 
     end
 
-    # Use different js for different templates
-    @template = @cart.store.templates.first.name
+    # Use different js for different templates/framework
+    @framework = @cart.store.templates.take.framework
 
     respond_to do |format|
       if @cart_item
         if @cart_item.save
-          format.js   { @current_item = @cart_item, @template }
+          format.js   { @current_item = @cart_item, @framework }
           format.html { redirect_to @cart_item, notice: 'Cart item was successfully created.' }
           format.json { render action: 'show', status: :created, location: @cart_item }
         else

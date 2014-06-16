@@ -1,4 +1,8 @@
 defaults: &defaults
+  # IBM Mode (test/production)
+  ibm_mode:              test
+  ibm_domain:            localhost
+
   # Dropbox Information
   app_key:               ZZZZZZZZZZZZZZZZZZZ
   app_secret:            ZZZZZZZZZZZZZZZZZZZ
@@ -7,31 +11,37 @@ defaults: &defaults
   user_id:               ZZZZZZZZZZZZZZZZZZZ
 
   # Interfax Information
-  interfax_url:    https://ws.interfax.net/dfs.asmx?WSDL
-  interfax_usr:    ZZZZZZZZZZZZZZZZZZZ
-  interfax_pwd:    ZZZZZZZZZZZZZZZZZZZ
+  interfax_url:          https://ws.interfax.net/dfs.asmx?WSDL
+  interfax_usr:          ZZZZZZZZZZZZZZZZZZZ
+  interfax_pwd:          ZZZZZZZZZZZZZZZZZZZ
 
-
-
-  # IBM Mode (test/production)
-  ibm_mode:        test
+  # Google Information
+  google_usr:            ZZZZZZZZZZZZZZZZZZZ
+  google_pwd:            ZZZZZZZZZZZZZZZZZZZ
 
 production:
   <<: *defaults
 
-  domain: localhost
+  # Paypal Information
+  paypal_email: production@example.com
+  paypal_secret: production_secret
+  paypal_cert_id: production_cert_id
   paypal_base_url: https://www.paypal.com/cgi-bin/webscr
 
 development:
   <<: *defaults
 
-  domain: localhost
-
+  # Paypal Information
+  paypal_email: development@example.com
+  paypal_secret: development_secret
+  paypal_cert_id: development_cert_id
   paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr
 
 test:
   <<: *defaults
 
-  domain: localhost
-
-  paypal_email:    test@example.com
+  # Paypal Information
+  paypal_email: test@example.com
+  paypal_secret: test_secret
+  paypal_cert_id: test_cert_id
+  paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr

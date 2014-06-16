@@ -45,5 +45,5 @@
   <%= @coupon.store %>
 </p>
 
-<%= link_to 'Edit', edit_coupon_path(@coupon) %> |
-<%= link_to 'Back', coupons_path %>
+<%= link_to 'Edit', edit_store_coupon_path(@store, @coupon) %> |
+<%= link_to 'Back', store_coupons_path(@store) %>

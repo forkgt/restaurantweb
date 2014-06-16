@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604004036) do
+ActiveRecord::Schema.define(version: 20140615143127) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -42,12 +42,25 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "phone"
+    t.string   "image"
   end
 
+  add_index "admins", ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
 
   create_table "cart_items", force: true do |t|
     t.string   "name"
@@ -63,6 +76,17 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id"
   add_index "cart_items", ["cart_itemable_id", "cart_itemable_type"], name: "index_cart_items_on_cart_itemable_id_and_cart_itemable_type"
+
+  create_table "cartridges", force: true do |t|
+    t.string   "name"
+    t.string   "bei"
+    t.integer  "rank"
+    t.string   "image"
+    t.decimal  "price"
+    t.integer  "interval",   default: 12
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "carts", force: true do |t|
     t.string   "delivery_type",                         default: "delivery", null: false
@@ -184,6 +208,7 @@ ActiveRecord::Schema.define(version: 20140604004036) do
 
   create_table "orders", force: true do |t|
     t.string   "note"
+    t.string   "invoice"
     t.string   "payment_type",                            default: "cash",     null: false
     t.string   "payment_status",                          default: "not_paid", null: false
     t.string   "transfer_status"
@@ -199,6 +224,45 @@ ActiveRecord::Schema.define(version: 20140604004036) do
   add_index "orders", ["store_id"], name: "index_orders_on_store_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
+  create_table "payments", force: true do |t|
+    t.string   "name"
+    t.integer  "rank"
+    t.string   "bei"
+    t.string   "image"
+    t.string   "account"
+    t.integer  "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["store_id"], name: "index_payments_on_store_id"
+
+  create_table "statement_items", force: true do |t|
+    t.integer  "day"
+    t.string   "name"
+    t.string   "note"
+    t.decimal  "price"
+    t.integer  "quantity"
+    t.integer  "statement_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "statement_items", ["statement_id"], name: "index_statement_items_on_statement_id"
+
+  create_table "statements", force: true do |t|
+    t.integer  "year"
+    t.integer  "month"
+    t.string   "payment_type"
+    t.string   "payment_status"
+    t.string   "invoice"
+    t.integer  "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "statements", ["store_id"], name: "index_statements_on_store_id"
+
   create_table "stores", force: true do |t|
     t.string   "name"
     t.string   "bei"
@@ -207,6 +271,8 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.string   "domain"
     t.string   "phone"
     t.string   "fax"
+    t.string   "status",                                   default: "normal"
+    t.string   "uuid"
     t.decimal  "delivery_minimum", precision: 8, scale: 2, default: 0.0
     t.decimal  "delivery_fee",     precision: 8, scale: 2, default: 0.0
     t.integer  "delivery_radius"
@@ -252,6 +318,13 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "firstname"
@@ -260,7 +333,9 @@ ActiveRecord::Schema.define(version: 20140604004036) do
     t.string   "image"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
 end

@@ -13,7 +13,6 @@ class Subscription < ActiveRecord::Base
   #  end
   #end
 
-
   belongs_to :store
   belongs_to :subscribable, :polymorphic => true
 end

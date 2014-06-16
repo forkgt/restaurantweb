@@ -10,19 +10,27 @@ class StoresController < ApplicationController
   # GET /stores/1
   # GET /stores/1.json
   def show
+    @statements = Statement.where(:payment_status => "not_paid")
+
   end
 
   # GET /stores/new
   def new
     @store = Store.new
+    @store.build_address
+
+    @templates = Template.all
+    @cartridges = Cartridge.all
   end
 
   # GET /stores/1/edit
   def edit
-    @templates = Template.all
     if @store.address.nil?
       @store.build_address
     end
+
+    @templates = Template.all
+    @cartridges = Cartridge.all
   end
 
   # POST /stores
@@ -69,12 +77,14 @@ class StoresController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_store
       @store = Store.find(params[:id])
+      @cartridge_array = @store.get_cartridge_array
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_params
-      params.require(:store).permit(:name, :bei, :domain, :rank, :image, :phone, :fax, :delivery_minimum, :delivery_fee, :delivery_radius, :admin_id,
+      params.require(:store).permit(:name, :bei, :domain, :rank, :image, :phone, :fax, :status, :delivery_minimum, :delivery_fee, :delivery_radius,
+                                    :admin_id, :uuid,
                                     :address_attributes => [:id, :address1, :address2, :city, :state, :country, :zip],
-                                    :template_ids => [])
+                                    :template_ids => [], :cartridge_ids => [] )
     end
 end

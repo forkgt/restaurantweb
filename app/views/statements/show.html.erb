@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @statement.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @statement.month %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @statement.payment_type %>
+</p>
+
+<p>
+  <strong>Payment status:</strong>
+  <%= @statement.payment_status %>
+</p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @statement.invoice %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @statement.store %>
+</p>
+
+<%= link_to 'Edit', edit_store_statement_path(@store, @statement) %> |
+<%= link_to 'Back', store_statements_path(@store) %>

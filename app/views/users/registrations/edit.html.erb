@@ -1,89 +1,109 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="row">
+  <div class="large-6 columns">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <fieldset>
+          <%= f.error_notification %>
+          <legend>
+            Edit Your Profile
+          </legend>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-    <fieldset>
-      <%= f.error_notification %>
-      <legend>
-        Edit Your Profile
-      </legend>
+          <div class="row">
+            <div class="large-6 columns">
+              <%= f.input :email, :required => true, :autofocus => true %>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="large-6 columns">
-          <%= f.input :firstname %>
-        </div>
-        <div class="large-6 columns">
-          <%= f.input :lastname %>
-        </div>
-      </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+              <% end %>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="large-6 columns">
-          <%= f.input :email, :required => true, :autofocus => true %>
-        </div>
-        <div class="large-6 columns">
-          <%= f.input :phone %>
-        </div>
-      </div>
+          <div class="row">
+            <div class="large-4 columns">
+              <%= f.input :firstname %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :lastname %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :phone %>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="large-12 columns">
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <div class="row">
+            <div class="large-4 columns">
+              <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :password_confirmation, :required => false %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+            </div>
+          </div>
+
+          <%= f.fields_for :address do |addr| %>
+              <div class="row">
+                <div class="large-6 columns">
+                  <%= addr.input :address1 %>
+                </div>
+                <div class="large-6 columns">
+                  <%= addr.input :address2 %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="large-3 columns">
+                  <%= addr.input :city %>
+                </div>
+                <div class="large-3 columns">
+                  <%= addr.input :state %>
+                </div>
+                <div class="large-3 columns">
+                  <%= addr.input :country, :as => :string %>
+                </div>
+                <div class="large-3 columns">
+                  <%= addr.input :zip %>
+                </div>
+              </div>
           <% end %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="large-4 columns">
-          <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-        </div>
-        <div class="large-4 columns">
-          <%= f.input :password_confirmation, :required => false %>
-        </div>
-        <div class="large-4 columns">
-          <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-        </div>
-      </div>
-
-      <%= f.fields_for :address do |addr| %>
-          <div class="row">
-            <div class="large-6 columns">
-              <%= addr.input :address1 %>
-            </div>
-            <div class="large-6 columns">
-              <%= addr.input :address2 %>
-            </div>
-          </div>
 
           <div class="row">
-            <div class="large-6 columns">
-              <%= addr.input :city %>
-            </div>
-            <div class="large-6 columns">
-              <%= addr.input :state %>
+            <div class="large-12 columns">
+              <%= f.button :submit, "Update", class: "button" %>
             </div>
           </div>
+        </fieldset>
+    <% end %>
+    <h3>Cancel my account</h3>
+    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+    <%= link_to "Back", :back %>
+  </div>
+  <div class="large-6 columns">
+    <h2>My Recent Orders</h2>
 
-          <div class="row">
-            <div class="large-6 columns">
-              <%= addr.input :country, :as => :string %>
-            </div>
-            <div class="large-6 columns">
-              <%= addr.input :zip %>
-            </div>
-          </div>
-      <% end %>
+    <br/>
+    <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
+    <br/>
+    <% current_user.orders.each do |o| %>
+        <div class="panel">
+          <%= o.id %> - <%= o.payment_type %> - - <%= o.created_at %>
+          <hr/>
+          <% o.cart.cart_items.each do |ci| %>
+              <%= ci.name %> - <%= ci.price %> <br/>
+          <% end %>
+          <hr/>
+          Total: <%= number_to_currency o.cart.total_price %>
+          <br/>
 
-      <div class="row">
-        <div class="large-12 columns">
-          <%= f.button :submit, "Update", class: "button" %>
+          <%= link_to "Get it again", q_store_order_path(cart_id: o.cart.id), class: "button small" %>
         </div>
-      </div>
-    </fieldset>
-<% end %>
+    <% end %>
+  </div>
 
-<h3>Cancel my account</h3>
+</div>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-
-<%= link_to "Back", :back %>

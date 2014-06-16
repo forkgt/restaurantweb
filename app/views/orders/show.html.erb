@@ -1,39 +1,52 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Note:</strong>
-  <%= @order.note %>
-</p>
+<div class="row">
+  <div class="large-6 columns">
+    <p>
+      <strong>Time:</strong><br/>
+      <%= @order.created_at.getlocal.to_formatted_s(:short) %>
+    </p>
 
-<p>
-  <strong>Payment type:</strong>
-  <%= @order.payment_type %>
-</p>
+    <p>
+      <strong>Payment:</strong><br/>
+      <%= @order.payment_type + ", " + @order.payment_status %>
+    </p>
 
-<p>
-  <strong>Payment status:</strong>
-  <%= @order.payment_status %>
-</p>
+    <p>
+      <strong>User:</strong><br/>
+      <%= @order.user.firstname + " " + @order.user.lastname %><br/>
+    </p>
 
-<p>
-  <strong>Tip:</strong>
-  <%= @order.tip %>
-</p>
+    <p>
+      <strong>Address:</strong><br/>
+      <%= @order.user.address.address1 + ", " + @order.user.address.address2 %><br/>
+      <%= @order.user.address.city %><br/>
+    </p>
+  </div>
+  <div class="large-6 columns">
+    <p>
+      <strong>Cart:</strong><br/>
+      <% @order.cart.cart_items.each do |ci| %>
+          <%= ci.name + ", " + number_to_currency(ci.price) + " * " + ci.quantity.to_s %><br/>
+      <% end %>
+      Tax: <%= number_to_currency @order.cart.tax %><br/>
+      Total: <%= number_to_currency @order.cart.total_price %>
+    </p>
 
-<p>
-  <strong>Store:</strong>
-  <%= @order.store %>
-</p>
+    <p>
+      <strong>Tip:</strong>
+      <%= @order.tip %>
+    </p>
+    <p>
+      <strong>Note:</strong>
+      <%= @order.note %>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Cart:</strong>
-  <%= @order.cart %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user %>
-</p>
+
+
 
 <%= link_to 'Edit', edit_store_order_path(@store, @order) %> |
 <%= link_to 'Back', store_orders_path(@store) %>

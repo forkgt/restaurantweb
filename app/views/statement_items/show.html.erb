@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @statement_item.day %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @statement_item.name %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @statement_item.note %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @statement_item.price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @statement_item.quantity %>
+</p>
+
+<p>
+  <strong>Statement:</strong>
+  <%= @statement_item.statement %>
+</p>
+
+<%= link_to 'Edit', edit_statement_statement_item_path(@statement, @statement_item) %> |
+<%= link_to 'Back', statement_statement_items_path(@statement) %>

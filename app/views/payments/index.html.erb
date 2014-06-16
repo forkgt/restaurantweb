@@ -1,0 +1,37 @@
+<h1>Listing payments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rank</th>
+      <th>Bei</th>
+      <th>Image</th>
+      <th>Account</th>
+      <th>Store</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.name %></td>
+        <td><%= payment.rank %></td>
+        <td><%= payment.bei %></td>
+        <td><%= payment.image %></td>
+        <td><%= payment.account %></td>
+        <td><%= payment.store.name %></td>
+        <td><%= link_to 'Show', store_payment_path(@store, payment) %></td>
+        <td><%= link_to 'Edit', edit_store_payment_path(@store, payment) %></td>
+        <td><%= link_to 'Destroy', [@store, payment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payment', new_store_payment_path(@store) %>

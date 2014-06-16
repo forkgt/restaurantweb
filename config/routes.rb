@@ -1,8 +1,6 @@
 Ibm::Application.routes.draw do
 
-  resources :dish_choices
-  resources :dish_features
-
+  resources :subscriptions, :templates, :cartridges
   resources :addresses
   resources :cart_items
   resources :carts do
@@ -10,12 +8,9 @@ Ibm::Application.routes.draw do
       get :delivery_type
     end
   end
-  resources :coupons
-
-  resources :subscriptions, :templates
 
   resources :stores do
-    resources :menus, :orders
+    resources :menus, :coupons, :orders, :payments, :statements, :dish_choices, :dish_features
   end
 
   resources :menus do
@@ -26,16 +21,19 @@ Ibm::Application.routes.draw do
     resources :dishes
   end
 
+  resources :statements do
+    resources :statement_items
+  end
+
   devise_for :admins, controllers: { registrations: 'admins/registrations' }
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  get "h/index", "h/profile"
-  get "h/store/:id"    => "h#store",        as: :h_store
+  get "h/user_manager", "h/retrieve_store"
 
-  get "q/index", "q/stores", "q/missing", "q/store_order_success", "q/store_order_failure"
+  get "q/index", "q/missing", "q/closed",
+      "q/store_order_success", "q/store_order_failure", "q/paypal_notify", "q/paypal_cancel"
   get "q/store_home",        to: "q#store_home",        as: "q_store_home"
   get "q/store_menus",       to: "q#store_menus",       as: "q_store_menus"
-
   get "q/store_map",         to: "q#store_map",         as: "q_store_map"
   get "q/store_order",       to: "q#store_order",       as: "q_store_order"
 

@@ -6,19 +6,20 @@ class QController < ApplicationController
     # Match the host to all stores
     # Yes => Go to the matched store
     # No  => Go to the index page
-    @store = Store.find_by domain: request.host
-    if @store.nil?
-      @stores = Store.all
-    else
-      redirect_to q_store_menus_path
-      return
-    end
-  end
-
-  def stores
+    #@store = Store.find_by domain: request.host
+    #if @store.nil?
+    #  @stores = Store.all
+    #else
+    #  redirect_to q_store_home_path
+    #  return
+    #end
+    @stores = Store.all
   end
 
   def missing
+  end
+
+  def closed
   end
 
   def store_home
@@ -44,11 +45,15 @@ class QController < ApplicationController
   def store_order
     @has_cart = true # Show the cart toggle
 
-    @cart = current_cart(@store.id, false)
+    if params[:cart_id]
+      @cart = Cart.find(params[:cart_id])
+    else
+      @cart = current_cart(@store.id, false)
+    end
 
     # Redirect if the cart is empty
     unless @cart
-      redirect_to store_menus_url, notice: "Your Cart is Empty!"
+      redirect_to q_store_menus_url, notice: "Your Cart is Empty!"
       return
     end
 
@@ -81,6 +86,41 @@ class QController < ApplicationController
     render layout: "templates/#{@template}"
   end
 
+
+
+  protect_from_forgery :except => [:paypal_notify]
+
+  include ActiveMerchant::Billing::Integrations
+
+  def paypal_notify
+    ActiveMerchant::Billing::Base.mode = :test
+    notify = Paypal::Notification.new(request.raw_post)
+    order = Order.find(notify.invoice)
+    if notify.acknowledge
+      begin
+        amount_in_db = Money.new ((order.cart.total_price+order.tip)*100).round
+        if notify.complete? and amount_in_db == notify.amount
+          order.payment_status = 'paid'
+          order.updated_at = Time.now
+          order.to_fax
+        else
+          logger.error("Failed to verify Paypal's notification, please investigate")
+        end
+      rescue => e
+        order.payment_status = 'pending'
+        raise
+      ensure
+        order.save
+      end
+    end
+
+    render :nothing => true
+  end
+
+  def paypal_cancel
+
+  end
+
   private
   def set_store
     #@store = Store.find(params[:id])   # Find Store through id in the params
@@ -92,6 +132,9 @@ class QController < ApplicationController
     @store = Store.find_by domain: request.host
     if @store.nil?
       redirect_to q_missing_path
+      return
+    elsif @store.status == "closed"
+      redirect_to q_closed_path
       return
     else
       @template = @store.get_current_template

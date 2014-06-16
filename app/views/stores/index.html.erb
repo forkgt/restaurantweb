@@ -1,19 +1,13 @@
 <h1>Listing stores</h1>
 
->> <%= link_to 'Stores', stores_path %>
-
-<br/><br/>
-
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Domain</th>
-      <th>Phone/Fax</th>
       <th>Admin</th>
-
+      <th>Tel/Fax</th>
       <th>Action</th>
-      <th>Manage</th>
     </tr>
   </thead>
 
@@ -22,22 +16,30 @@
       <tr>
         <td><%= store.id %>. <%= store.name %></td>
         <td><%= store.domain %></td>
-        <td><%= store.phone %><br/><%= store.fax %></td>
-        <td><%= store.admin.email %></td>
+        <td><%= store.admin.email if store.admin %></td>
+        <td><%= store.phone + " / " + store.fax %></td>
         <td>
-          <%= link_to image_tag("View-Details-01-24.png"), store %>
-          <%= link_to image_tag("Data-Edit-24.png"), edit_store_path(store) %>
-          <%= link_to image_tag("Delete-24.png"), store, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to image_tag("Magnifying-Glass-24-3.png", size: "20x20", alt: "show"), store if allow? :stores, :edit, store %>
+          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "edit"), edit_store_path(store) if allow? :stores, :edit, store %>
+          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "destroy"), store, method: :delete, data: { confirm: 'Are you sure?' } if allow? :stores, :destroy, store %>
         </td>
-        <td>
-          <%= link_to 'Menus', store_menus_path(store) %> |
-          <%= link_to 'Orders', store_orders_path(store) %>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <%= link_to 'Menus', store_menus_path(store), target: '_blank' %> |
+          <%= link_to 'Orders', store_orders_path(store), target: '_blank' %> |
+          <%= link_to 'Statements', store_statements_path(store), target: '_blank' %> |
+          <%= link_to 'Payments', store_payments_path(store), target: '_blank' %> |
+          <%= link_to 'Coupons', store_coupons_path(store), target: '_blank' %> |
+          <%= link_to 'Dish Choices', store_dish_choices_path(store), target: '_blank' %> |
+          <%= link_to 'Dish Features', store_dish_features_path(store), target: '_blank' %>
+            <hr/>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<br/>
 
-<%= link_to 'New Store', new_store_path %>
+<%= link_to image_tag("Add-24-3.png", alt: "add"), new_store_path %>

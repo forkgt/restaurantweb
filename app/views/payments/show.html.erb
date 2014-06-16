@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @payment.name %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @payment.rank %>
+</p>
+
+<p>
+  <strong>Bei:</strong>
+  <%= @payment.bei %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @payment.image %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @payment.account %>
+</p>
+
+<%= link_to 'Edit', edit_store_payment_path(@store, @payment) %> |
+<%= link_to 'Back', store_payments_path(@store) %>

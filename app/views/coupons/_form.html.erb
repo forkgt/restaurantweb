@@ -1,4 +1,4 @@
-<%= simple_form_for(@coupon) do |f| %>
+<%= simple_form_for([@store, @coupon]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -10,7 +10,6 @@
     <%= f.input :minimum %>
     <%= f.input :start_at %>
     <%= f.input :end_at %>
-    <%= f.association :store %>
   </div>
 
   <div class="form-actions">

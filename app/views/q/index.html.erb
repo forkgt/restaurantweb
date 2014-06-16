@@ -56,8 +56,6 @@
   </div>
 </div>
 
-
-
 <div class="row">
   <div class="large-12 columns" style="text-align: center;">
     <%= link_to "现在就注册", new_admin_registration_path, class: "button large" %>
@@ -65,27 +63,3 @@
     Have a question? Give our sales team a call. (877) 563-4311.
   </div>
 </div>
-
-<br/>
-<div class="row">
-  <div class="large-6 columns">
-    <b>For Users:</b>
-    <% if user_signed_in? %>
-        <%= link_to current_user.email, edit_user_registration_path %>
-        | <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
-    <% else %>
-        <%= link_to "Sign in", new_user_session_path %>
-        | <%= link_to 'Sign up', new_user_registration_path %>
-    <% end %>
-  </div>
-</div>
-<br/>
-
-<% if @stores.blank? %>
-    <h1>No Stores Found!</h1>
-<% else %>
-    <% @stores.each do |st| %>
-        <%= link_to st.name, root_url( subdomain: st.domain ) %>
-        <br/><br/>
-    <% end %>
-<% end %>

@@ -10,9 +10,7 @@
       <th>Must</th>
       <th>Store</th>
       <th>Checked</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Action</th>
     </tr>
   </thead>
 
@@ -26,9 +24,11 @@
         <td><%= dish_choice.must %></td>
         <td><%= dish_choice.store.name %></td>
         <td><%= dish_choice.checked %></td>
-        <td><%= link_to 'Show', dish_choice %></td>
-        <td><%= link_to 'Edit', edit_dish_choice_path(dish_choice) %></td>
-        <td><%= link_to 'Destroy', dish_choice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to image_tag("Magnifying-Glass-24-3.png", size: "20x20", alt: "show"), store_dish_choice_path(@store, dish_choice) %>
+          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "edit"), edit_store_dish_choice_path(@store, dish_choice) %>
+          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "destroy"), [@store, dish_choice], method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Dish choice', new_dish_choice_path %>
+<%= link_to image_tag("Add-24-3.png", alt: "add"), new_store_dish_choice_path(@store) %>

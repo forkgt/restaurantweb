@@ -1,0 +1,64 @@
+<h1>Listing statement_items</h1>
+
+<div class="panel callout">
+  <div class="row">
+    <div class="large-6 columns">
+      <% if @statement.payment_status == "not_paid" %>
+          Statement Status: <%= @statement.payment_status %>
+      <% else %>
+          Statement Status: <%= @statement.payment_type + ", " + @statement.payment_status %>
+      <% end %>
+      <br/>
+      Statement Total:  <%= number_to_currency @statement.total_price %>
+      <br/>
+      Statement Duet at <%= @statement.year.to_s + "-" + @statement.month.to_s + "-10" %>
+    </div>
+    <div class="large-6 columns">
+      <% unless @statement.payment_status =="pending" && @statement.payment_type == "cash" %>
+          <%= link_to "Pay Cash", "#", class: "button" %>
+      <% end %>
+      <% unless @statement.payment_status == "complete" %>
+          <%= link_to "Pay Online", @statement.paypal_url, class: "button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th width="100">Date</th>
+      <th width="100">Name</th>
+      <th width="100">Note</th>
+      <th width="100">Price</th>
+      <th width="100">Quantity</th>
+      <th width="100">Amount</th>
+      <th width="200" colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @statement_items.each do |statement_item| %>
+      <tr>
+        <td><%= @statement.month.to_s + "/" + statement_item.day.to_s %></td>
+        <td><%= statement_item.name %></td>
+        <td><%= statement_item.note %></td>
+        <td><%= number_to_currency statement_item.price %></td>
+        <td><%= statement_item.quantity %></td>
+        <td><%= number_to_currency statement_item.total_price %></td>
+        <td><%= link_to 'Show', statement_statement_item_path(@statement, statement_item) %></td>
+        <td><%= link_to 'Edit', edit_statement_statement_item_path(@statement, statement_item) %></td>
+        <td><%= link_to 'Destroy', [@statement, statement_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="5"><b  style="float:right" >Total Amount:</b></td>
+      <td><b><%= number_to_currency @statement.total_price %></b></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back To Statement', store_statements_path(@store) %> |
+<%= link_to 'New Statement item', new_statement_statement_item_path(@statement) %>

@@ -1,0 +1,9 @@
+<h1>Retrieve Your Store</h1>
+
+<%= form_tag(h_retrieve_store_path, method: "get") do %>
+    <%= text_field_tag(:uuid) %>
+    <%= submit_tag("Retrieve") %>
+<% end %>
+
+<hr/>
+<%= flash[:alert] %>

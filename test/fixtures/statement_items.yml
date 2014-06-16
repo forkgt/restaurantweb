@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 1
+  name: MyString
+  note: MyString
+  price: 9.99
+  quantity: 1
+  statement_id: 
+
+two:
+  day: 1
+  name: MyString
+  note: MyString
+  price: 9.99
+  quantity: 1
+  statement_id: 

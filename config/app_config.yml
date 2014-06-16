@@ -1,40 +1,47 @@
 defaults: &defaults
+  # IBM Mode (test/production)
+  ibm_mode:               test
+  ibm_domain:             localhost
+
   # Dropbox Information
-  app_key:               <%=ENV['app_key']%>
-  app_secret:            <%=ENV['app_secret']%>
-  access_token:          <%=ENV['access_token']%>
-  access_token_secret:   <%=ENV['access_token_secret']%>
-  user_id:               <%=ENV['user_id']%>
+  app_key:                <%=ENV['app_key']%>
+  app_secret:             <%=ENV['app_secret']%>
+  access_token:           <%=ENV['access_token']%>
+  access_token_secret:    <%=ENV['access_token_secret']%>
+  user_id:                <%=ENV['user_id']%>
 
   # Interfax Information
-  interfax_url:    https://ws.interfax.net/dfs.asmx?WSDL
-  interfax_usr:    <%=ENV['interfax_usr']%>
-  interfax_pwd:    <%=ENV['interfax_pwd']%>
+  interfax_url:           https://ws.interfax.net/dfs.asmx?WSDL
+  interfax_usr:           <%=ENV['interfax_usr']%>
+  interfax_pwd:           <%=ENV['interfax_pwd']%>
 
   # Google Information
-  google_usr:            <%=ENV['google_usr']%>
-  google_pwd:            <%=ENV['google_pwd']%>
-
-
-  # IBM Mode (test/production)
-  ibm_mode:        test
+  google_usr:             <%=ENV['google_usr']%>
+  google_pwd:             <%=ENV['google_pwd']%>
 
 production:
   <<: *defaults
 
-  domain: localhost
+  # Paypal Information
+  paypal_email: production@example.com
+  paypal_secret: production_secret
+  paypal_cert_id: production_cert_id
   paypal_base_url: https://www.paypal.com/cgi-bin/webscr
 
 development:
   <<: *defaults
 
-  domain: localhost
-
+  # Paypal Information
+  paypal_email: development@example.com
+  paypal_secret: development_secret
+  paypal_cert_id: development_cert_id
   paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr
 
 test:
   <<: *defaults
 
-  domain: localhost
-
-  paypal_email:    test@example.com
+  # Paypal Information
+  paypal_email: development@example.com
+  paypal_secret: development_secret
+  paypal_cert_id: development_cert_id
+  paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr

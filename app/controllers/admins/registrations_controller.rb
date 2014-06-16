@@ -4,7 +4,13 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     build_resource({})
-    resource.stores.build
+
+    # if admin has_many stores
+    #resource.stores.build
+
+    # if admin has_one store
+    resource.build_store
+
     respond_with self.resource
   end
 
@@ -16,13 +22,23 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @store = resource.stores.first
+    @store = resource.store
+    unless @store.nil?
+      @cartridge_array = @store.get_cartridge_array
+    end
+
     super
   end
 
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << { stores_attributes: [:name, :bei, :phone, :fax] }
+    # if admin has_many stores
+    #devise_parameter_sanitizer.for(:sign_up) << { stores_attributes: [:name, :bei, :phone, :fax] }
+
+    # if admin has_one store
+    #devise_parameter_sanitizer.for(:sign_up) << { store_attributes: [:name, :bei, :phone, :fax] }
+
+    devise_parameter_sanitizer.for(:sign_up) << [:firstname, :lastname, :phone]
   end
 end

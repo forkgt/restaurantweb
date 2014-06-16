@@ -18,11 +18,11 @@ class Order < ActiveRecord::Base
   #  end
   #end
 
-
-  belongs_to :store
   belongs_to :cart
-  belongs_to :user
 
+  # As a Join Table for stores and users
+  belongs_to :store
+  belongs_to :user
   accepts_nested_attributes_for :user
 
   # In order to use number_to_currency
@@ -31,6 +31,7 @@ class Order < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   # Solve One-Two-One association's create_model_and_update_nested_model Problem
+  # Test on 2014-06-10, Still Necessary for Creating Orders
   def user_attributes=(attributes)
     if attributes['id'].present?
       self.user = User.find(attributes['id'])
@@ -48,8 +49,8 @@ class Order < ActiveRecord::Base
 
   def paypal_url
     values = {
-        :business       => APP_CONFIG['paypal_email'],
-        :cancel_return  => home_paypal_cancel_url(:host => APP_CONFIG['domain']),
+        :business       => store.get_paypal_account,
+        :cancel_return  => q_paypal_cancel_url(:host => APP_CONFIG['ibm_domain']),
         :charset        => 'utf-8',
         :cmd            => '_cart',
         :currency_code  => 'USD',
@@ -59,9 +60,9 @@ class Order < ActiveRecord::Base
         :lc             => 'US',
         :no_shipping    => 0,
         :no_note        => 1,
-        :notify_url     => home_paypal_notify_url(:host => APP_CONFIG['domain']),
+        :notify_url     => q_paypal_notify_url(:host => APP_CONFIG['ibm_domain']),
         :num_cart_items => cart.cart_items.size,
-        :return         => home_stores_url(:host => APP_CONFIG['domain']),
+        :return         => q_store_home_url(:host => APP_CONFIG['ibm_domain']),
         :rm             => 2,
         :secret         => 'hello_token',
         :tax_cart       => number_with_precision(cart.tax, :precision => 2),
@@ -101,7 +102,6 @@ class Order < ActiveRecord::Base
 
   # Use class method because of delayed_job
   def to_fax
-
     html = File.open(Rails.root.join('app/views/orders/_fax.html.erb')).read
     template = ERB.new(html)
     str = template.result(binding)
@@ -123,7 +123,6 @@ class Order < ActiveRecord::Base
       self.transfer_status= "bad_fax"
     end
     self.save
-
   end
 
 end

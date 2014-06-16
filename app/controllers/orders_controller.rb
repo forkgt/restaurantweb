@@ -27,17 +27,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    p = params[:order]
-
-    if user_signed_in?
-      @user = User.find(p[:user_attributes][:id])
-      @user.update_attributes!(p[:user_attributes])
-      p.delete(:user_attributes)
-      @order = Order.new(p)
-      @order.user = @user
-    else
-      @order = Order.new order_params
-    end
+    @order = Order.new order_params
 
     if @order.user.email.blank? && @order.user.password.blank? && @order.user.password_confirmation.blank?
       @order.user.email = "guest_#{Time.now.to_i}#{rand(99)}@meals4.me"
@@ -107,6 +97,7 @@ class OrdersController < ApplicationController
 
     def set_store
       @store = Store.find(params[:store_id])
+      @cartridge_array = @store.get_cartridge_array
     end
 
   # Use callbacks to share common setup or constraints between actions.

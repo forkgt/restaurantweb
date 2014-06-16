@@ -1,5 +1,97 @@
-<h1>New store</h1>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#uuid").val(uuid_1());
+        $("#uuid_refresher").click(function() {
+            $("#uuid").val(uuid_1());
+        });
+    });
+</script>
 
-<%= render 'form' %>
+<h1>New store 1</h1>
+
+<%= simple_form_for @store do |f| %>
+    <div class="row">
+      <div class="large-6 columns">
+        <fieldset>
+          <legend>Edit Your Profile:</legend>
+          <div class="row">
+            <div class="large-12 columns">
+              <%= f.error_notification %>
+              <%= f.input :name, label: 'Your store name please' %>
+              <%= f.input :bei, label: 'Your store bei please' %>
+              <%= f.input :domain, label: 'Your store domain please' %>
+            </div>
+
+            <div class="large-6 columns">
+              <%= f.input :phone %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :fax %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :delivery_minimum %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :delivery_fee %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :delivery_radius %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="large-6 columns">
+        <fieldset>
+          <legend>Edit Your Address:</legend>
+          <div class="row">
+            <%= f.fields_for :address do |addr| %>
+                <div class="large-12 columns">
+                  <%= addr.input :address1 %>
+                </div>
+                <div class="large-12 columns">
+                  <%= addr.input :address2 %>
+                </div>
+                <div class="large-6 columns">
+                  <%= addr.input :city %>
+                </div>
+                <div class="large-3 columns">
+                  <%= addr.input :state %>
+                </div>
+                <div class="large-3 columns">
+                  <%= addr.input :country, :as => :string %>
+                </div>
+                <div class="large-6 columns">
+                  <%= addr.input :zip %>
+                </div>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="large-6 columns">
+        <fieldset>
+          <legend>Purchase Your Templates:</legend>
+          <%= f.association :templates, as: :check_boxes, collection: @templates %>
+        </fieldset>
+        <fieldset>
+          <legend>Purchase Your Cartridges:</legend>
+          <%= f.association :cartridges, as: :check_boxes, collection: @cartridges %>
+        </fieldset>
+      </div>
+      <div class="large-6 columns">
+        <fieldset>
+          <legend>Generate Your UUID</legend>
+          <%= f.input :uuid, :input_html => {
+                  :value => "xxx",
+                  :id => "uuid"
+          } %>
+          <input id="uuid_refresher" type="button" value="Refresh" />
+        </fieldset>
+      </div>
+
+      <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button' %>
+<% end %>
+</div>
+</div>
 
 <%= link_to 'Back', stores_path %>

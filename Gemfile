@@ -66,3 +66,9 @@ gem "rmagick", "~> 2.13.2"
 gem 'savon', '~> 2.3.3'
 
 gem 'tod', '~> 1.4.0'
+
+gem 'activemerchant', '~> 1.43.1'
+
+# Time Scheduler
+#gem 'rufus-scheduler', '~> 3.0.8'
+gem 'whenever', '~> 0.9.2', :require => false

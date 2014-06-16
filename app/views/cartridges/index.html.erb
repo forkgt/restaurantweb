@@ -1,0 +1,37 @@
+<h1>Listing cartridges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bei</th>
+      <th>Rank</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Interval</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cartridges.each do |cartridge| %>
+      <tr>
+        <td><%= cartridge.name %></td>
+        <td><%= cartridge.bei %></td>
+        <td><%= cartridge.rank %></td>
+        <td><%= cartridge.image %></td>
+        <td><%= cartridge.price %></td>
+        <td><%= cartridge.interval %></td>
+        <td>
+          <%= link_to image_tag("Magnifying-Glass-24-3.png", size: "20x20", alt: "show"), cartridge %>
+          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "edit"), edit_cartridge_path(cartridge) %>
+          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "destroy"), cartridge, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to image_tag("Add-24-3.png", alt: "add"), new_cartridge_path %>

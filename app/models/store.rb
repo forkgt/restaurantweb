@@ -20,25 +20,38 @@ class Store < ActiveRecord::Base
   #    end
   #  end
   #end
-
+  #
+  #class AddStatusToStores < ActiveRecord::Migration
+  #  def change
+  #    add_column :stores, :status, :string, default: "normal"
+  #  end
+  #end
+  #
+  #class AddUuidToStores < ActiveRecord::Migration
+  #  def change
+  #    add_column :stores, :uuid, :string
+  #  end
+  #end
 
 
   belongs_to :admin
 
   has_one :address, :as => :addressable
+  accepts_nested_attributes_for :address
 
   has_many :dish_features
   has_many :dish_choices
-
+  has_many :payments
+  has_many :statements
   has_many :menus, -> { order(:rank) }, :dependent => :destroy
-  has_many :orders
+  has_many :coupons
   has_many :carts
 
-  accepts_nested_attributes_for :address
-
-
+  has_many :orders
+  has_many :users, -> { uniq }, :through => :orders
 
   has_many :subscriptions
+  has_many :cartridges, through: :subscriptions, :source => :subscribable, :source_type => 'Cartridge'
   has_many :templates, through: :subscriptions, :source => :subscribable, :source_type => 'Template'
   accepts_nested_attributes_for :subscriptions
 
@@ -47,8 +60,23 @@ class Store < ActiveRecord::Base
   #has_one :subscription
   #has_one :template, through: :subscription, :source => :subscribable, :source_type => 'Template'
 
+
   def get_current_template
     templates.take.name
+  end
+
+  def get_cartridge_array
+    cs = Array.new
+
+    cartridges.each do |c|
+      cs << c.name
+    end
+
+    cs
+  end
+
+  def get_paypal_account
+    payments.find_by_name("paypal").account
   end
 
   def has_delivery_service?

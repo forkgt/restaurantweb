@@ -11,10 +11,7 @@
       <th>Minimum</th>
       <th>Start at</th>
       <th>End at</th>
-      <th>Store</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Action</th>
     </tr>
   </thead>
 
@@ -29,10 +26,11 @@
         <td><%= coupon.minimum %></td>
         <td><%= coupon.start_at %></td>
         <td><%= coupon.end_at %></td>
-        <td><%= coupon.store.name %></td>
-        <td><%= link_to 'Show', coupon %></td>
-        <td><%= link_to 'Edit', edit_coupon_path(coupon) %></td>
-        <td><%= link_to 'Destroy', coupon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to image_tag("Magnifying-Glass-24-3.png"), store_coupon_path(@store, coupon) %>
+          <%= link_to image_tag("Edit-24-3.png"), edit_store_coupon_path(@store, coupon) %>
+          <%= link_to image_tag("Garbage-24-3.png"), [@store, coupon], method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +38,4 @@
 
 <br>
 
-<%= link_to 'New Coupon', new_coupon_path %>
+<%= link_to image_tag("Add-24-3.png"), new_store_coupon_path(@store) %>

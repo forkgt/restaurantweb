@@ -2,9 +2,9 @@
 
 <div class="row">
   <div class="large-3 columns">
-    This is side! Side! Side!
+    <%= @store.address.address1 + ", " +  @store.address.address2%>
     <hr/>
-    This is side! Side! Side!
+    <%= @store.address.city + ", " + @store.address.state %>
     <hr/>
     This is side! Side! Side!
     <hr/>

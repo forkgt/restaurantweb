@@ -17,3 +17,23 @@
 //= require jquery_nested_form
 
 $(function(){ $(document).foundation(); });
+
+
+
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+function uuid_1() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+// http://guid.us/GUID/JavaScript
+function uuid_2() {
+    function S4() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    }
+
+    return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+}

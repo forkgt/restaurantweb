@@ -66,6 +66,7 @@ class MenusController < ApplicationController
   private
     def set_store
       @store = Store.find(params[:store_id])
+      @cartridge_array = @store.get_cartridge_array
     end
 
     def set_menu

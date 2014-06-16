@@ -14,7 +14,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  <title>777POS</title>
 
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "vendor/modernizr" %>
@@ -39,8 +39,6 @@
       <li><%= link_to "Features", q_index_path %></li>
       <li class="divider"></li>
       <li><%= link_to "Prices", q_index_path %></li>
-      <li class="divider"></li>
-      <li><%= link_to "Examples", q_stores_path %></li>
       <% if admin_signed_in? %>
           <li class="divider"></li>
           <li><%= link_to current_admin.email, edit_admin_registration_path %></li>
@@ -58,6 +56,13 @@
 
 <div class="row">
   <div class="large-12 columns">
+    <br/>
+    <% flash.each do |name, msg| %>
+        <div data-alert class="alert-box round <%= name %>">
+          <%= msg %>
+        </div>
+    <% end %>
+
     <%= yield %>
   </div>
 </div>

@@ -3,9 +3,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def edit
     resource.build_address if resource.address.nil?
+    @store = Store.find_by domain: request.host
+    if @store.nil?
+      redirect_to q_missing_path
+      return
+    else
+      @template = @store.get_current_template
+    end
 
-    super
   end
+
 
   private
 

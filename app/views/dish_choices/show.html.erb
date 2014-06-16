@@ -35,5 +35,5 @@
   <%= @dish_choice.checked %>
 </p>
 
-<%= link_to 'Edit', edit_dish_choice_path(@dish_choice) %> |
-<%= link_to 'Back', dish_choices_path %>
+<%= link_to 'Edit', edit_store_dish_choice_path(@store, @dish_choice) %> |
+<%= link_to 'Back', store_dish_choices_path(@store) %>

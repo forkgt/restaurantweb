@@ -1,10 +1,11 @@
 class DishFeaturesController < ApplicationController
+  before_action :set_store
   before_action :set_dish_feature, only: [:show, :edit, :update, :destroy]
 
   # GET /dish_features
   # GET /dish_features.json
   def index
-    @dish_features = DishFeature.all
+    @dish_features = @store.dish_features
   end
 
   # GET /dish_features/1
@@ -14,7 +15,7 @@ class DishFeaturesController < ApplicationController
 
   # GET /dish_features/new
   def new
-    @dish_feature = DishFeature.new
+    @dish_feature = @store.dish_features.build
   end
 
   # GET /dish_features/1/edit
@@ -24,11 +25,11 @@ class DishFeaturesController < ApplicationController
   # POST /dish_features
   # POST /dish_features.json
   def create
-    @dish_feature = DishFeature.new(dish_feature_params)
+    @dish_feature = @store.dish_features.create(dish_feature_params)
 
     respond_to do |format|
       if @dish_feature.save
-        format.html { redirect_to @dish_feature, notice: 'Dish feature was successfully created.' }
+        format.html { redirect_to store_dish_features_url(@store), notice: 'Dish feature was successfully created.' }
         format.json { render action: 'show', status: :created, location: @dish_feature }
       else
         format.html { render action: 'new' }
@@ -42,7 +43,7 @@ class DishFeaturesController < ApplicationController
   def update
     respond_to do |format|
       if @dish_feature.update(dish_feature_params)
-        format.html { redirect_to @dish_feature, notice: 'Dish feature was successfully updated.' }
+        format.html { redirect_to store_dish_features_url(@store), notice: 'Dish feature was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,12 +57,17 @@ class DishFeaturesController < ApplicationController
   def destroy
     @dish_feature.destroy
     respond_to do |format|
-      format.html { redirect_to dish_features_url }
+      format.html { redirect_to store_dish_features_url(@store) }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_store
+      @store = Store.find(params[:store_id])
+      @cartridge_array = @store.get_cartridge_array
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_dish_feature
       @dish_feature = DishFeature.find(params[:id])

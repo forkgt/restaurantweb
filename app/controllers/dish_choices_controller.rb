@@ -1,10 +1,11 @@
 class DishChoicesController < ApplicationController
+  before_action :set_store
   before_action :set_dish_choice, only: [:show, :edit, :update, :destroy]
 
   # GET /dish_choices
   # GET /dish_choices.json
   def index
-    @dish_choices = DishChoice.all
+    @dish_choices = @store.dish_choices
   end
 
   # GET /dish_choices/1
@@ -14,7 +15,7 @@ class DishChoicesController < ApplicationController
 
   # GET /dish_choices/new
   def new
-    @dish_choice = DishChoice.new
+    @dish_choice = @store.dish_choices.build
   end
 
   # GET /dish_choices/1/edit
@@ -24,11 +25,11 @@ class DishChoicesController < ApplicationController
   # POST /dish_choices
   # POST /dish_choices.json
   def create
-    @dish_choice = DishChoice.new(dish_choice_params)
+    @dish_choice = @store.dish_choices.create(dish_choice_params)
 
     respond_to do |format|
       if @dish_choice.save
-        format.html { redirect_to @dish_choice, notice: 'Dish choice was successfully created.' }
+        format.html { redirect_to store_dish_choices_url(@store), notice: 'Dish choice was successfully created.' }
         format.json { render action: 'show', status: :created, location: @dish_choice }
       else
         format.html { render action: 'new' }
@@ -42,7 +43,7 @@ class DishChoicesController < ApplicationController
   def update
     respond_to do |format|
       if @dish_choice.update(dish_choice_params)
-        format.html { redirect_to @dish_choice, notice: 'Dish choice was successfully updated.' }
+        format.html { redirect_to store_dish_choices_url(@store), notice: 'Dish choice was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,12 +57,17 @@ class DishChoicesController < ApplicationController
   def destroy
     @dish_choice.destroy
     respond_to do |format|
-      format.html { redirect_to dish_choices_url }
+      format.html { redirect_to store_dish_choices_url(@store) }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_store
+      @store = Store.find(params[:store_id])
+      @cartridge_array = @store.get_cartridge_array
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_dish_choice
       @dish_choice = DishChoice.find(params[:id])

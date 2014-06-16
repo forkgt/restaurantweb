@@ -60,7 +60,7 @@ Ibm::Application.configure do
   # Precompile additional assets.
   # application.js, application.css.scss, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
-  config.assets.precompile += %w( vendor/modernizr.js )
+  config.assets.precompile += %w( vendor/modernizr.js templates/* )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -81,4 +81,27 @@ Ibm::Application.configure do
 
   # For Devise
   config.action_mailer.default_url_options = { :host => 'ibm-777burps.rhcloud.com' }
+
+  # For Email
+  config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i -t'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'no-reply@example.com'}
+
+  # For Email
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: 587,
+      domain: APP_CONFIG['ibm_domain'],
+      authentication: :plain,
+      enable_starttls_auto: true,
+      user_name: APP_CONFIG['google_usr'],
+      password: APP_CONFIG['google_pwd']
+  }
 end

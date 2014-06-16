@@ -1,0 +1,16 @@
+<%= simple_form_for([@store, @statement]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :year %>
+    <%= f.input :month %>
+    <%= f.input :payment_type %>
+    <%= f.input :payment_status %>
+    <%= f.input :invoice %>
+    <%= f.association :store %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

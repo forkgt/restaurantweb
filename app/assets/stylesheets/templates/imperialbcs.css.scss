@@ -1,51 +1,124 @@
-$body-bg: #949e48 url(asset-path("templates/imperialbcs/background.png"));
-#main {
-  background-image: url(asset-path("templates/imperialbcs/background-paper.png"));
-
-  #main_top {
-    background: #949e48 url(asset-path("templates/imperialbcs/background-paper-top.png")) no-repeat bottom center;
-    height: 7px;
-    padding-top: 40px;
-  }
-  #main_bottom {
-    background: #949e48 url(asset-path("templates/imperialbcs/background-paper-bottom.png")) no-repeat;
-    height: 9px;
-    padding-bottom: 50px;
-  }
-}
+$body-bg: #F9F5E9;
 
 @import 'foundation';
 
-
-
-
-
 div.menu {
-
   min-height: 200px;
+  margin-top: 20px;
+
+  div.menu_title {
+    color: #ffffff;
+    background-color: #5A5535;
+
+
+    div.menu_name {
+      h3 {
+        color: #FFF5CC;
+      }
+    }
+
+    div.menu_desc {
+      color: #FFF5CC;
+    }
+  }
 
   div.category {
-
     margin-top: 10px;
 
-    .category_name {
-      height:40px;line-height:40px;
-      font-size:20px;font-weight:bold;padding:0px 20px;
+    div.category_title {
+      .category_name {
+        height:40px;line-height:40px;
+        font-size:20px;font-weight:bold;
+      }
+      .category_desc {
+        height:40px;line-height:40px;
+        font-size:12px;
+      }
     }
-    .category_desc {
-      height:40px;line-height:40px;
-      font-size:12px;
 
-      a {color:#FFFFFF;}
-    }
 
     div.dish {
-
       line-height:30px;
       font-size:14px;
       border-bottom:1px solid #DDDDDD;
 
-      a {color: red}
+      div.dish_price {
+
+        a {
+
+        }
+      }
+
+      div.dish_dialog {
+        div.dish_dialog_choices {
+          div.dish_dialog_title {
+
+          }
+        }
+      }
+    }
+  }
+}
+
+div#cart_container {
+
+  div#cart_message {font-size: 16px;color:red;margin-bottom: 20px;}
+
+  ul#cart {
+    list-style:none;
+    margin-bottom: 0px;
+
+    li {
+
+    }
+
+    li.cart_title {
+
+    }
+
+    li.cart_type {
+      margin-bottom: 20px;
+      border-bottom: 1px #000000 dashed;
+
+      a {
+        width: 90px;
+        text-align: center;
+        display: inline-block;
+        line-height:30px;
+        text-decoration: none;
+        margin-left:20px;
+      }
+
+      a.active {
+        color: #FFFFFF;
+        font-weight: bold;
+        background-color: red;
+      }
+    }
+
+    li.cart_item {
+      border-bottom: 1px #000000 dashed;
+      height:40px;line-height:20px;
+      margin:0px 0px 10px 0px;padding:0px;
+
+      a {
+        text-decoration: none;
+
+        .left {float:left;}
+        .right {float: right;}
+        .cart_item_note {font-size: 10px;}
+      }
+    }
+
+    li.cart_summary {
+      text-align:right;
+    }
+
+    li.cart_action {
+
+      a {
+
+      }
     }
   }
 }

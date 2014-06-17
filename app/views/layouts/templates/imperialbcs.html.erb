@@ -28,63 +28,69 @@
 <div class="row">
   <div class="large-12 columns">
     <div id="main">
+      <div style="text-align: center;margin-bottom: 10px;">
+        <%= image_tag "templates/imperialbcs/logo_imperialbcs.png" %>
+      </div>
+
+      <nav class="tab-bar show-for-small">
+        <section class="left-small">
+          <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+        </section>
+        <section class="right tab-bar-section">
+          <h1 class="title"><%= @store.name %></h1>
+        </section>
+      </nav>
+
+      <nav class="top-bar hide-for-small" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="index.html"><%= @store.name %></a></h1>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="divider"></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_home" %>><%= link_to "Welcome", q_store_home_path %></li>
+            <li class="divider"></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_menus" %>><%= link_to "Order Online!", q_store_menus_path %></li>
+            <li class="divider"></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_map" %>><%= link_to "Get Direction", q_store_map_path %></li>
+
+            <% if user_signed_in? %>
+                <li class="divider"></li>
+                <li><%= link_to current_user.email, edit_user_registration_path %></li>
+                <li class="divider"></li>
+                <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+            <% else %>
+                <li class="divider"></li>
+                <li><%= link_to "Sign In", new_user_session_path %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <% end %>
+          </ul>
+        </section>
+      </nav>
+
       <div class="off-canvas-wrap" data-offcanvas>
         <div class="inner-wrap">
-          <div id="main_top"></div>
-
-          <br/>
-          <%= image_tag "templates/imperialbcs/logo_imperialbcs.png" %>
-
-          <nav class="tab-bar show-for-small">
-            <section class="left-small">
-              <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-            </section>
-            <section class="right tab-bar-section">
-              <h1 class="title"><%= @store.name %></h1>
-            </section>
-          </nav>
-
-          <nav class="top-bar hide-for-small" data-topbar>
-            <ul class="title-area">
-              <li class="name">
-                <h1><a href="index.html"><%= @store.name %></a></h1>
-              </li>
-            </ul>
-            <section class="top-bar-section">
-              <ul class="right">
-                <li class="divider"></li>
-                <li><%= link_to "Welcome", q_store_home_path %></li>
-                <li class="divider"></li>
-                <li class="active"><%= link_to "Order Online!", q_store_menus_path %></li>
-                <li class="divider"></li>
-                <li><%= link_to "Get Direction", q_store_map_path %></li>
-
-                <% if user_signed_in? %>
-                    <li class="divider"></li>
-                    <li><%= link_to current_user.email, edit_user_registration_path %></li>
-                    <li class="divider"></li>
-                    <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
-                <% else %>
-                    <li class="divider"></li>
-                    <li><%= link_to "Sign In", new_user_session_path %></li>
-                    <li class="divider"></li>
-                    <li><%= link_to "Sign Up", new_user_registration_path %></li>
-                <% end %>
-              </ul>
-            </section>
-          </nav>
-
           <aside class="left-off-canvas-menu">
             <ul class="off-canvas-list">
-              <li><label>Foundation</label></li>
+              <li><label><%= @store.name %></label></li>
               <li><%= link_to "Welcome", q_store_home_path %></li>
               <li><%= link_to "Order Online!", q_store_menus_path %></li>
               <li><%= link_to "Get Direction", q_store_map_path %></li>
+              <% if user_signed_in? %>
+                  <li><%= link_to current_user.email, edit_user_registration_path %></li>
+                  <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+              <% else %>
+                  <li><%= link_to "Sign In", new_user_session_path %></li>
+                  <li><%= link_to "Sign Up", new_user_registration_path %></li>
+              <% end %>
             </ul>
           </aside>
 
           <br/>
-           <% flash.each do |name, msg| %>
+          <% flash.each do |name, msg| %>
               <div data-alert class="alert-box round <%= name %>">
                 <%= msg %>
               </div>
@@ -92,39 +98,34 @@
 
           <%= yield %>
 
-          <footer class="row">
-            <div class="large-12 columns">
-              <hr />
-              <div class="row">
-                <div class="large-6 columns">
-                  <p>&copy; Copyright no one at all. Go to town.</p>
-                </div>
-                <div class="large-6 columns">
-                  <ul class="inline-list right">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <% if admin_signed_in? %>
-                        <li><%= link_to current_admin.email, edit_admin_registration_path %></li>
-                        <li><%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %></li>
-                    <% else %>
-                        <li><%= link_to "Sign in", new_admin_session_path %></li>
-                        <li><%= link_to 'Sign up', new_admin_registration_path %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </footer>
-
-          <div id="main_bottom"></div>
-
           <a class="exit-off-canvas"></a>
         </div>
       </div>
 
+      <footer class="row">
+        <div class="large-12 columns">
+          <hr />
+          <div class="row">
+            <div class="large-6 columns">
+              <p>&copy; <%= Time.now.year %> <%= @store.name %>. All Rights Reserved.</p>
+            </div>
+            <div class="large-6 columns">
+              <ul class="inline-list right">
+                <li><a href="http://www.paypal.com" target="_blank">PayPal</a></li>
+                <li><%= link_to "Admin", new_admin_session_path %></li>
+                <% if admin_signed_in? %>
+                    <li><%= link_to current_admin.email, edit_admin_registration_path %></li>
+                    <li><%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %></li>
+                <% else %>
+                    <li><%= link_to "Sign in", new_admin_session_path %></li>
+                    <li><%= link_to 'Sign up', new_admin_registration_path %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-
-
   </div>
 </div>
 

@@ -1,4 +1,5 @@
 class DishFeaturesController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_store
   before_action :set_dish_feature, only: [:show, :edit, :update, :destroy]
 

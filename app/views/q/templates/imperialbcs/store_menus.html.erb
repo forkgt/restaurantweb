@@ -6,7 +6,6 @@
     });
 </script>
 
-
 <div data-magellan-expedition="fixed">
   <dl class="sub-nav">
     <% @menus.each do |menu| %>
@@ -18,22 +17,30 @@
 
 <% @menus.each do |menu| %>
     <div class="menu">
-      <div class="row">
-        <div class="small-2 columns">
-          <a name="menu_<%= menu.id %>"></a>
-          <h3 data-magellan-destination="menu_<%= menu.id %>"><%= menu.name %></h3>
-        </div>
-        <div class="small-10 columns">
-          <p><%= menu.hours_for_day %></p>
+      <div class="menu_title">
+        <div class="row">
+          <div class="menu_name small-offset-1 small-3 columns">
+            <a name="menu_<%= menu.id %>"></a>
+            <h3 data-magellan-destination="menu_<%= menu.id %>"><%= menu.name %></h3>
+          </div>
+          <div class="menu_desc small-8 columns">
+            <p><%= menu.hours_for_day %></p>
+          </div>
         </div>
       </div>
 
       <% if menu.still_open? %>
           <% menu.categories.each do |category| %>
               <div class="category">
-                <div class="row">
-                  <div class="category_name small-11 columns"><%= category.name %></div>
-                  <div class="category_desc small-1 columns"><%= link_to "[Top]", "#" %></div>
+                <div class="category_title">
+                  <div class="row">
+                    <div class="category_name small-10 columns">
+                      <%= category.name %>
+                    </div>
+                    <div class="category_desc small-2 columns">
+                      <%= link_to "[Top]", "#" %>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="row">
@@ -47,7 +54,7 @@
                             <div class="dish_features small-8 large-2 columns">
                               &nbsp;
                               <% dish.dish_features.each do |df| %>
-                                  <% #  image_tag df.avatar_url(:micro).to_s, title: df.name if df.avatar? %>
+                                  <%= image_tag df.image_url(:micro).to_s, title: df.name if df.image? %>
                               <% end %>
                             </div>
                             <div class="dish_price small-4 large-2 columns">
@@ -62,43 +69,42 @@
                             </div>
                           </div>
                           <div class="dish_dialog reveal-modal small" id="dish_dialog_<%= dish.id %>" data-reveal>
-                            <div class="dish_dialog_title">
-                              <br/>
-                              <%= dish.name %>&#58;&nbsp;<%= number_to_currency dish.price %>
-                            </div>
                             <div class="dish_dialog_choices">
                               <%= form_tag(cart_items_path, :method => 'post', :remote => true) do %>
+                                  <div class="dish_dialog_title">
+                                    <div class="row">
+                                      <div class="small-8 columns" style="line-height: 40px;"><%= dish.name %></div>
+                                      <div class="small-2 columns" style="line-height: 40px;"><%= number_to_currency dish.price %></div>
+                                      <div class="small-2 columns"><%= select_tag :quantity, options_for_select([1, 2, 3, 4, 5]) %></div>
+                                    </div>
+                                  </div>
+
+                                  <hr/>
                                   <% dish.dish_choices.each do |dc| %>
-                                      <div class="dish_choice" must="<%= dc.must %>" type="<%= dc.input_type %>">
+                                      <div class="dish_choice" must="<%= dc.must %>" type="<%= dc.input_type %>" style="line-height: 25px;">
                                         <b><%= dc.name %>&#58;</b>
                                         <%= "&nbsp;&nbsp;<em>(* Required)</em>".html_safe if dc.must %>
                                         <br/>
-                                        <%= (dc.desc + "<br/>").html_safe unless dc.desc.blank? %>
+                                        <%= (dc.bei + "<br/>").html_safe unless dc.bei.blank? %>
                                         <% dc.content.split(',').each_with_index do |x, i| %>
                                             <input type="<%= dc.input_type %>" name="<%= dc.name %>" value="<%= x.split(':')[0] %>"
                                                    add=<%= x.split(':')[1] %> <%= 'checked="checked" ' if dc.checked == i %> />
                                             <%= x.split(':')[0] %>
-                                            <% if x.split(':')[1].to_f > 0 %>
-                                                +<%= number_to_currency x.split(':')[1] %>
-                                            <% end %>
+                                            <%= "+" + number_to_currency(x.split(':')[1]) if x.split(':')[1].to_f > 0 %>
                                             &nbsp;&nbsp;&nbsp;
                                         <% end %>
-                                        <hr/>
                                       </div>
                                   <% end %>
 
-                                  <%= label_tag(:quantity, "Choose Quantity:") %>
-                                  <%= select_tag :quantity, options_for_select([1, 2, 3, 4, 5]) %>
-                                  <hr/>
-
+                                  <br/>
                                   Special Instructions:&nbsp;<input type="text" name="note" add="0" />
-                                  <hr/>
+                                  <br/>
                                   <%= hidden_field_tag :price_adjustment, 0 %>
                                   <%= hidden_field_tag :dish_id, dish.id %>
                                   <%= hidden_field_tag :store_id, @store.id %>
                               <% end %>
                             </div>
-                            <button class='dish_dialog_submit'>Order</button>
+                            <button class='dish_dialog_submit small'>Order</button>
                             <a class="close-reveal-modal">&#215;</a>
                           </div>
                         </div>
@@ -112,14 +118,13 @@
 <% end %>
 
 <div id="cart_container" class="reveal-modal small" data-reveal>
-    <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
-    <ul id="cart">
-      <% if @cart %>
-          <%= render @cart %>
-      <% else %>
-          <li class="bullet-item">Your Cart Is Empty!</li>
-      <% end %>
-    </ul>
-    <a class="close-reveal-modal">&#215;</a>
-  </div>
+  <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
+  <ul id="cart">
+    <% if @cart %>
+        <%= render @cart %>
+    <% else %>
+        <li class="bullet-item">Your Cart Is Empty!</li>
+    <% end %>
+  </ul>
+  <a class="close-reveal-modal">&#215;</a>
 </div>

@@ -55,8 +55,17 @@
   <div class="large-3 columns">
     <br/>
     <ul class="side-nav">
+      <% if current_admin.feng? %>
+          <li><%= link_to "Stores", stores_path %></li>
+          <li><%= link_to "Cartridges", cartridges_path %></li>
+          <li><%= link_to "Templates", templates_path %></li>
+          <li><%= link_to "Subscriptions", subscriptions_path %></li>
+          <li><%= link_to "Users", "#" %></li>
+          <li><hr/></li>
+      <% end %>
+
       <li><%= link_to "My Profile", edit_admin_registration_path %></li>
-      <% if @store.nil? %>
+      <% if current_admin.store.nil? %>
           <li><%= link_to "Retrieve Store", h_retrieve_store_path %></li>
       <% else %>
           <li><img src="http://placehold.it/400x400&text=<%= @store.name %>"/><br/></li>

@@ -1,18 +1,5 @@
-<br/><br/>
-
 <div class="row">
-  <div class="large-3 columns">
-    <%= @store.address.address1 + ", " +  @store.address.address2%>
-    <hr/>
-    <%= @store.address.city + ", " + @store.address.state %>
-    <hr/>
-    This is side! Side! Side!
-    <hr/>
-    This is side! Side! Side!
-    <hr/>
-    This is side! Side! Side!
-  </div>
-  <div class="large-9 columns">
+  <div class="large-12 columns">
     <ul data-orbit>
       <li>
         <img src="http://placehold.it/1200x500&text=Slide Image 1" alt="slide image">
@@ -33,6 +20,37 @@
         </div>
       </li>
     </ul>
+  </div>
+  <div class="large-9 columns">
+    <%= image_tag "templates/imperialbcs/menucover_imperialbcs.png" %>
+  </div>
+  <div class="large-3 columns">
+    <p>
+      <br/>
+      <%= @store.address.address1 %><br/>
+      <%= @store.address.address2 %><br/>
+      <%= @store.address.city + ", " + @store.address.state + " " + @store.address.zip %>
+    </p>
+    <hr/>
+    <p>
+      Tel: <%= number_to_phone(@store.phone) %><br/>
+      Fax: <%= number_to_phone(@store.fax) %>
+    </p>
+    <hr/>
+    <p>
+      7 Days A Week<br/>
+      Sun - Thu: 11am - 10pm<br/>
+      Fri - Sun: 11am - 10:30pm
+    </p>
+    <hr/>
+    <p>
+      <%= image_tag "templates/public/CASH.gif" %>
+      <%= image_tag "templates/public/VISA.gif" %>
+      <%= image_tag "templates/public/MASTER.gif" %><br/><br/>
+      <%= image_tag "templates/public/DISCOVER.gif" %>
+      <%= image_tag "templates/public/AmericanExpress.png" %>
+      PayPal
+    </p>
   </div>
 </div>
 

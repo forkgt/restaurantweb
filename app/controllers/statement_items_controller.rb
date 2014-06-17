@@ -1,4 +1,5 @@
 class StatementItemsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_statement
   before_action :set_statement_item, only: [:show, :edit, :update, :destroy]
 

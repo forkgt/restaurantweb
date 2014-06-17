@@ -1,6 +1,7 @@
-<br/><br/>
->> <%= link_to 'Stores', stores_path %>
->> <%= link_to 'Menus for ' + @store.name, store_menus_path(@store) %>
+<ul class="breadcrumbs">
+  <li><%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %></li>
+  <li class="current"><%= link_to @menu.name, menu_categories_path(@menu) %></li>
+</ul>
 
 <p id="notice"><%= notice %></p>
 

@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_store
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 

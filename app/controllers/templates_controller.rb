@@ -1,4 +1,5 @@
 class TemplatesController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_template, only: [:show, :edit, :update, :destroy]
 
   # GET /templates

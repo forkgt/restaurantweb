@@ -1,12 +1,7 @@
-<br/><br/>
-<% if current_admin.email == "wanfenghuaian@gmail.com" %>
-    >> <%= link_to 'Stores', stores_path %>
-    >> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
-    >> <%= link_to 'Categories for ' + @menu.name, menu_categories_path(@menu) %>
-<% else %>
-    >> <%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %>
-    >> <%= link_to @menu.name, menu_categories_path(@menu) %>
-<% end %>
+<ul class="breadcrumbs">
+  <li><%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %></li>
+  <li><%= link_to @menu.name, menu_categories_path(@menu) %></li>
+</ul>
 
 <h1>New category</h1>
 

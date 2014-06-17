@@ -1,4 +1,5 @@
 class DishesController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_category
   before_action :set_dish, only: [:show, :edit, :update, :destroy]
 
@@ -29,8 +30,12 @@ class DishesController < ApplicationController
 
     respond_to do |format|
       if @dish.save
-        #format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully created.' }
-        format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
+        if current_admin.feng?
+          format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully created.' }
+        else
+          format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
+        end
+
         format.json { render action: 'show', status: :created, location: @dish }
       else
         format.html { render action: 'new' }

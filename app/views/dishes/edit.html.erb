@@ -1,14 +1,9 @@
-<br/><br/>
-
-<% if current_admin.email == "wanfenghuaian@gmail.com" %>
-    >> <%= link_to 'Stores', stores_path %>
-    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
-    >> <%= link_to 'Categories for ' + @category.menu.name, menu_categories_path(@category.menu) %>
-    >> <%= link_to 'Dishes for ' + @category.name, category_dishes_path(@category) %>
-<% else %>
-    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
-    >> <%= link_to @category.menu.name, menu_categories_path(@category.menu) %>
-<% end %>
+<ul class="breadcrumbs">
+  <li><%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %></li>
+  <li><%= link_to @category.menu.name, menu_categories_path(@category.menu) %></li>
+  <li><%= link_to @category.name, category_dishes_path(@category) %></li>
+  <li class="current"><%= link_to @dish.name, category_dish_path(@category, @dish) %></li>
+</ul>
 
 <h1>Editing dish</h1>
 

@@ -1,4 +1,5 @@
 class StoresController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_store, only: [:show, :edit, :update, :destroy]
 
   # GET /stores

@@ -1,24 +1,11 @@
-<br/><br/>
-<% if current_admin.email == "wanfenghuaian@gmail.com" %>
-    >> <%= link_to 'Stores', stores_path %>
-    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
-    >> <%= link_to 'Categories for ' + @category.menu.name, menu_categories_path(@category.menu) %>
-    >> <%= link_to 'Dishes for ' + @category.name, category_dishes_path(@category) %>
+<ul class="breadcrumbs">
+  <li><%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %></li>
+  <li><%= link_to @category.menu.name, menu_categories_path(@category.menu) %></li>
+  <li class="current"><%= link_to @category.name, category_dishes_path(@category) %></li>
+</ul>
 
-    <h1>New dish</h1>
+<h1>New dish</h1>
 
-    <%= render 'form' %>
+<%= render 'form' %>
 
-    <%= link_to 'Back', category_dishes_path(@category) %>
-<% else %>
-    >> <%= link_to 'Menus for ' + @category.menu.store.name, store_menus_path(@category.menu.store) %>
-    >> <%= link_to @category.menu.name, menu_categories_path(@category.menu) %>
-
-    <h1>New dish</h1>
-
-    <%= render 'form' %>
-
-    <%= link_to 'Back', menu_categories_path(@category.menu) %>
-<% end %>
-
-
+<%= link_to 'Back', menu_categories_path(@category.menu) %>

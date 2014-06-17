@@ -1,5 +1,4 @@
 class HController < ApplicationController
-  # Authenticate Devise Admin
   before_action :authenticate_admin!
 
   def user_manager

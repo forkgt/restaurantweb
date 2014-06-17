@@ -1,8 +1,7 @@
-<br/><br/>
-<% if current_admin.email == "wanfenghuaian@gmail.com" %>
-    >> <%= link_to 'Stores', stores_path %>
-<% end %>
->> <%= link_to 'Menus for ' + @store.name, store_menus_path(@store) %>
+<ul class="breadcrumbs">
+  <li><%= link_to 'Menus for ' + @menu.store.name, store_menus_path(@menu.store) %></li>
+  <li class="current"><%= link_to @menu.name, menu_categories_path(@menu) %></li>
+</ul>
 
 <h1>Editing menu</h1>
 

@@ -17,7 +17,7 @@ $header_logo_bg: $dark_color;
 
 $gallery_width: 958px;
 $gallery_height: 450px;
-@import "public/gallery.css.scss";
+@import "public/gallery";
 
 $menu_color: #000000;
 $menu_bg_color: #ffffff;
@@ -25,16 +25,16 @@ $category_color: #FFFFFF;
 $category_bg_color: #7B0B17;
 $dish_color: #000099;
 $dish_bg_color: #ffffff;
-@import 'public/menu.css.scss';
+@import 'public/menu';
 
 $cart_color: #FFFFFF;
 $cart_bg_color: $dark_color;
-@import "public/cart.css.scss";
+@import "public/cart";
 
 $dish_dialog_title_color: $dark_color;
-@import "public/dish_dialog.css.scss";
+@import "public/dish_dialog";
 
-@import "public/order.css.scss";
+@import "public/order";
 
 // Facebook, Twitter, Yelp Button On Top of all Pages
 // Url: All Pages

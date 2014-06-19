@@ -21,8 +21,9 @@
 # Ignore from Openshift
 .project
 
-# Ignore uploaded files
+# Ignore uploaded and assets files
 /public/uploads
+/public/assets
 
 # Ignore app config
 /config/app_config.yml

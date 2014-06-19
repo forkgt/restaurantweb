@@ -8,18 +8,18 @@
     </ul>
   </div>
   <div id="footer_intro">
-    Yum Asian Bistro is the Best Asian Food in Town For Delivery and Takeout. Delivery (Minimum $15.00 Within 4 Miles)
+    <%= @store.name %> is the Best Asian Food in Town For Delivery and Takeout.
+    Delivery (Minimum <%= number_to_currency @store.delivery_minimum %> Within <%= @store.delivery_radius %> Miles)
     <br />
-    2721 Little Elm Parkway, Suite #215, Little Elm, TX 75068. (at Kroger Shopping Center)
+    <%= @store.address.address1 + ", " + @store.address.address2 + ", " + @store.address.city + ", " + @store.address.state + " " + @store.address.zip %>
   </div>
   <div id="footer_brand">
     Website Created and Maitained by
     <a href="http://www.777pos.com">777POS</a>
   </div>
   <div id="footer_nav_small">
-    &copy; 2012 Yum Asian Bistro. All Rights Reserved.
+    &copy; <%= Time.now.year.to_s + " " + @store.name %>. All Rights Reserved.
     &bull; <a href="http://www.paypal.com">PayPal</a>
-    &bull; <a href="http://www.interfax.net">Fax</a>
     &bull; <a href="/Test/tsweb/admin">Management</a>
   </div>
 </div><!--footer-->

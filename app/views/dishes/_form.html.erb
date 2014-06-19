@@ -1,18 +1,22 @@
 <%= simple_form_for([@category, @dish]) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :bei %>
-    <%= f.input :rank %>
-    <%= image_tag @dish.image_url.to_s, title: @dish.name if @dish.image? %>
-    <%= f.input :image %>
-    <%= f.input :price %>
-    <%= f.association :dish_features, as: :check_boxes, collection: @category.menu.store.dish_features %>
-    <%= f.association :dish_choices, as: :check_boxes, collection: @category.menu.store.dish_choices, item_wrapper_class: 'inline' %>
-  </div>
+    <div class="form-inputs">
+      <div class="row">
+        <div class="large-6 columns"><%= f.input :name %></div>
+        <div class="large-6 columns"><%= f.input :bei, label: "Description" %></div>
+        <div class="large-2 columns"><%= f.input :rank if current_admin.feng? %></div>
+        <div class="large-2 columns"><%= f.input :price %></div>
+        <div class="large-2 columns"><%= image_tag @dish.image_url(:micro).to_s, title: @dish.name if @dish.image? %></div>
+        <div class="large-6 columns"><%= f.input :image %></div>
+        <hr/>
+        <div class="large-6 columns"><%= f.association :dish_features, as: :check_boxes, collection: @category.menu.store.dish_features %></div>
+        <div class="large-6 columns"><%= f.association :dish_choices, as: :check_boxes, collection: @category.menu.store.dish_choices %></div>
+      </div>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <hr/>
+    <div class="form-actions">
+      <%= f.button :submit, class: "button small" %>
+    </div>
 <% end %>

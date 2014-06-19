@@ -1,4 +1,14 @@
 module FengValidators
+  class Money
+    def self.regex
+      /\A\d+(?:\.\d{0,2})?\z/
+    end
+
+    def self.hint
+      "please give a valid price"
+    end
+  end
+
   class LettersOnly
     def self.regex
       /\A[a-zA-Z]+\z/

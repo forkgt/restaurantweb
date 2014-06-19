@@ -30,12 +30,10 @@ Ibm::Application.routes.draw do
 
   get "h/user_manager", "h/retrieve_store"
 
-  get "q/index", "q/missing", "q/closed",
-      "q/store_order_success", "q/store_order_failure", "q/paypal_notify", "q/paypal_cancel"
+  get "q/index", "q/missing", "q/closed", "q/store_order_success", "q/store_order_failure", "q/store_order_cancel", "q/paypal_notify"
   get "q/store_home",        to: "q#store_home",        as: "q_store_home"
   get "q/store_menus",       to: "q#store_menus",       as: "q_store_menus"
   get "q/store_map",         to: "q#store_map",         as: "q_store_map"
-  get "q/store_order",       to: "q#store_order",       as: "q_store_order"
 
   root 'q#index'
 

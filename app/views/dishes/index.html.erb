@@ -4,29 +4,4 @@
   <li class="current"><%= link_to @category.name, category_dishes_path(@category) %></li>
 </ul>
 
-<div class="panel" style="margin: 30px 0px 0px 0px;">
-  <span style="font-weight: bold;"><%= @category.name %> (Rank: <%= @category.rank %>) <%= @category.bei %></span>
-  <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "Edit"), edit_menu_category_path(@category.menu, @category) %>
-  <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "Destroy"), [@category.menu, @category], method: :delete, data: { confirm: 'Are you sure?' } %>
-</div>
-<div class="row">
-  <% @category.dishes.each do |dish| %>
-      <div class="large-6 columns">
-        <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
-          <!--<%= dish.bei %>-->
-          <!--<% dish.dish_features.each do |df| %>  <%= df.name %> <% end %>-->
-          <!--<% dish.dish_choices.each do |dc| %>   <%= dc.name %> <% end %>-->
-
-          <%= dish.name %> (Rank: <%= dish.rank %>)
-          <%= number_to_currency dish.price %>
-          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "Edit"), edit_category_dish_path(@category, dish) %>
-          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "Destroy"), [@category, dish], method: :delete, data: { confirm: 'Are you sure?' } %>
-        </div>
-      </div>
-  <% end %>
-  <div class="large-6 columns" style="float: left;">
-    <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
-      <%= link_to image_tag("Add-24-3.png", size: "20x20", alt: "Add") + " Add New Dish", new_category_dish_path(@category) %>
-    </div>
-  </div>
-</div>
+<%= render @category %>

@@ -13,11 +13,11 @@ $header_bg: $dark_color;
 $header_logo_width: 960px;
 $header_logo_height: 380px;
 $header_logo_bg: $dark_color url('/assets/templates/yumasianbistro/logos/yumasianbistro_logo.png') no-repeat center center;
-@import 'templates/public/base.css.scss';
+@import 'public/base';
 
 $gallery_width: 640px;
 $gallery_height: 500px;
-@import "templates/public/gallery.css.scss";
+@import "public/gallery.css.scss";
 
 $menu_color: #000000;
 $menu_bg_color: #ffffff;
@@ -25,16 +25,16 @@ $category_color: $dark_color;
 $category_bg_color: $light_color;
 $dish_color: #000099;
 $dish_bg_color: #ffffff;
-@import "public/menu";
+@import "public/menu.css.scss";
 
 $cart_color: #FFFFFF;
 $cart_bg_color: $dark_color;
-@import "public/cart";
+@import "public/cart.css.scss";
 
 $dish_dialog_title_color: $dark_color;
-@import "public/dish_dialog";
+@import "public/dish_dialog.css.scss";
 
-@import "public/order";
+@import "public/order.css.scss";
 
 // The nav bar above menus
 // Url: /q/store_menus

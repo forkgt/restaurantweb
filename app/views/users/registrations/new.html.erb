@@ -7,8 +7,15 @@
 
         <div class="form-inputs">
           <%= f.input :email, :required => true, :autofocus => true %>
-          <%= f.input :password, :required => true %>
-          <%= f.input :password_confirmation, :required => true %>
+          <div class="row">
+            <div class="large-4 columns"><%= f.input :firstname, :required => true %></div>
+            <div class="large-4 columns"><%= f.input :lastname, :required => true %></div>
+            <div class="large-4 columns"><%= f.input :phone, :required => true %></div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns"><%= f.input :password, :required => true %></div>
+            <div class="large-6 columns"><%= f.input :password_confirmation, :required => true %></div>
+          </div>
         </div>
 
         <div class="form-actions">

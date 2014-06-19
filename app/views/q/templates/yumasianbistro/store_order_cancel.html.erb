@@ -1,0 +1,15 @@
+<script>
+    $(document).ready(function(){
+        $('#menus').attr("class","selected");
+    });
+</script>
+
+<div id="main">
+  <div class="message">
+    Your Order Has Been Cancelled!
+    <br/><br/>
+    <%= link_to "Back To Store Menus", q_store_menus_path %>
+  </div>
+</div>
+
+<%= render "q/templates/#{@template}/side" %>

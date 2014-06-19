@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   #  def change
   #    create_table :orders do |t|
   #      t.string :note
+  #      t.string :invoice
   #      t.string :payment_type, :default => 'cash', :null => false
   #      t.string :payment_status, :default => 'not_paid', :null => false
   #      t.string :transfer_status
@@ -17,6 +18,8 @@ class Order < ActiveRecord::Base
   #    end
   #  end
   #end
+
+  validates :tip, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   belongs_to :cart
 
@@ -50,7 +53,7 @@ class Order < ActiveRecord::Base
   def paypal_url
     values = {
         :business       => store.get_paypal_account,
-        :cancel_return  => q_paypal_cancel_url(:host => APP_CONFIG['ibm_domain']),
+        :cancel_return  => q_store_order_cancel_url(:host => APP_CONFIG['ibm_domain']),
         :charset        => 'utf-8',
         :cmd            => '_cart',
         :currency_code  => 'USD',
@@ -102,8 +105,7 @@ class Order < ActiveRecord::Base
 
   # Use class method because of delayed_job
   def to_fax
-    html = File.open(Rails.root.join('app/views/orders/_fax.html.erb')).read
-    template = ERB.new(html)
+    template = ERB.new(File.open(Rails.root.join('app/views/orders/_fax.html.erb')).read)
     str = template.result(binding)
     client = Savon.client(log: false, wsdl: APP_CONFIG["interfax_url"])  # Turn off log for security
 

@@ -17,7 +17,7 @@ $header_logo_bg: transparent url('/assets/templates/chinainnhempstead/logos/chin
 
 $gallery_width: 658px;
 $gallery_height: 450px;
-@import "templates/public/gallery.css.scss";
+@import "public/gallery.css.scss";
 
 $menu_color: #000000;
 $menu_bg_color: $dark_color;
@@ -25,16 +25,16 @@ $category_color: $dark_color;
 $category_bg_color: $light_color;
 $dish_color: #ffffff;
 $dish_bg_color: $dark_color;
-@import 'public/menu';
+@import 'public/menu.css.scss';
 
 $cart_color: #FFFFFF;
 $cart_bg_color: $dark_color;
-@import "public/cart";
+@import "public/cart.css.scss";
 
 $dish_dialog_title_color: $dark_color;
-@import "public/dish_dialog";
+@import "public/dish_dialog.css.scss";
 
-@import "public/order";
+@import "public/order.css.scss";
 
 // The nav bar above menus
 // Url: /q/store_menus

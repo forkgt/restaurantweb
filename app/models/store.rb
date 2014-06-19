@@ -11,33 +11,28 @@ class Store < ActiveRecord::Base
   #      t.string :domain
   #      t.string :phone
   #      t.string :fax
+  #      t.string :status, default: "normal"
+  #      t.string :uuid
   #      t.decimal :delivery_minimum, :default => 0, :precision => 8, :scale => 2
   #      t.decimal :delivery_fee, :default => 0, :precision => 8, :scale => 2
   #      t.integer :delivery_radius
+  #
   #      t.references :admin, index: true
   #
   #      t.timestamps
   #    end
   #  end
   #end
-  #
-  #class AddStatusToStores < ActiveRecord::Migration
-  #  def change
-  #    add_column :stores, :status, :string, default: "normal"
-  #  end
-  #end
-  #
-  #class AddUuidToStores < ActiveRecord::Migration
-  #  def change
-  #    add_column :stores, :uuid, :string
-  #  end
-  #end
 
+  validates_presence_of :name
+  validates :phone, presence: true, numericality: { only_integer: true }, length: { is: 10 }
+  validates :fax, presence: true, numericality: { only_integer: true }, length: { is: 10 }
 
   belongs_to :admin
 
   has_one :address, :as => :addressable
   accepts_nested_attributes_for :address
+  validates_associated :address
 
   has_many :dish_features
   has_many :dish_choices

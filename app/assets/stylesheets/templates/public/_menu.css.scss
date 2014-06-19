@@ -1,17 +1,19 @@
 // Menu for a store
 // Url: /q/store_order
 //
-// Example:
+// Variables:
 //
+//$light_color: #ffffff;
+//$dark_color: #000000;
 //$menu_color: #000000;
 //$menu_bg_color: #ffffff;
 //$category_color: $dark_color;
 //$category_bg_color: $light_color;
 //$dish_color: #000099;
 //$dish_bg_color: #ffffff;
-//@import "public/menu";
 //
-// =============================================================================
+// ===================================================================================
+
 div.menu {
   color: $menu_color;
   background-color: $menu_bg_color;
@@ -41,6 +43,7 @@ div.menu {
     position:relative;
     cursor:pointer;
     width:620px;
+    height: 30px;
     line-height:30px;font-size:14px;
     border-bottom:1px solid #DDDDDD;
 

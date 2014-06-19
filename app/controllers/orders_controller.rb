@@ -17,7 +17,35 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = @store.orders.build
+    if params[:cart_id]
+      @cart = Cart.find(params[:cart_id])
+    else
+      @cart = current_cart(@store.id, false)
+    end
+
+    # Redirect if the cart is empty
+    unless @cart
+      redirect_to q_store_menus_url, notice: "Your Cart is Empty!"
+      return
+    end
+
+    # Redirect if the cart doesn't meet minimum
+    if @cart.delivery_type == 'delivery' && @cart.total_price < @cart.store.delivery_minimum
+      redirect_to store_menus_url, notice: "The order doesn't meet minimum!"
+      return
+    end
+
+    if user_signed_in?
+      current_user.build_address if @cart.delivery_type == 'delivery' && current_user.address.nil?
+      @order = Order.new(:cart => @cart, :store => @cart.store, :user => current_user)
+    else
+      user = User.new
+      user.build_address if @cart.delivery_type == 'delivery'
+      @order = Order.new(:cart => @cart, :store => @cart.store, :user => user)
+    end
+
+    @template = @cart.store.get_current_template
+    render template: "q/templates/#{@template}/store_order", layout: "templates/#{@template}"
   end
 
   # GET /orders/1/edit
@@ -30,10 +58,10 @@ class OrdersController < ApplicationController
     @order = Order.new order_params
 
     if @order.user.email.blank? && @order.user.password.blank? && @order.user.password_confirmation.blank?
-      @order.user.email = "guest_#{Time.now.to_i}#{rand(99)}@meals4.me"
+      @order.user.email = "guest_#{Time.now.to_i}#{rand(99)}@777pos.com"
       @order.user.password = "guest_password"
       @order.user.password_confirmation = "guest_password"
-      #@order.user.skip_confirmation! # Skip sending emails
+      @order.user.skip_confirmation! # Skip sending emails
     end
 
     # Need to validate the phone number for the order
@@ -52,7 +80,7 @@ class OrdersController < ApplicationController
           format.html { redirect_to @order.paypal_url }
         else
           # Send Fax through Interfax
-          #@order.to_fax
+          @order.to_fax
 
           #format.html { redirect_to store_order_url(@store, @order), notice: 'Order was successfully created.' }
           format.html { redirect_to q_store_order_success_url, notice: 'Order was successfully created.' }
@@ -62,8 +90,8 @@ class OrdersController < ApplicationController
         @cart = current_cart(@order.store_id, false)
         @order.user.email = ""
 
-        #format.html { render action: "new" }
-        format.html { redirect_to q_store_order_failure_url(@store, @order), notice: 'Order was successfully created.' }
+        @template = @cart.store.get_current_template
+        format.html { render template: "q/templates/#{@template}/store_order", layout: "templates/#{@template}" }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -108,6 +136,6 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:note, :payment_type, :payment_status, :transfer_status, :tip, :store_id, :cart_id, :user_id,
-                                    :user_attributes => [:id, :firstname, :lastname, :phone, :address_attributes => [:id, :address1, :address2, :city]])
+                                    :user_attributes => [:id, :firstname, :lastname, :phone, :address_attributes => [:id, :address1, :address2, :city, :zip]])
     end
 end

@@ -16,6 +16,9 @@ class Dish < ActiveRecord::Base
   #  end
   #end
 
+  validates :name, presence: true
+  validates :price, presence: true, format: { with: FengValidators::Money.regex, message: FengValidators::Money.hint },
+            numericality: { greater_than: 0, less_than: 50 }
 
 
   belongs_to :category

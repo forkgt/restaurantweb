@@ -1,74 +1,40 @@
 <html>
 <body style='font-family:arial;'>
 
-<br/><br/><br/><br/>
+<h1>Invoice #: <%= self.id %></h1>
+<p><%= self.store.name %></td></p>
 
-<table width='730px'>
-  <col width='330'/>
-  <col width='400'/>
-  <tr> <th rowspan='3'><h1 style='font-size:50px;'>meals4me</h1></th><td><h1>Invoice #: <%= self.id %></h1></td> </tr>
-  <tr> <td>Order Time: <%= self.created_at %></td> </tr>
-  <tr> <td>Order To: <%= self.store.name %></td> </tr>
+<table>
+  <tr>
+    <td>
+      <p><%= self.created_at.getlocal.to_formatted_s(:short) %><br/></p>
+      <p><strong><%= self.cart.delivery_type %></strong><br/><%= self.payment_type + " (" + self.payment_status + ")" %><br/></p>
+      <p><strong>Name:</strong><br/><%= self.user.firstname + " " + self.user.lastname %><br/></p>
+      <p><strong>Tel:</strong><br/><%= self.user.phone %><br/></p>
+      <% unless self.user.address.nil? %>
+          <p>
+            <strong>Address:</strong><br/>
+            <%= self.user.address.address1 + ", " + self.user.address.address2 %><br/>
+            <%= self.user.address.city %><br/>
+          </p>
+      <% end %>
+    </td>
+    <td>
+      <table>
+        <tr><th>Menu Item</th><th>Qty.</th><th align='left'>Amt.</th></tr>
+        <% self.cart.cart_items.each do |ci| %>
+            <tr> <td><%= ci.name %></td><td align='center'><%= ci.quantity %></td><td><%= ci.total_price %></td> </tr>
+            <tr> <td colspan='3'> --- <%= ci.note %></td> </tr>
+        <% end %>
+      </table>
+      <p>Tax: <%= number_to_currency self.cart.tax %><br/></p>
+      <p>Delivery Fee: <%= number_to_currency self.cart.delivery_fee %><br/></p>
+      <p>Tip: <%= number_to_currency self.tip %><br/></p>
+      <p>Total: <%= number_to_currency self.cart.total_price + self.tip %><br/></p>
+      <p><strong>Note:</strong><%= self.note %></p>
+    </td>
+  </tr>
 </table>
-<br/><br/>
-
-<table width='730px'>
-  <col width='430'/>
-  <col width='300'/>
-  <tr> <td><b>Customer Info:</b></td><th rowspan='3'><h1><%= self.cart.delivery_type %></h1></th> </tr>
-  <tr> <td><%= self.user.firstname %> <%= self.user.lastname %></td>                            </tr>
-  <tr> <td><%= self.user.phone %></td>                                                            </tr>
-  <% if self.user.address %>
-      <tr> <td><%= self.user.address.address1 %>, <%= self.user.address.address2 %></td><th rowspan='2'><h2>Time: Tomorrow</h2></th> </tr>
-      <tr> <td><%= self.user.address.city %>, <%= self.user.address.state %> <%= self.user.address.zip %></td> </tr>
-  <% else %>
-      <tr> <td></td><th rowspan='2'><h2>Time: Tomorrow</h2></th> </tr>
-      <tr> <td></td> </tr>
-  <% end %>
-</table>
-<hr/>
-
-<table width='730px'>
-  <col width='530'/>
-  <col width='100'/>
-  <col width='100'/>
-  <tr> <th>Menu Item</th><th>Qty.</th><th align='left'>Amt.</th> </tr>
-  <% self.cart.cart_items.each do |ci| %>
-      <tr> <td><%= ci.name %></td><td align='center'><%= ci.quantity %></td><td><%= ci.total_price %></td> </tr>
-      <tr> <td colspan='3'> --- <%= ci.note %></td> </tr>
-  <% end %>
-</table>
-<hr/>
-
-<table width='730px'>
-  <tr> <td><h4>Special Instructions</h4></td> </tr>
-  <tr> <td> --- <%= self.note %></td>       </tr>
-</table>
-<hr/>
-
-<table width='730px'>
-  <col width='530'/>
-  <col width='100'/>
-  <col width='100'/>
-  <tr> <td><b>Pay by <%= self.payment_type %>(<%= self.payment_status %>)</b></td><td align='right'>Subtotal</td><td><%= number_to_currency self.cart.subtotal_price %></td> </tr>
-  <% if self.payment_type == 'cash' %>
-      <tr> <td></td><td align='right'>Tax</td>         <td><%= number_to_currency self.cart.subtotal_price*0.0825 %></td>    </tr>
-      <tr> <td></td><td align='right'>Delivery Fee</td><td><%= number_to_currency self.cart.delivery_fee %></td>             </tr>
-      <tr> <td></td><td align='right'>Tip</td>         <td>with cash</td>                                   </tr>
-      <tr> <td></td><td align='right'>Total</td>       <td><%= number_to_currency self.cart.total_price + self.tip %></td> </tr>
-      <br/>
-  <% else %>
-      <tr> <td>Card #: </td>           <td align='right'>Tax</td>         <td><%= number_to_currency self.cart.subtotal_price*0.0825 %></td>    </tr>
-      <tr> <td>Exp At(MM/YY): </td><td align='right'>Delivery Fee</td><td><%= number_to_currency self.cart.delivery_fee %></td>             </tr>
-      <tr> <td>Card Holder: </td>                               <td align='right'>Tip</td>         <td><%= number_to_currency self.tip %></td>                           </tr>
-      <tr> <td>CVV #: </td>      <td align='right'>Total</td>       <td><%= number_to_currency self.cart.total_price + self.tip %></td> </tr>
-      <br/>
-  <% end %>
-</table>
-
-<hr/>
-<br/>
-<p>For price adjustments or any issues, please contact meals4me: 979-739-6180, 979-676-2867</p>
 
 </body>
 </html>

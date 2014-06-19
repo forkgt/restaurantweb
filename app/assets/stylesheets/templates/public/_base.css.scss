@@ -1,21 +1,27 @@
 // Basic Settings
 // Url: For All Pages
 //
-// Example:
+// Varibles:
 //
-//$body_bg: #ffffff url('/assets/templates/joyluckdelivery/logos/joyluckdelivery_bg.jpg');
+//$light_color: #ffffff;
+//$dark_color: #000000;
+//
+//$body_bg: #ffffff;
 //$header_width: 960px;
 //$header_height: 210px;
 //$header_bg: $dark_color;
 //$header_logo_width: 960px;
 //$header_logo_height: 110px;
 //$header_logo_bg: $dark_color;
-//@import "public/base";
 //
 // ===================================================================================
 * {font:100% Arial,Helvetica,sans-serif;font-size:14px;}
 body {margin:0px auto;padding:0px 0px;width:960px;background:$body_bg;}
 ul {margin:0px;padding:0px;}
+
+div.alert-error { color: #ff0000; font-size: 20px;line-height: 40px;padding-top: 10px; }
+span.error { color: #ff0000;padding-left: 10px;}
+
 /*
  * #header {width:960px;height:108px;background-image:url(images/maintenance_header.png);}
  * #header {width:960px;height:160px;background:#7B0B17;}
@@ -59,7 +65,7 @@ ul {margin:0px;padding:0px;}
 }
 
 #major, #minor {
-  width:960px;margin-top: 20px;
+  width:960px;margin: 20px 0px 20px 0px;text-align: center;
 }
 
 #main {
@@ -69,8 +75,13 @@ ul {margin:0px;padding:0px;}
     color:#000099;font-weight:bold;font-size:20px;margin:40px;
   }
 
-  .message {
-    color:#0044DD;font-size:30px;margin:40px;text-align:center;
+  div.message {
+    width: 660px;
+    min-height: 300px;
+    color:#0044DD;
+    background-color: #ffffff;
+    border: 1px solid #bbbbbb;
+    font-size:30px;padding-top:100px;text-align:center;
 
     a {color:#0044DD;font-size:20px;}
   }

@@ -20,6 +20,7 @@ class Address < ActiveRecord::Base
   #  end
   #end
 
+  validates_presence_of :address1, :city, :zip
 
   belongs_to :addressable, :polymorphic => true
 end

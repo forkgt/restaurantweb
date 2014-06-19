@@ -13,15 +13,22 @@
     </p>
 
     <p>
+      <strong>Delivery:</strong><br/>
+      <%= @order.cart.delivery_type %>
+    </p>
+
+    <p>
       <strong>User:</strong><br/>
       <%= @order.user.firstname + " " + @order.user.lastname %><br/>
     </p>
 
-    <p>
-      <strong>Address:</strong><br/>
-      <%= @order.user.address.address1 + ", " + @order.user.address.address2 %><br/>
-      <%= @order.user.address.city %><br/>
-    </p>
+    <% unless @order.user.address.nil? %>
+        <p>
+          <strong>Address:</strong><br/>
+          <%= @order.user.address.address1 + ", " + @order.user.address.address2 %><br/>
+          <%= @order.user.address.city %><br/>
+        </p>
+    <% end %>
   </div>
   <div class="large-6 columns">
     <p>

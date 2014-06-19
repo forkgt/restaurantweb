@@ -3,12 +3,12 @@ defaults: &defaults
   ibm_mode:              test
   ibm_domain:            localhost
 
-  # Dropbox Information
-  app_key:               ZZZZZZZZZZZZZZZZZZZ
-  app_secret:            ZZZZZZZZZZZZZZZZZZZ
-  access_token:          ZZZZZZZZZZZZZZZZZZZ
-  access_token_secret:   ZZZZZZZZZZZZZZZZZZZ
-  user_id:               ZZZZZZZZZZZZZZZZZZZ
+#  # Dropbox Information
+#  app_key:               ZZZZZZZZZZZZZZZZZZZ
+#  app_secret:            ZZZZZZZZZZZZZZZZZZZ
+#  access_token:          ZZZZZZZZZZZZZZZZZZZ
+#  access_token_secret:   ZZZZZZZZZZZZZZZZZZZ
+#  user_id:               ZZZZZZZZZZZZZZZZZZZ
 
   # Interfax Information
   interfax_url:          https://ws.interfax.net/dfs.asmx?WSDL

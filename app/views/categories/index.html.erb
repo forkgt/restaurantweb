@@ -3,46 +3,16 @@
   <li class="current"><%= link_to @menu.name, menu_categories_path(@menu) %></li>
 </ul>
 
-<% @categories.each do |category| %>
+<%= render @categories %>
+
+<% if current_admin.feng? %>
     <div class="panel" style="margin: 30px 0px 0px 0px;">
-      <span style="font-weight: bold;"><%= category.name %> (Rank: <%= category.rank %>) <%= category.bei %></span>
+      <span style="font-weight: bold;">Add New Category</span>
       <div style="float: right;">
-        <%= link_to image_tag("Edit-24-3.png"), edit_menu_category_path(category.menu, category) %>
-        <%= link_to image_tag("Garbage-24-3.png"), [category.menu, category], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-    </div>
-    <div class="row">
-      <% category.dishes.each do |dish| %>
-          <div class="large-6 columns">
-            <div style="border-bottom: 1px dashed #000000;line-height: 30px;">
-              <!--<%= dish.bei %>-->
-              <!--<% dish.dish_features.each do |df| %>  <%= df.name %> <% end %>-->
-              <!--<% dish.dish_choices.each do |dc| %>   <%= dc.name %> <% end %>-->
-
-              <%= dish.name %> (Rank: <%= dish.rank %>)
-              <%= number_to_currency dish.price %>
-
-              <div style="float: right;">
-                <%= link_to image_tag("Edit-24-3.png"), edit_category_dish_path(category, dish) %>
-                <%= link_to image_tag("Garbage-24-3.png"), [category, dish], method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
-            </div>
-          </div>
-      <% end %>
-      <div class="large-6 columns" style="float: left;">
-        <div style="border-bottom: 1px dashed #000000;line-height: 30px;text-align: center;">
-          <%= link_to image_tag("Add-24-3.png") + " Add Dish", new_category_dish_path(category) %>
-        </div>
+        <%= link_to image_tag("Add-24-3.png"), new_menu_category_path(@menu) %>
       </div>
     </div>
 <% end %>
-
-<div class="panel" style="margin: 30px 0px 0px 0px;">
-  <span style="font-weight: bold;">Add New Category</span>
-  <div style="float: right;">
-    <%= link_to image_tag("Add-24-3.png"), new_menu_category_path(@menu) %>
-  </div>
-</div>
 
 <br/><br/>
 <%= link_to image_tag("Arrowhead-Left-24-03.png") + " Back", store_menus_path(@menu.store) %>

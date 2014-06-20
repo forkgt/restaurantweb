@@ -67,6 +67,7 @@ gem 'savon', '~> 2.3.3'
 
 gem 'tod', '~> 1.4.0'
 
+gem 'money', '~> 6.1.1'
 gem 'activemerchant', '~> 1.43.1'
 
 # Time Scheduler

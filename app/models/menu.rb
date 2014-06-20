@@ -25,4 +25,5 @@ class Menu < ActiveRecord::Base
   has_many :hours, :dependent => :destroy, :as => :hourable
   accepts_nested_attributes_for :hours, :allow_destroy => true
 
+  mount_uploader :image, BannerUploader
 end

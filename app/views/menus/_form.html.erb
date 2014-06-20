@@ -5,6 +5,7 @@
     <%= f.input :name %>
     <%= f.input :bei %>
     <%= f.input :rank %>
+    <%= image_tag @menu.image_url(:micro).to_s, title: @menu.name if @menu.image? %>
     <%= f.input :image %>
     <hr/>
 
@@ -19,7 +20,7 @@
             <%= hour.link_to_remove "Remove", class: "button tiny" %>
           </div>
       <% end %>
-      <%= f.link_to_add "Add", :hours, class: "button" %>
+      <%= f.link_to_add "Add", :hours, class: "small button" %>
     </div>
   </div>
 

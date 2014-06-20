@@ -16,7 +16,7 @@ module Hourable
 
   def hours_for_day
     today = Time.now.wday
-    hour = Hour.where("bei like ?", "#{today}").take
+    hour = hours.where("bei like ?", "%#{today}%").take
 
     if hour
       "Open from " + hour.open_at + " - " + hour.close_at + " on " + hour.name.capitalize + "."

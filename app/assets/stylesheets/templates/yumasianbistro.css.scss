@@ -6,13 +6,13 @@ $light_color: #d3bc0a;
 $dark_color: #2f1a45;
 $color_three: #FFF9AB;
 
-$body_bg: $dark_color url('/assets/templates/yumasianbistro/logos/yumasianbistro_bg.gif');
+$body_bg: $dark_color image-url('templates/yumasianbistro/logos/yumasianbistro_bg.gif');
 $header_width: 960px;
 $header_height: 430px;
 $header_bg: $dark_color;
 $header_logo_width: 960px;
 $header_logo_height: 380px;
-$header_logo_bg: $dark_color url('/assets/templates/yumasianbistro/logos/yumasianbistro_logo.png') no-repeat center center;
+$header_logo_bg: $dark_color image-url('templates/yumasianbistro/logos/yumasianbistro_logo.png') no-repeat center center;
 @import 'public/base';
 
 $gallery_width: 640px;

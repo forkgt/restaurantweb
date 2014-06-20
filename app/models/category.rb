@@ -19,4 +19,6 @@ class Category < ActiveRecord::Base
   belongs_to :menu
 
   has_many :dishes, -> { order(:rank) }, :dependent => :destroy
+
+  mount_uploader :image, BannerUploader
 end

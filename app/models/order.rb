@@ -53,19 +53,19 @@ class Order < ActiveRecord::Base
   def paypal_url
     values = {
         :business       => store.get_paypal_account,
-        :cancel_return  => q_store_order_cancel_url(:host => APP_CONFIG['ibm_domain']),
+        :cancel_return  => q_store_order_cancel_url(:host => store.domain),
         :charset        => 'utf-8',
         :cmd            => '_cart',
         :currency_code  => 'USD',
         :custom         => '',
-        :image_url      => "https://meals4.me/assets/mfm_logo.png",
+        #:image_url      => "https://meals4.me/assets/mfm_logo.png",
         :invoice        => id,
         :lc             => 'US',
         :no_shipping    => 0,
         :no_note        => 1,
-        :notify_url     => q_paypal_notify_url(:host => APP_CONFIG['ibm_domain']),
+        :notify_url     => q_paypal_notify_url(:host => store.domain),
         :num_cart_items => cart.cart_items.size,
-        :return         => q_store_home_url(:host => APP_CONFIG['ibm_domain']),
+        :return         => q_store_home_url(:host => store.domain),
         :rm             => 2,
         :secret         => 'hello_token',
         :tax_cart       => number_with_precision(cart.tax, :precision => 2),
@@ -100,7 +100,11 @@ class Order < ActiveRecord::Base
                       "shipping_#{cart_size+2}" => 0
                   })
 
-    APP_CONFIG['paypal_base_url'] + "?" + values.to_query
+    if APP_CONFIG["ibm_mode"] == "test"
+      APP_CONFIG['paypal_sandbox_base_url'] + "?" + values.to_query
+    elsif APP_CONFIG['ibm_mode'] == "production"
+      APP_CONFIG['paypal_base_url'] + "?" + values.to_query
+    end
   end
 
   # Use class method because of delayed_job

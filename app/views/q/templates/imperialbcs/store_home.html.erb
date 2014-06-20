@@ -39,8 +39,9 @@
     <hr/>
     <p>
       7 Days A Week<br/>
-      Sun - Thu: 11am - 10pm<br/>
-      Fri - Sun: 11am - 10:30pm
+      <% @store.menus.first.hours.each do |h| %>
+          <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+      <% end %>
     </p>
     <hr/>
     <p>

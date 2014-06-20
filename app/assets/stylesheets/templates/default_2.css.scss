@@ -1,14 +1,14 @@
-$body-bg: #949e48 url(asset-path("templates/default_2/background.png"));
+$body-bg: #949e48 image-url("templates/default_2/background.png");
 #main {
-  background-image: url(asset-path("templates/default_2/background-paper.png"));
+  background-image: image-url("templates/default_2/background-paper.png");
 
   #main_top {
-    background: #949e48 url(asset-path("templates/default_2/background-paper-top.png")) no-repeat bottom center;
+    background: #949e48 image-url("templates/default_2/background-paper-top.png") no-repeat bottom center;
     height: 7px;
     padding-top: 40px;
   }
   #main_bottom {
-    background: #949e48 url(asset-path("templates/default_2/background-paper-bottom.png")) no-repeat;
+    background: #949e48 image-url("templates/default_2/background-paper-bottom.png") no-repeat;
     height: 9px;
     padding-bottom: 50px;
   }

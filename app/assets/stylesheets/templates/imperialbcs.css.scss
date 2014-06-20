@@ -2,6 +2,10 @@ $body-bg: #F9F5E9;
 
 @import 'foundation';
 
+body {
+  background: #F9F5E9 image-url("templates/imperialbcs/bg_texture_1.png");
+}
+
 div.menu {
   min-height: 200px;
   margin-top: 20px;

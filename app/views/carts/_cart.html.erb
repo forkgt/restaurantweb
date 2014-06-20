@@ -5,7 +5,7 @@
 
     <li class="cart_type bullet-item">
     <!--Be able to edit order if not checkout page-->
-      <% unless ( params[:controller] == "orders" && params[:action] == "new" ) %>
+      <% unless params[:controller] == "orders" %>
           <%= link_to 'Delivery', delivery_type_cart_path(cart, delivery_type: :delivery), class: (cart.delivery_type == 'delivery') ? 'active' : nil, remote: true %>
           <%= link_to 'Pick Up', delivery_type_cart_path(cart, delivery_type: :pick_up), class: (cart.delivery_type == 'pick_up') ? 'active' : nil, remote: true %>
       <% else %>
@@ -36,12 +36,12 @@
     </li>
 
     <!--Be able to edit order if not checkout page-->
-    <% unless ( params[:controller] == "orders" && params[:action] == "new" ) %>
+    <% unless params[:controller] == "orders" %>
         <li class="cart_action cta-button">
           <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
 
-          <% if (cart.delivery_type == "delivery" || cart.delivery_type == "melivery") && (cart.total_price < cart.store.delivery_minimum) %>
-              <%= link_to "Min. #{number_to_currency(cart.store.delivery_minimum)}", 'javascript:;', :class => 'small button' %>
+          <% if (cart.delivery_type == "delivery") && (cart.total_price < cart.store.delivery_minimum) %>
+              <%= link_to "Min. #{number_to_currency(cart.store.delivery_minimum)}", 'javascript:void(0);', :class => 'small button' %>
           <% else %>
               <%= link_to 'Proceed', new_store_order_path(cart.store), :class => 'small button' %>
           <% end %>

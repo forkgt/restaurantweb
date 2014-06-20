@@ -6,7 +6,7 @@ $light_color: #8FB247;
 $dark_color: #7B0B17;
 $color_three: #FFF9AB;
 
-$body_bg: #ffffff url('/assets/templates/joyluckdelivery/logos/joyluckdelivery_bg.jpg');
+$body_bg: #ffffff image-url('templates/joyluckdelivery/logos/joyluckdelivery_bg.jpg');
 $header_width: 960px;
 $header_height: 210px;
 $header_bg: $dark_color;
@@ -41,7 +41,7 @@ $dish_dialog_title_color: $dark_color;
 // =============================================================================
 .fb, .tw, .yp {
   height:30px;width:30px;display:inline-block;
-  background:url(/assets/templates/joyluckdelivery/icons/fb_tw_yp.png) no-repeat 0px 0px;
+  background:image-url('templates/joyluckdelivery/icons/fb_tw_yp.png') no-repeat 0px 0px;
 }
 .fb {
   background-position:-66px 0px;

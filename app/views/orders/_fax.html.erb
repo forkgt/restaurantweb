@@ -1,40 +1,79 @@
 <html>
-<body style='font-family:arial;'>
-
-<h1>Invoice #: <%= self.id %></h1>
-<p><%= self.store.name %></td></p>
+<body style='font-size:15px;'>
+<br />
+<%= self.created_at.getlocal.to_formatted_s(:short) %><br />
+<%= self.cart.delivery_type %>, Pay With <%= self.payment_type + " (" + self.payment_status + ")" %><br />
+<hr /><br />
 
 <table>
   <tr>
-    <td>
-      <p><%= self.created_at.getlocal.to_formatted_s(:short) %><br/></p>
-      <p><strong><%= self.cart.delivery_type %></strong><br/><%= self.payment_type + " (" + self.payment_status + ")" %><br/></p>
-      <p><strong>Name:</strong><br/><%= self.user.firstname + " " + self.user.lastname %><br/></p>
-      <p><strong>Tel:</strong><br/><%= self.user.phone %><br/></p>
-      <% unless self.user.address.nil? %>
-          <p>
-            <strong>Address:</strong><br/>
-            <%= self.user.address.address1 + ", " + self.user.address.address2 %><br/>
-            <%= self.user.address.city %><br/>
-          </p>
-      <% end %>
-    </td>
-    <td>
-      <table>
-        <tr><th>Menu Item</th><th>Qty.</th><th align='left'>Amt.</th></tr>
-        <% self.cart.cart_items.each do |ci| %>
-            <tr> <td><%= ci.name %></td><td align='center'><%= ci.quantity %></td><td><%= ci.total_price %></td> </tr>
-            <tr> <td colspan='3'> --- <%= ci.note %></td> </tr>
-        <% end %>
-      </table>
-      <p>Tax: <%= number_to_currency self.cart.tax %><br/></p>
-      <p>Delivery Fee: <%= number_to_currency self.cart.delivery_fee %><br/></p>
-      <p>Tip: <%= number_to_currency self.tip %><br/></p>
-      <p>Total: <%= number_to_currency self.cart.total_price + self.tip %><br/></p>
-      <p><strong>Note:</strong><%= self.note %></p>
-    </td>
+    <th>Dish Name</th>
+    <th>Qty</th>
+    <th>Amount</th>
+  </tr>
+
+  <% self.cart.cart_items.each do |ci| %>
+      <tr>
+        <td><%= ci.name %></td>
+        <td align='center'><%= ci.quantity %></td>
+        <td><%= ci.total_price %></td>
+      </tr>
+      <tr>
+        <td colspan='3'><%= ci.note %></td>
+      </tr>
+  <% end %>
+
+  <tr>
+    <td></td>
+    <td align='right'>Delivery: </td>
+    <td><%= number_to_currency self.cart.delivery_fee %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align='right'>Tax: </td>
+    <td><%= number_to_currency self.cart.tax %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align='right'>Tip: </td>
+    <td><%= number_to_currency self.tip %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align='right'>Total: </td>
+    <td><%= number_to_currency self.cart.total_price + self.tip %></td>
   </tr>
 </table>
 
+<br /><hr /><br/>
+
+<table>
+  <tr>
+    <th colspan='2'><br /><br />Customer Info:</th>
+  </tr>
+  <tr>
+    <th>Name:</th>
+    <td><%= self.user.firstname + " " + self.user.lastname %></td>
+  </tr>
+  <tr>
+    <th>Tel: </th>
+    <td><%= self.user.phone %></td>
+  </tr>
+
+  <% unless self.user.address.nil? %>
+      <tr>
+        <th>Addr:</th>
+        <td><%= self.user.address.address1 %></td>
+      </tr>
+      <tr>
+        <th>Apt:</th>
+        <td><%= self.user.address.address2 %></td>
+      </tr>
+      <tr>
+        <th>Special:</th>
+        <td><%= ci.note %></td>
+      </tr>
+  <% end %>
+</table>
 </body>
 </html>

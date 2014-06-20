@@ -6,13 +6,13 @@ $light_color: #D9711A;
 $dark_color: #730C00;
 $color_three: #FFF9AB;
 
-$body_bg: #FFFFFF url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_bg.jpg');
+$body_bg: #FFFFFF image-url('templates/chinainnhempstead/logos/chinainnhempstead_bg.jpg');
 $header_width: 960px;
 $header_height: 250px;
-$header_bg: $dark_color url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_header_bg.gif');
+$header_bg: $dark_color image-url('templates/chinainnhempstead/logos/chinainnhempstead_header_bg.gif');
 $header_logo_width: 960px;
 $header_logo_height: 200px;
-$header_logo_bg: transparent url('/assets/templates/chinainnhempstead/logos/chinainnhempstead_birthday.png') no-repeat 90% center;
+$header_logo_bg: transparent image-url('templates/chinainnhempstead/logos/chinainnhempstead_birthday.png') no-repeat 90% center;
 @import "public/base";
 
 $gallery_width: 658px;

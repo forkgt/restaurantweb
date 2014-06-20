@@ -12,7 +12,7 @@
                 </div>
                 <div class="dish_features">
                   <% dish.dish_features.each do |df| %>
-                      <%= image_tag df.avatar_url(:micro).to_s, title: df.name if df.avatar? %>
+                      <%= image_tag df.image_url(:micro).to_s, title: df.name if df.image? %>
                   <% end %>
                 </div>
                 <div class="dish_price">
@@ -31,7 +31,7 @@
                               <b><%= dc.name %>&#58;</b>
                               <%= "&nbsp;&nbsp;<em>(* Required)</em>".html_safe if dc.must %>
                               <br/>
-                              <%= (dc.desc + "<br/>").html_safe unless dc.desc.blank? %>
+                              <%= (dc.bei + "<br/>").html_safe unless dc.bei.blank? %>
                               <% dc.content.split(',').each_with_index do |x, i| %>
                                   <input type="<%= dc.input_type %>" name="<%= dc.name %>" value="<%= x.split(':')[0] %>"
                                          add=<%= x.split(':')[1] %> <%= 'checked="checked" ' if dc.checked == i %> />

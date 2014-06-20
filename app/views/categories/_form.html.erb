@@ -5,6 +5,7 @@
     <%= f.input :name %>
     <%= f.input :bei %>
     <%= f.input :rank %>
+    <%= image_tag @category.image_url(:micro).to_s, title: @category.name if @category.image? %>
     <%= f.input :image %>
   </div>
 

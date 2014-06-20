@@ -28,7 +28,7 @@
       <% @store.menus.each_with_index do |menu, mi| %>
           <div id="xxx_<%= menu.id %>" class="xxx" <%= "style='display:none;'".html_safe unless mi == 0 %>>
             <div class="menu_hour">
-              Menu Hours: 11:0 - 21:59
+              Menu Hours:<%= menu.hours_for_day %>
             </div>
             <div class="category_tabs">
               <% menu.categories.each do |category| %>

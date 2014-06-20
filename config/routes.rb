@@ -31,7 +31,8 @@ Ibm::Application.routes.draw do
   get "h/user_manager", "h/retrieve_store"
 
   get "q/index", "q/missing", "q/closed", "q/store_order_success", "q/store_order_failure", "q/store_order_cancel"
-  get "q/store_home",        to: "q#store_home",        as: "q_store_home"
+
+  match "q/store_home",      to: "q#store_home",        via: [:get, :post]
   get "q/store_menus",       to: "q#store_menus",       as: "q_store_menus"
   get "q/store_map",         to: "q#store_map",         as: "q_store_map"
 

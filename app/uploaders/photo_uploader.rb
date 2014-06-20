@@ -2,14 +2,14 @@
 
 class PhotoUploader < BaseUploader
 
-  process :resize_to_fill => [800, 600]
+  process :resize_to_fill => [800, 400]
 
   version :small do
-    process :resize_to_fill => [480, 360]
+    process :resize_to_fill => [480, 240]
   end
 
   version :micro do
-    process :resize_to_fill => [160, 120]
+    process :resize_to_fill => [160, 80]
   end
 
 end

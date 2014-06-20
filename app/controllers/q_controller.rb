@@ -3,17 +3,10 @@ class QController < ApplicationController
   before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_order, :store_order_success, :store_order_failure, :store_order_cancel]
 
   def index
-    # Match the host to all stores
-    # Yes => Go to the matched store
-    # No  => Go to the index page
-    #@store = Store.find_by domain: request.host
-    #if @store.nil?
-    #  @stores = Store.all
-    #else
-    #  redirect_to q_store_home_path
-    #  return
-    #end
-    @stores = Store.all
+    unless request.host == "www.777pos.com"
+      redirect_to q_store_home_path
+      return # With return, following code will be executed.
+    end
   end
 
   def missing
@@ -23,7 +16,8 @@ class QController < ApplicationController
   end
 
   def store_home
-    @dishes = nil
+    @dishes = Dish.includes(category: {menu: :store}).where("stores.id = ? ", @store.id).where("dishes.image IS NOT NULL")
+
     # set erb for this store
     render action: "templates/#{@template}/store_home", layout: "templates/#{@template}"
   end

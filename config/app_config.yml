@@ -19,29 +19,18 @@ defaults: &defaults
   google_usr:             <%=ENV['google_usr']%>
   google_pwd:             <%=ENV['google_pwd']%>
 
+  # Paypal Information
+  paypal_email:            production@example.com
+  paypal_secret:           production_secret
+  paypal_cert_id:          production_cert_id
+  paypal_base_url:         https://www.paypal.com/cgi-bin/webscr
+  paypal_sandbox_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr
+
 production:
   <<: *defaults
-
-  # Paypal Information
-  paypal_email: production@example.com
-  paypal_secret: production_secret
-  paypal_cert_id: production_cert_id
-  paypal_base_url: https://www.paypal.com/cgi-bin/webscr
 
 development:
   <<: *defaults
 
-  # Paypal Information
-  paypal_email: development@example.com
-  paypal_secret: development_secret
-  paypal_cert_id: development_cert_id
-  paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr
-
 test:
   <<: *defaults
-
-  # Paypal Information
-  paypal_email: development@example.com
-  paypal_secret: development_secret
-  paypal_cert_id: development_cert_id
-  paypal_base_url: https://www.sandbox.paypal.com/cgi-bin/webscr

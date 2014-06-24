@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.5'
 
 group :production do
   gem 'mysql2'
@@ -13,7 +13,7 @@ group :development, :test do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -39,7 +39,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -73,3 +73,8 @@ gem 'activemerchant', '~> 1.43.1'
 # Time Scheduler
 #gem 'rufus-scheduler', '~> 3.0.8'
 gem 'whenever', '~> 0.9.2', :require => false
+
+gem 'bullet', '~> 4.10.0', :group => "development"
+gem 'rack-mini-profiler', '~> 0.9.1', :group => "development"
+gem 'rails-perftest', '~> 0.0.4', :group => 'test'
+gem 'ruby-prof', '~> 0.15.1', :group => 'test'

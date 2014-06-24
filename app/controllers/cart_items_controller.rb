@@ -24,36 +24,39 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.json
   def create
-    store_id = params[:store_id].to_i
-    @cart = current_cart(store_id, true)
+    @store = Store.find(params[:store_id].to_i)
+    @cart = current_cart(@store, true)
 
-    if params[:dish_id]
-      dish = Dish.find(params[:dish_id])
-      note = params[:note]
-      price_adjustment = params[:price_adjustment].to_d
-      quantity = params[:quantity].to_i
+    name = params[:name]
+    price = params[:price].to_d + params[:price_adjustment].to_d
+    note = params[:note]
+    quantity = params[:quantity].to_i
+    cart_itemable_type = params[:cart_itemable_type]
+    cart_itemable_id = params[:cart_itemable_id]
 
-      @cart_item = @cart.add_dish(dish, dish.name, dish.price + price_adjustment, quantity, note)
-    elsif params[:coupon_id]
+    @cart_item = @cart.cart_items.find_by_cart_itemable_id_and_cart_itemable_type_and_note(
+        cart_itemable_id, cart_itemable_type, note)
 
+    if @cart_item
+      @cart_item.quantity += quantity
+    else
+      @cart_item = @cart.cart_items.build(name: name, price: price, quantity: quantity, note: note,
+                                           cart_itemable_type: cart_itemable_type,
+                                           cart_itemable_id: cart_itemable_id)
     end
 
     # Use different js for different templates/framework
-    @framework = @cart.store.templates.take.framework
+    @framework = session[:store_template_framework]
 
     respond_to do |format|
-      if @cart_item
-        if @cart_item.save
-          format.js   { @current_item = @cart_item, @framework }
-          format.html { redirect_to @cart_item, notice: 'Cart item was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @cart_item }
-        else
-          format.js   { @current_item = @cart_item }
-          format.html { render action: 'new' }
-          format.json { render json: @cart_item.errors, status: :unprocessable_entity }
-        end
+      if @cart_item.save
+        format.js   { @current_item = @cart_item, @framework }
+        format.html { redirect_to @cart_item, notice: 'Cart item was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @cart_item }
       else
-        format.js {}
+        format.js   { @current_item = @cart_item }
+        format.html { render action: 'new' }
+        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,6 +80,7 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_item.destroy
     @cart = @cart_item.cart
+    @store = @cart.store
 
     respond_to do |format|
       format.js
@@ -93,6 +97,6 @@ class CartItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_item_params
-      params.require(:cart_item).permit(:name, :note, :price, :quantity, :cart_id, :cart_itemable_id)
+      params.require(:cart_item).permit(:name, :note, :price, :quantity, :cart_id, :cart_itemable_id, :cart_itemable_type)
     end
 end

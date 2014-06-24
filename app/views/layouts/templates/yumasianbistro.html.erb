@@ -9,9 +9,9 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <meta name="description" content="Provides great asian/chinese food." />
   <meta name="keywords" content="chinese food,asian food,restaurant, college station, bryan, delivery" />
-  <title>Yum Asian Bistro</title>
-  <%= stylesheet_link_tag    "templates/#{@template}" %>
-  <%= javascript_include_tag "templates/#{@template}" %>
+  <title><%= @store.name %></title>
+  <%= stylesheet_link_tag    "templates/#{@template_name}" %>
+  <%= javascript_include_tag "templates/#{@template_name}" %>
   <%= csrf_meta_tags %>
 </head>
 <body>

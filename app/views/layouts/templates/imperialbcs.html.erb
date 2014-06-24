@@ -14,11 +14,11 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  <title><%= @store.name %></title>
 
-  <%= stylesheet_link_tag    "templates/#{@template}" %>
+  <%= stylesheet_link_tag    "templates/#{@template_name}" %>
   <%= javascript_include_tag "vendor/modernizr" %>
-  <%= javascript_include_tag "templates/#{@template}" %>
+  <%= javascript_include_tag "templates/#{@template_name}" %>
 
   <%= csrf_meta_tags %>
 </head>
@@ -29,7 +29,7 @@
   <div class="large-12 columns">
     <div id="main">
       <div style="text-align: center;margin-bottom: 10px;">
-        <%= image_tag "templates/imperialbcs/logo_imperialbcs.png" %>
+        <%= image_tag "templates/#{@template_name}/logo_imperialbcs.png" %>
       </div>
 
       <nav class="tab-bar show-for-small">
@@ -96,16 +96,43 @@
               </div>
           <% end %>
 
+          <h1 style="color: #ffffff;background-color: #ff0000;">
+            &nbsp;&nbsp;&nbsp;We are not open yet, please check back later.<br/>
+            &nbsp;&nbsp;&nbsp;Or call us at (979) 774 7888 for more info.<br/>
+            &nbsp;&nbsp;&nbsp;Thank you!
+          </h1>
+
           <%= yield %>
 
           <a class="exit-off-canvas"></a>
         </div>
       </div>
 
+      <hr />
+
       <footer class="row">
         <div class="large-12 columns">
-          <hr />
-          <div class="row">
+          <div class="row" style="margin-top: 20px;">
+            <div class="small-2 columns" style="text-align: center;">
+              <strong>Connect with<br/> us now!</strong>
+            </div>
+            <div class="small-2 columns">
+              <%= link_to image_tag("templates/imperialbcs/facebook.png", size: "40x40"), "https://www.facebook.com/pages/Imperial-Chinese-and-Sushi/1412312062387964?ref_type=bookmark", target: "_blank" %>
+            </div>
+            <div class="small-2 columns">
+              <%= link_to image_tag("templates/imperialbcs/twitter.png", size: "40x40"), "https://twitter.com/ImperialBCS", target: "_blank" %>
+            </div>
+            <div class="small-2 columns">
+              <%= link_to image_tag("templates/imperialbcs/insta.png", size: "40x40"), "#", target: "_blank" %>
+            </div>
+            <div class="small-2 columns">
+              <%= link_to image_tag("templates/imperialbcs/google-plus.png", size: "40x40"), "https://plus.google.com/u/0/109719484444658856952/posts", target: "_blank" %>
+            </div>
+            <div class="small-2 columns end">
+              <%= link_to image_tag("templates/imperialbcs/yelp.png", size: "40x40"), "#", target: "_blank" %>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 40px;">
             <div class="large-6 columns">
               <p>&copy; <%= Time.now.year %> <%= @store.name %>. All Rights Reserved.</p>
             </div>

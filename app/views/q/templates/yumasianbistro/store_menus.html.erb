@@ -14,7 +14,7 @@
   <div id="menus_nav">
     <div id="menu_tabs">
       <ul>
-        <% @store.menus.each do |menu| %>
+        <% @menus.each do |menu| %>
             <li>
               <a href="javascript:$('.xxx, .yyy').hide();$('#xxx_<%= menu.id %>, #yyy_<%= menu.id %>').show();void(0);">
                 <%= menu.name %>
@@ -25,7 +25,7 @@
     </div>
 
     <div id="menu_details">
-      <% @store.menus.each_with_index do |menu, mi| %>
+      <% @menus.each_with_index do |menu, mi| %>
           <div id="xxx_<%= menu.id %>" class="xxx" <%= "style='display:none;'".html_safe unless mi == 0 %>>
             <div class="menu_hour">
               Menu Hours:<%= menu.hours_for_day %>

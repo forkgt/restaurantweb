@@ -6,7 +6,7 @@ class DishFeaturesController < ApplicationController
   # GET /dish_features
   # GET /dish_features.json
   def index
-    @dish_features = @store.dish_features
+    @dish_features = @store.dish_features.includes(:store)
   end
 
   # GET /dish_features/1

@@ -61,7 +61,7 @@
                         </div>
                         <div class="dish_price small-4 large-2 columns">
                           <% if menu.still_open? %>
-                              <%= link_to number_to_currency(dish.price), "#", data: { :'reveal-id' => "dish_dialog_" +dish.id.to_s } %>
+                              <%= link_to number_to_currency(dish.price), "#", data: { :'reveal-id' => "dish_dialog_" + dish.id.to_s }, class: "" %>
                           <% else %>
                               <%= number_to_currency(dish.price) %>
                           <% end %>
@@ -76,6 +76,11 @@
                       </div>
                       <div class="dish_dialog reveal-modal small" id="dish_dialog_<%= dish.id %>" data-reveal>
                         <div class="dish_dialog_choices">
+
+                          <div class="loading" style="display: none;margin: 30px 0;text-align: center;">
+                            <%= image_tag "loading.gif" %>
+                          </div>
+
                           <%= form_tag(cart_items_path, :method => 'post', :remote => true) do %>
                               <div class="dish_dialog_title">
                                 <div class="row">
@@ -105,8 +110,11 @@
                               <br/>
                               Special Instructions:&nbsp;<input type="text" name="note" add="0" />
                               <br/>
+                              <%= hidden_field_tag :price, dish.price %>
                               <%= hidden_field_tag :price_adjustment, 0 %>
-                              <%= hidden_field_tag :dish_id, dish.id %>
+                              <%= hidden_field_tag :cart_itemable_type, "Dish" %>
+                              <%= hidden_field_tag :cart_itemable_id, dish.id %>
+                              <%= hidden_field_tag :name, dish.name %>
                               <%= hidden_field_tag :store_id, @store.id %>
                           <% end %>
                         </div>
@@ -126,10 +134,24 @@
   <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
   <ul id="cart">
     <% if @cart %>
-        <%= render @cart %>
+        <%= render @cart, store: @store %>
     <% else %>
         <li class="bullet-item">Your Cart Is Empty!</li>
     <% end %>
   </ul>
   <a class="close-reveal-modal">&#215;</a>
 </div>
+
+<script>
+    $('.dish_dialog form').bind('ajax:beforeSend', function() {
+        $(this).siblings('.loading').show();
+    });
+
+    $('.dish_dialog form').bind('ajax:complete', function() {
+        $(this).siblings('.loading').hide();
+    });
+
+    $('#cart').bind('ajax:beforeSend', function() {
+        $(this).find('.loading').show();
+    });
+</script>

@@ -27,16 +27,21 @@ private
 
 
   # ========== Shopping Cart ========================
-  def current_cart(store_id, create)
-    Cart.includes(cart_items: :cart_itemable).find(session["cart_id_for_store_id_#{store_id}"])
+  # Used in 3 places:
+  # QController#store_menus
+  # OrdersController#new
+  # CartItemsController#create
+
+  def current_cart(store, create)
+    Cart.find(session["cart_id_for_store_id_#{store.id}"])
   rescue ActiveRecord::RecordNotFound
     if create
-      store = Store.find(store_id)
-      cart = Cart.create(store_id: store_id, delivery_fee: store.delivery_fee, delivery_type: "delivery")
-      session["cart_id_for_store_id_#{store_id}"] = cart.id
+      cart = Cart.create(store: store, delivery_fee: store.delivery_fee, delivery_type: "delivery")
+      session["cart_id_for_store_id_#{store.id}"] = cart.id
       cart
     end
   end
+
   # =================================================
 
 
@@ -54,6 +59,24 @@ private
 
   protected
 
+  def get_store_template_name
+    if session[:store_template_name].nil?
+      @store = Store.find_by domain: request.host
+      session[:store_template_name] = @store.templates.take.name
+      session[:store_template_framework] = @store.templates.take.framework
+    end
+    session[:store_template_name]
+  end
+
+  def get_store_template_framework
+    if session[:store_template_framework].nil?
+      @store = Store.find_by domain: request.host
+      session[:store_template_name] = @store.templates.take.name
+      session[:store_template_framework] = @store.templates.take.framework
+    end
+    session[:store_template_framework]
+  end
+
   def layout_by_resource
     if devise_controller? && resource_name == :admin && admin_signed_in?
       "admin"
@@ -62,17 +85,23 @@ private
       if store.nil?
         "admin"
       else
-        template = store.get_current_template
-        "templates/" + template
+        "templates/" + get_store_template_name
       end
-
-    elsif ["h", "orders", "menus", "coupons", "dish_choices", "dish_features", "payments", "categories", "dishes", "statement_items", "statements"].include?(controller_name)
+    elsif ["h", "menus", "coupons", "dish_choices", "dish_features", "payments", "categories", "dishes", "statement_items", "statements"].include?(controller_name)
       "admin"
     elsif ["cartridges", "templates", "subscriptions"].include?(controller_name)
       "feng"
     elsif "stores" == controller_name
       if ["index", "new"].include?(action_name)
         "feng"
+      else
+        "admin"
+      end
+    elsif "q" == controller_name || ()
+      "templates/" + get_store_template_name
+    elsif "orders" == controller_name
+      if "orders" == controller_name && ["new", "create"].include?(action_name)
+        "templates/" + get_store_template_name
       else
         "admin"
       end

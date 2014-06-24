@@ -1,63 +1,47 @@
 class QController < ApplicationController
-
-  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_order, :store_order_success, :store_order_failure, :store_order_cancel]
+  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_message]
 
   def index
-    unless request.host == "www.777pos.com"
-      redirect_to q_store_home_path
-      return # With return, following code will be executed.
-    end
+    #unless request.host == "www.777pos.com"
+    #  redirect_to q_store_home_path
+    #  return # With return, following code will be executed.
+    #end
   end
 
-  def missing
-  end
+  def store_message
+    @message = params[:message]
 
-  def closed
+    render action: "templates/#{@template_name}/store_message"
   end
 
   def store_home
     @dishes = Dish.includes(category: {menu: :store}).where("stores.id = ? ", @store.id).where("dishes.image IS NOT NULL")
 
-    # set erb for this store
-    render action: "templates/#{@template}/store_home", layout: "templates/#{@template}"
+    render action: "templates/#{@template_name}/store_home"
   end
 
   def store_menus
-    @menus = @store.menus.includes(categories: {dishes: [:dish_features, :dish_choices]})
-    # set erb for this store
-    render action: "templates/#{@template}/store_menus", layout: "templates/#{@template}"
+    @cart = current_cart(@store, false)
+    @menus = @store.menus.includes([{categories: {dishes: [:dish_features, :dish_choices]}}, :hours ])
+
+    render action: "templates/#{@template_name}/store_menus"
   end
 
   def store_map
-    # set erb for this store
-    render action: "templates/#{@template}/store_map", layout: "templates/#{@template}"
+    render action: "templates/#{@template_name}/store_map"
   end
-
-  # If success after a customer order was submitted
-  def store_order_success
-    # set erb for this store
-    render action: "templates/#{@template}/store_order_success", layout: "templates/#{@template}"
-  end
-
-  # If failure after a customer order was submitted
-  def store_order_failure
-    # set erb for this store
-    render action: "templates/#{@template}/store_order_failure", layout: "templates/#{@template}"
-  end
-
-  # If canncelled after a customer order was submitted
-  def store_order_cancel
-    # set erb for this store
-    render action: "templates/#{@template}/store_order_cancel", layout: "templates/#{@template}"
-  end
-
 
   protect_from_forgery :except => [:paypal_notify]
 
   include ActiveMerchant::Billing::Integrations
 
   def paypal_notify
-    ActiveMerchant::Billing::Base.mode = :test
+    if APP_CONFIG["ibm_mode"] == "test"
+      ActiveMerchant::Billing::Base.mode = :test
+    elsif APP_CONFIG['ibm_mode'] == "production"
+      ActiveMerchant::Billing::Base.mode = :production
+    end
+
     notify = Paypal::Notification.new(request.raw_post)
     order = Order.find(notify.invoice)
     if notify.acknowledge
@@ -85,20 +69,15 @@ class QController < ApplicationController
   def set_store
     #@store = Store.find(params[:id])   # Find Store through id in the params
     #@store = Store.find_by_desc(request.subdomain) if request.subdomain.present? && request.subdomain != "www"   # Deal with Subdomain
-
-    # Check if there is session[:store] and session[:store][:domain] matches the host name
-    # Yes => No need to reload the store
-    # No  => Must reload the store
     @store = Store.find_by domain: request.host
     if @store.nil?
-      redirect_to q_missing_path
+      redirect_to q_index_path
       return
     elsif @store.status == "closed"
-      redirect_to q_closed_path
+      redirect_to q_store_message_path(message: "The store is currently close!")
       return
     else
-      @template = @store.get_current_template
-      @cart = current_cart(@store.id, false)
+      @template_name = get_store_template_name
     end
   end
 

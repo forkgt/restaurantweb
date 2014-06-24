@@ -55,11 +55,6 @@ class Store < ActiveRecord::Base
   #has_one :subscription
   #has_one :template, through: :subscription, :source => :subscribable, :source_type => 'Template'
 
-
-  def get_current_template
-    templates.take.name
-  end
-
   def get_cartridge_array
     cs = Array.new
 

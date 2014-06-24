@@ -29,12 +29,12 @@
     ul {
       margin:0px;padding:0px;
 
-      li.gallery_fbar {width:2px;background:url(/assets/templates/public/divider.png) no-repeat right;}
+      li.gallery_fbar {width:2px;background:image-url("templates/public/divider.png") no-repeat right;}
       li {width:60px;height:50px;float:left;list-style:none;}
-      li.inact:hover{background:url(/assets/templates/public/pic_bg.png) repeat;}
-      li.act,.gallery #gallery_menu li.act:hover{background:url(/assets/templates/public/active_bg.png) no-repeat;}
+      li.inact:hover{background: image-url("templates/public/pic_bg.png") repeat;}
+      li.act,.gallery #gallery_menu li.act:hover{background: image-url("templates/public/active_bg.png") no-repeat;}
       li.act a {cursor:default;}
-      li a {display:block;background:url(/assets/templates/public/divider.png) no-repeat right;height:35px;padding-top:10px;}
+      li a {display:block;background:image-url("templates/public/divider.png") no-repeat right;height:35px;padding-top:10px;}
     }
 
     a img {border:none;}

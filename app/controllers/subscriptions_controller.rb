@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions
   # GET /subscriptions.json
   def index
-    @subscriptions = Subscription.all
+    @subscriptions = Subscription.all.includes([:store, :subscribable])
   end
 
   # GET /subscriptions/1

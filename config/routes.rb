@@ -30,15 +30,16 @@ Ibm::Application.routes.draw do
 
   get "h/user_manager", "h/retrieve_store"
 
-  get "q/index", "q/missing", "q/closed", "q/store_order_success", "q/store_order_failure", "q/store_order_cancel"
+  get "q/index"
 
+  #paypal vist this page through post
   match "q/store_home",      to: "q#store_home",        via: [:get, :post]
+  get "q/store_message",     to: "q#store_message",     as: "q_store_message"
   get "q/store_menus",       to: "q#store_menus",       as: "q_store_menus"
   get "q/store_map",         to: "q#store_map",         as: "q_store_map"
-
   post "q/paypal_notify",    to: "q#paypal_notify",     as: "q_paypal_notify"
 
-  root 'q#index'
+  root 'q#store_home'
 
   # ============= Deal with Subdomain ===============
 

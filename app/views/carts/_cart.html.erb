@@ -1,7 +1,11 @@
 <% if cart.cart_items.empty? %>
     <li class="cart_title bullet-item">Nothing left in your cart!</li>
 <% else %>
-    <li class="cart_title bullet-item"><%= cart.store.name %></li>
+    <div class="loading" style="display: none;margin: 30px 0;text-align: center;">
+      <%= image_tag "loading.gif" %>
+    </div>
+
+    <li class="cart_title bullet-item"><%= store.name %></li>
 
     <li class="cart_type bullet-item">
     <!--Be able to edit order if not checkout page-->
@@ -40,10 +44,10 @@
         <li class="cart_action cta-button">
           <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
 
-          <% if (cart.delivery_type == "delivery") && (cart.total_price < cart.store.delivery_minimum) %>
-              <%= link_to "Min. #{number_to_currency(cart.store.delivery_minimum)}", 'javascript:void(0);', :class => 'small button' %>
+          <% if (cart.delivery_type == "delivery") && (cart.total_price < store.delivery_minimum) %>
+              <%= link_to "Min. #{number_to_currency(store.delivery_minimum)}", 'javascript:void(0);', :class => 'small button' %>
           <% else %>
-              <%= link_to 'Proceed', new_store_order_path(cart.store), :class => 'small button' %>
+              <%= link_to 'Proceed', new_store_order_path(store), :class => 'small button' %>
           <% end %>
         </li>
     <% end %>

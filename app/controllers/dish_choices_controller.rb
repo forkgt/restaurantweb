@@ -6,7 +6,7 @@ class DishChoicesController < ApplicationController
   # GET /dish_choices
   # GET /dish_choices.json
   def index
-    @dish_choices = @store.dish_choices
+    @dish_choices = @store.dish_choices.includes(:store)
   end
 
   # GET /dish_choices/1

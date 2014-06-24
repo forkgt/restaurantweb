@@ -22,6 +22,11 @@
       <%= @order.user.firstname + " " + @order.user.lastname %><br/>
     </p>
 
+    <p>
+      <strong>Phone:</strong><br/>
+      <%= @order.user.phone %><br/>
+    </p>
+
     <% unless @order.user.address.nil? %>
         <p>
           <strong>Address:</strong><br/>
@@ -35,14 +40,12 @@
       <strong>Cart:</strong><br/>
       <% @order.cart.cart_items.each do |ci| %>
           <%= ci.name + ", " + number_to_currency(ci.price) + " * " + ci.quantity.to_s %><br/>
+          <span style="color: red; font-size:12px;"><%= ci.note %></span><br/>
       <% end %>
+      <hr/>
       Tax: <%= number_to_currency @order.cart.tax %><br/>
-      Total: <%= number_to_currency @order.cart.total_price %>
-    </p>
-
-    <p>
-      <strong>Tip:</strong>
-      <%= @order.tip %>
+      Tip: <%= number_to_currency @order.tip %><br/>
+      Total: <%= number_to_currency @order.cart.total_price + @order.tip  %>
     </p>
     <p>
       <strong>Note:</strong>

@@ -16,9 +16,9 @@
 
   <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
-  <%= stylesheet_link_tag    "templates/#{@template}" %>
+  <%= stylesheet_link_tag    "templates/#{@template_name}" %>
   <%= javascript_include_tag "vendor/modernizr" %>
-  <%= javascript_include_tag "templates/#{@template}" %>
+  <%= javascript_include_tag "templates/#{@template_name}" %>
 
   <%= csrf_meta_tags %>
 </head>

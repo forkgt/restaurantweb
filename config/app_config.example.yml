@@ -1,5 +1,6 @@
 defaults: &defaults
   # IBM Mode (test/production)
+  # Used in three places: q/paypal_notify, order.paypal_url, order.to_fax
   ibm_mode:                test
   ibm_domain:              localhost
 

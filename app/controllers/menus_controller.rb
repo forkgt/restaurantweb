@@ -6,7 +6,7 @@ class MenusController < ApplicationController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = @store.menus
+    @menus = @store.menus.includes(:hours)
   end
 
   # GET /menus/1

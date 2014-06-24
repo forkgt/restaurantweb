@@ -53,7 +53,7 @@ class Order < ActiveRecord::Base
   def paypal_url
     values = {
         :business       => store.get_paypal_account,
-        :cancel_return  => q_store_order_cancel_url(:host => store.domain),
+        :cancel_return  => q_store_home_url(:host => store.domain),
         :charset        => 'utf-8',
         :cmd            => '_cart',
         :currency_code  => 'USD',

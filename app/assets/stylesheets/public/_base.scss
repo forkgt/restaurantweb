@@ -107,7 +107,7 @@ span.error { color: #ff0000;padding-left: 10px;}
     width:960px;height: 40px;
 
     ul {
-      li {display:inline;float:left;padding:0px 60px;margin:20px 0px;font-weight:bold;font-size:14px;color:#FFFFFF;background:url(/assets/templates/public/bucket_separator.png) repeat-y right}
+      li {display:inline;float:left;padding:0px 60px;margin:20px 0px;font-weight:bold;font-size:14px;color:#FFFFFF;background:image-url("templates/public/bucket_separator.png") repeat-y right}
       li.no-separator{background:none;}
       li a {display:block;text-decoration:none;color:#FFFFFF;}
       li a:hover {text-decoration:underline;}

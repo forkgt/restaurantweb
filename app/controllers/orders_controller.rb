@@ -5,9 +5,9 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders_of_today = @store.orders.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day)
-    @orders_of_yesterday = @store.orders.where(:created_at => Time.now.yesterday.beginning_of_day..Time.now.yesterday.end_of_day)
-    @orders_of_this_month = @store.orders.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month)
+    @orders_of_today = @store.orders.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).includes([{cart: :cart_items }, :user])
+    @orders_of_yesterday = @store.orders.where(:created_at => Time.now.yesterday.beginning_of_day..Time.now.yesterday.end_of_day).includes([{cart: :cart_items}, :user])
+    @orders_of_this_month = @store.orders.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month).includes([{cart: :cart_items}, :user])
   end
 
   # GET /orders/1
@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     if params[:cart_id]
       @cart = Cart.find(params[:cart_id])
     else
-      @cart = current_cart(@store.id, false)
+      @cart = current_cart(@store, false)
     end
 
     # Redirect if the cart is empty
@@ -30,22 +30,21 @@ class OrdersController < ApplicationController
     end
 
     # Redirect if the cart doesn't meet minimum
-    if @cart.delivery_type == 'delivery' && @cart.total_price < @cart.store.delivery_minimum
+    if @cart.delivery_type == 'delivery' && @cart.total_price < @store.delivery_minimum
       redirect_to store_menus_url, notice: "The order doesn't meet minimum!"
       return
     end
 
     if user_signed_in?
       current_user.build_address if @cart.delivery_type == 'delivery' && current_user.address.nil?
-      @order = Order.new(:cart => @cart, :store => @cart.store, :user => current_user)
+      @order = Order.new(cart: @cart, store: @store, user: current_user)
     else
       user = User.new
       user.build_address if @cart.delivery_type == 'delivery'
-      @order = Order.new(:cart => @cart, :store => @cart.store, :user => user)
+      @order = Order.new(cart: @cart, store: @store, user: user)
     end
 
-    @template = @cart.store.get_current_template
-    render template: "q/templates/#{@template}/store_order", layout: "templates/#{@template}"
+    render template: "q/templates/#{@template_name}/store_order"
   end
 
   # GET /orders/1/edit
@@ -83,15 +82,14 @@ class OrdersController < ApplicationController
           @order.to_fax
 
           #format.html { redirect_to store_order_url(@store, @order), notice: 'Order was successfully created.' }
-          format.html { redirect_to q_store_order_success_url, notice: 'Order was successfully created.' }
+          format.html { redirect_to q_store_message_path(message: "The order has been taken!") }
           format.json { render json: @order, status: :created, location: @order }
         end
       else
-        @cart = current_cart(@order.store_id, false)
+        @cart = current_cart(@store, false)
         @order.user.email = ""
 
-        @template = @cart.store.get_current_template
-        format.html { render template: "q/templates/#{@template}/store_order", layout: "templates/#{@template}" }
+        format.html { render template: "q/templates/#{@template_name}/store_order"}
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -126,6 +124,7 @@ class OrdersController < ApplicationController
     def set_store
       @store = Store.find(params[:store_id])
       @cartridge_array = @store.get_cartridge_array
+      @template_name = get_store_template_name
     end
 
   # Use callbacks to share common setup or constraints between actions.

@@ -54,7 +54,15 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart.destroy
+    # @store is needed for rendering _cart.html.erb
+    @store = @cart.store
+
+    # destroying a cart with orders create problems for orders management
+    if @cart.orders.empty?
+      @cart.destroy
+    else
+      @cart = Cart.new
+    end
 
     respond_to do |format|
       format.js
@@ -66,6 +74,7 @@ class CartsController < ApplicationController
   def delivery_type
     @cart.delivery_type = params[:delivery_type]
     @cart.save
+    @store = @cart.store
 
     respond_to do |format|
        format.js

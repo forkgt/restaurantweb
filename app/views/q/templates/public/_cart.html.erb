@@ -1,10 +1,20 @@
 <div id="cart_container">
-  <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
   <ul id="cart">
     <% if @cart %>
         <%= render @cart, store: @store %>
     <% else %>
-        <li class="bullet-item">Your Cart Is Empty!</li>
+        <li id="cart_message">Your Cart Is Empty!</li>
     <% end %>
   </ul>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#cart').bind('ajax:beforeSend', function() {
+            $(this).children('#cart_loading').show();
+        });
+        $('#cart').bind('ajax:complete', function() {
+            $(this).children('#cart_loading').hide();
+        });
+    });
+</script>

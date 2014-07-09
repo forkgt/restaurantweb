@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140615143127) do
+ActiveRecord::Schema.define(version: 20140708193946) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -89,11 +89,12 @@ ActiveRecord::Schema.define(version: 20140615143127) do
   end
 
   create_table "carts", force: true do |t|
-    t.string   "delivery_type",                         default: "delivery", null: false
-    t.decimal  "delivery_fee",  precision: 8, scale: 2, default: 0.0
+    t.string   "delivery_type",                            default: "delivery", null: false
+    t.decimal  "delivery_fee",     precision: 8, scale: 2, default: 0.0
     t.integer  "store_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "delivery_minimum", precision: 8, scale: 2, default: 0.0
   end
 
   add_index "carts", ["store_id"], name: "index_carts_on_store_id"
@@ -125,6 +126,20 @@ ActiveRecord::Schema.define(version: 20140615143127) do
   end
 
   add_index "coupons", ["store_id"], name: "index_coupons_on_store_id"
+
+  create_table "delivery_rules", force: true do |t|
+    t.string   "name"
+    t.string   "bei"
+    t.integer  "rank"
+    t.decimal  "delivery_fee",     precision: 8, scale: 2, default: 0.0
+    t.decimal  "delivery_minimum", precision: 8, scale: 2, default: 0.0
+    t.float    "delivery_radius"
+    t.integer  "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delivery_rules", ["store_id"], name: "index_delivery_rules_on_store_id"
 
   create_table "dish_choices", force: true do |t|
     t.string   "name"
@@ -271,11 +286,8 @@ ActiveRecord::Schema.define(version: 20140615143127) do
     t.string   "domain"
     t.string   "phone"
     t.string   "fax"
-    t.string   "status",                                   default: "normal"
+    t.string   "status",     default: "normal"
     t.string   "uuid"
-    t.decimal  "delivery_minimum", precision: 8, scale: 2, default: 0.0
-    t.decimal  "delivery_fee",     precision: 8, scale: 2, default: 0.0
-    t.integer  "delivery_radius"
     t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"

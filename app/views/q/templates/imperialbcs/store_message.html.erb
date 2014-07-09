@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="large-9 columns">
+    <div class="message">
+      <%= @message %>
+    </div>
+
+    <div style="margin:100px 0px 0px 100px;font-size: 30px;line-height: 40px;">
+      <strong>Average waiting time:</strong><br/>
+      10 min for Take-Out<br/>
+      45 min for Delivery
+    </div>
+  </div>
+  <div class="large-3 columns">
+    <%= render "q/templates/#{@template_name}/side" %>
+  </div>
+</div>

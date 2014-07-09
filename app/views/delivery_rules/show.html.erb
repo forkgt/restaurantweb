@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @delivery_rule.name %>
+</p>
+
+<p>
+  <strong>Bei:</strong>
+  <%= @delivery_rule.bei %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @delivery_rule.rank %>
+</p>
+
+<p>
+  <strong>Delivery fee:</strong>
+  <%= @delivery_rule.delivery_fee %>
+</p>
+
+<p>
+  <strong>Delivery minimum:</strong>
+  <%= @delivery_rule.delivery_minimum %>
+</p>
+
+<p>
+  <strong>Delivery radius:</strong>
+  <%= @delivery_rule.delivery_radius %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @delivery_rule.store %>
+</p>
+
+<%= link_to 'Edit', edit_store_delivery_rule_path(@store, @delivery_rule) %> |
+<%= link_to 'Back', store_delivery_rules_path(@store) %>

@@ -1,14 +1,8 @@
 <% if cart.cart_items.empty? %>
-    <li class="cart_title bullet-item">Nothing left in your cart!</li>
+    <li id="cart_message">Nothing left in your cart!</li>
 <% else %>
-    <div class="loading" style="display: none;margin: 30px 0;text-align: center;">
-      <%= image_tag "loading.gif" %>
-    </div>
-
-    <li class="cart_title bullet-item"><%= store.name %></li>
-
-    <li class="cart_type bullet-item">
-    <!--Be able to edit order if not checkout page-->
+    <li id="cart_type">
+      <!--Be able to edit order if not checkout page-->
       <% unless params[:controller] == "orders" %>
           <%= link_to 'Delivery', delivery_type_cart_path(cart, delivery_type: :delivery), class: (cart.delivery_type == 'delivery') ? 'active' : nil, remote: true %>
           <%= link_to 'Pick Up', delivery_type_cart_path(cart, delivery_type: :pick_up), class: (cart.delivery_type == 'pick_up') ? 'active' : nil, remote: true %>
@@ -20,34 +14,72 @@
 
     <%= render(cart.cart_items) %>
 
-    <li class="cart_summary bullet-item">
-      <span>Subtotal:</span>
-      <span><%= number_to_currency(cart.subtotal_price) %></span>
+    <li id="cart_summary">
+      <p><strong>Subtotal:&nbsp;&nbsp;&nbsp;</strong><%= number_to_currency(cart.subtotal_price) %></p>
+      <p><strong>Tax:&nbsp;&nbsp;&nbsp;</strong><%= number_to_currency(cart.subtotal_price*0.0825) %></p>
+      <% if cart.delivery_type == 'delivery' && cart.delivery_fee > 0 %>
+          <p><strong>Delivery Fee:&nbsp;&nbsp;&nbsp;</strong><%= number_to_currency(cart.delivery_fee) %></p>
+      <% end %>
+      <p><strong>Total:&nbsp;&nbsp;&nbsp;</strong><%= number_to_currency(cart.total_price) %></p>
     </li>
-    <li class="cart_summary bullet-item">
-      <span>Tax:</span>
-      <span><%= number_to_currency(cart.subtotal_price*0.0825) %></span>
-    </li>
-    <% if cart.delivery_fee > 0 %>
-        <li class="cart_summary bullet-item">
-          <span>Delivery Fee:</span>
-          <span><%= number_to_currency(cart.delivery_fee) %></span>
-        </li>
-    <% end %>
-    <li class="cart_summary bullet-item">
-      <span>Total:</span>
-      <span><%= number_to_currency(cart.total_price) %></span>
-    </li>
+
+    <li id="cart_loading" style="display: none;"><%= image_tag "loading.gif" %></li>
+    <li id="cart_message" style="display: none;"></li>
 
     <!--Be able to edit order if not checkout page-->
     <% unless params[:controller] == "orders" %>
-        <li class="cart_action cta-button">
-          <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
-
-          <% if (cart.delivery_type == "delivery") && (cart.total_price < store.delivery_minimum) %>
-              <%= link_to "Min. #{number_to_currency(store.delivery_minimum)}", 'javascript:void(0);', :class => 'small button' %>
+        <li id="cart_action">
+          <% if cart.delivery_type == "delivery" && store.delivery_rules.present? %>
+              <% if session[:user_address] && session[:user_address].present? %>
+                  <table class="cart_action_table">
+                    <tr>
+                      <td colspan="3"><%= text_field_tag :address1, session[:user_address][:address1], readonly: :readonly %></td>
+                    </tr>
+                    <tr>
+                      <td><%= text_field_tag :city, session[:user_address][:city], readonly: :readonly %></td>
+                      <td><%= text_field_tag :zip, session[:user_address][:zip], readonly: :readonly %></td>
+                      <td><%= link_to "Reset", q_reset_address_path, remote: true, method: :post, data: { confirm: 'Are you sure?' }, style: "line-height: 40px;" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="cart_action_buttons">
+                          <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
+                          <% if cart.total_price < cart.delivery_minimum %>
+                              <%= link_to "Min. #{number_to_currency(cart.delivery_minimum)}", 'javascript:void(0);', :class => 'small button' %>
+                          <% else %>
+                              <%= link_to 'Checkout', new_store_order_path(store), :class => 'small button' %>
+                          <% end %>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+              <% else %>
+                  <%= form_tag(q_check_address_path, :method => 'post', :remote => true) do %>
+                      <table class="cart_action_table">
+                        <tr>
+                          <td colspan="3"><%= text_field_tag :address1, nil, placeholder: "Address" %></td>
+                        </tr>
+                        <tr>
+                          <td><%= text_field_tag :city, nil, placeholder: "City" %></td>
+                          <td><%= text_field_tag :zip, nil, placeholder: "Zip" %></td>
+                          <td><span style="color: #bbbbbb">Reset</span></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                            <div id="cart_action_buttons">
+                              <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
+                              <%= submit_tag("Check Addr.", :class => 'small button') %>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                  <% end %>
+              <% end %>
           <% else %>
-              <%= link_to 'Proceed', new_store_order_path(store), :class => 'small button' %>
+              <div id="cart_action_buttons">
+                <%= link_to 'Clear Cart', cart, :class => 'small button', :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%= link_to 'Proceed', new_store_order_path(store), :class => 'small button' %>
+              </div>
           <% end %>
         </li>
     <% end %>

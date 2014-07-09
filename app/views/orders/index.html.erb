@@ -1,4 +1,51 @@
-<h5>Today's orders</h5>
+<div class="panel">
+  <div class="alert alert-box" id="datepicker_alert" style="display: none;">
+    <strong></strong>
+  </div>
+
+  <%= form_tag(store_orders_path(@store), :method => 'get') do %>
+      <div class="row">
+        <div class="large-5 columns">
+          <%= text_field_tag :start_date, Date.today, data: { 'date-format' => 'yyyy-mm-dd', 'date' => Date.today }, id: "dp4" %>
+        </div>
+        <div class="large-5 columns">
+          <%= text_field_tag :end_date, Date.today, data: { 'date-format' => 'yyyy-mm-dd', 'date' => Date.today }, id: "dp5"  %>
+        </div>
+        <div class="large-2 columns">
+          <%= submit_tag "Search", class: "button tiny" %>
+        </div>
+      </div>
+  <% end %>
+</div>
+<script>
+    $(document).ready(function(){
+        var startDate = new Date(<%= Date.today.year %>, <%= Date.today.month - 1 %>, <%= Date.today.day %>);
+        var endDate = new Date(<%= Date.today.year %>, <%= Date.today.month - 1 %>, <%= Date.today.day %>);
+        $('#dp4').fdatepicker()
+                .on('changeDate', function (ev) {
+                    if (ev.date.valueOf() > endDate.valueOf()) {
+                        $('#datepicker_alert').show().find('strong').text('The start date can not be greater then the end date');
+                    } else {
+                        $('#datepicker_alert').hide();
+                        startDate = new Date(ev.date);
+                        $('#dp4').val($(this).data('date'));
+                    }
+                    $('#dp4').fdatepicker('hide');
+                });
+        $('#dp5').fdatepicker()
+                .on('changeDate', function (ev) {
+                    if (ev.date.valueOf() < startDate.valueOf()) {
+                        $('#datepicker_alert').show().find('strong').text('The end date can not be less then the start date');
+                    } else {
+                        $('#datepicker_alert').hide();
+                        endDate = new Date(ev.date);
+                        $('#dp5').val($(this).data('date'));
+                    }
+                    $('#dp5').fdatepicker('hide');
+                });
+    });
+</script>
+
 <table>
   <thead>
   <tr>
@@ -8,14 +55,12 @@
     <th>Tip</th>
     <th>Note</th>
     <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Action</th>
   </tr>
   </thead>
 
   <tbody>
-  <% @orders_of_today.each do |order| %>
+  <% @orders.each do |order| %>
       <tr>
         <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
         <td><%= order.payment_type + ", " + order.payment_status %></td>
@@ -23,9 +68,13 @@
         <td><%= number_to_currency order.tip %></td>
         <td><%= order.note %></td>
         <td><%= order.user.firstname + " " + order.user.lastname %></td>
-        <td><%= link_to 'S', store_order_path(@store, order) %></td>
-        <td><%= link_to 'E', edit_store_order_path(@store, order) %></td>
-        <td><%= link_to 'D', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', store_order_path(@store, order), target: "_blank" %>
+          <% if current_admin.feng? %>
+              <%= link_to 'E', edit_store_order_path(@store, order) %>
+              <%= link_to 'X', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>
@@ -33,73 +82,7 @@
 
 <hr/>
 
-<h5>Yesterday's orders</h5>
-<table>
-  <thead>
-  <tr>
-    <th>Time</th>
-    <th>Payment</th>
-    <th>Total</th>
-    <th>Tip</th>
-    <th>Note</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @orders_of_yesterday.each do |order| %>
-      <tr>
-        <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
-        <td><%= order.payment_type + ", " + order.payment_status %></td>
-        <td><%= number_to_currency order.cart.total_price %></td>
-        <td><%= number_to_currency order.tip %></td>
-        <td><%= order.note %></td>
-        <td><%= order.user.firstname + " " + order.user.lastname %></td>
-        <td><%= link_to 'S', store_order_path(@store, order) %></td>
-        <td><%= link_to 'E', edit_store_order_path(@store, order) %></td>
-        <td><%= link_to 'X', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<hr/>
-
-<h5>This month's orders</h5>
-<table>
-  <thead>
-    <tr>
-      <th>Time</th>
-      <th>Payment</th>
-      <th>Total</th>
-      <th>Tip</th>
-      <th>Note</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @orders_of_this_month.each do |order| %>
-      <tr>
-        <td><%= order.created_at.getlocal.to_formatted_s(:short) %></td>
-        <td><%= order.payment_type + ", " + order.payment_status %></td>
-        <td><%= number_to_currency order.cart.total_price %></td>
-        <td><%= number_to_currency order.tip %></td>
-        <td><%= order.note %></td>
-        <td><%= order.user.firstname + " " + order.user.lastname %></td>
-        <td><%= link_to 'S', store_order_path(@store, order) %></td>
-        <td><%= link_to 'E', edit_store_order_path(@store, order) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<hr/>
-
-<%= link_to 'New Order', new_store_order_path %>
+<% if current_admin.feng? %>
+    <hr/>
+    <%= link_to 'New Order', new_store_order_path %>
+<% end %>

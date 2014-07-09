@@ -6,6 +6,14 @@ body {
   background: #F9F5E9 image-url("templates/imperialbcs/bg_texture_1.png");
 }
 
+.message {
+  padding-top: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+  color: red;
+}
+
 div.menu {
   min-height: 200px;
   margin-top: 20px;
@@ -40,11 +48,27 @@ div.menu {
       }
     }
 
-
     div.dish {
       line-height:30px;
       font-size:14px;
       border-bottom:1px solid #DDDDDD;
+
+      div.dish_bei_and_pic_switch {
+        cursor: pointer;
+      }
+
+      div.dish_bei_and_pic {
+        position: relative;
+      }
+
+      div.dish_bei {
+        position: absolute;
+        width: 100%;
+        font-size: 12px;
+        font-style: italic;
+        color: #ffffff;
+        background-color: rgba(51, 51, 51, 0.8);
+      }
 
       div.dish_price {
 
@@ -66,23 +90,16 @@ div.menu {
 
 div#cart_container {
 
-  div#cart_message {font-size: 16px;color:red;margin-bottom: 20px;}
-
   ul#cart {
     list-style:none;
     margin-bottom: 0px;
 
-    li {
+    li#cart_message { font-size: 20px;color:red;margin:10px; }
+    li#cart_loading { margin: 30px 0;text-align: center; }
+    li#cart_title {  }
 
-    }
-
-    li.cart_title {
-
-    }
-
-    li.cart_type {
+    li#cart_type {
       margin-bottom: 20px;
-      border-bottom: 1px #000000 dashed;
 
       a {
         width: 90px;
@@ -91,38 +108,49 @@ div#cart_container {
         line-height:30px;
         text-decoration: none;
         margin-left:20px;
+        padding: 5px 10px;
       }
 
       a.active {
         color: #FFFFFF;
         font-weight: bold;
-        background-color: red;
+        background-color: #008ccd;
+      }
+    }
+
+    li#cart_summary {
+      margin-bottom: 20px;
+
+      p { text-align: right; margin-bottom: 0px;}
+    }
+
+    li#cart_action {
+      text-align: right;
+
+      table.cart_action_table {
+        width: 100%;border: 0px;margin-bottom: 0px;
+
+        tr {
+          td {
+            input {
+              margin-bottom: 0px;
+            }
+
+            a {
+              margin-bottom: 0px;
+            }
+          }
+        }
       }
     }
 
     li.cart_item {
       border-bottom: 1px #000000 dashed;
       height:40px;line-height:20px;
-      margin:0px 0px 10px 0px;padding:0px;
+      margin:0px 0px 10px 0px;
+      padding:0px;
 
-      a {
-        text-decoration: none;
-
-        .left {float:left;}
-        .right {float: right;}
-        .cart_item_note {font-size: 10px;}
-      }
-    }
-
-    li.cart_summary {
-      text-align:right;
-    }
-
-    li.cart_action {
-
-      a {
-
-      }
+      .cart_item_note { font-size: 12px; color: red; }
     }
   }
 }

@@ -1,7 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $(".dish_name").click(function() {
-            $(this).siblings(".dish_pic").toggle();
+        $(".dish_bei_and_pic_switch").click(function() {
+            $(this).siblings().children(".dish_bei_and_pic").slideToggle();
+            $(this).children(".arrow_down").toggle();
+            $(this).children(".arrow_up").toggle();
         });
     });
 </script>
@@ -50,8 +52,12 @@
                   <div class="large-6 columns">
                     <div class="dish">
                       <div class="row">
-                        <div class="dish_name small-12 large-8 columns">
-                          <%= dish.name %>
+                        <div class="dish_name small-12 large-8 columns <%= "dish_bei_and_pic_switch" if dish.image? || dish.bei.present? %> ">
+                          <%= dish.name %>&nbsp;&nbsp;
+                          <% if dish.image? || dish.bei.present? %>
+                              <%= image_tag "Arrowhead-Down-24-03.png", size: "12x12", class: "arrow_down" %>
+                              <%= image_tag "Arrowhead-Up-24-03.png", size: "12x12", class: "arrow_up", style: "display: none;" %>
+                          <% end %>
                         </div>
                         <div class="dish_features small-8 large-2 columns">
                           &nbsp;
@@ -66,12 +72,15 @@
                               <%= number_to_currency(dish.price) %>
                           <% end %>
                         </div>
-                        <div class="dish_pic large-12 columns" style="display: none ">
-                          <% if dish.image? %>
-                              <% # image_tag dish.image_url.to_s, title: dish.name %>
-                          <% else %>
-                              <% # image_tag "http://placehold.it/620x450&text=" + @store.name %>
-                          <% end %>
+                        <div class="large-12 columns">
+                          <div class="dish_bei_and_pic" style="display: none ">
+                            <div class="dish_bei"><%= dish.bei %></div>
+                            <% if dish.image? %>
+                                <div class="dish_pic"><%= image_tag dish.image_url.to_s, title: dish.name %></div>
+                            <% elsif dish.bei.present? %>
+                                <div class="dish_pic"><%= image_tag "http://placehold.it/600x200&text=" + @store.name %></div>
+                            <% end %>
+                          </div>
                         </div>
                       </div>
                       <div class="dish_dialog reveal-modal small" id="dish_dialog_<%= dish.id %>" data-reveal>
@@ -131,14 +140,7 @@
 <% end %>
 
 <div id="cart_container" class="reveal-modal small" data-reveal>
-  <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
-  <ul id="cart">
-    <% if @cart %>
-        <%= render @cart, store: @store %>
-    <% else %>
-        <li class="bullet-item">Your Cart Is Empty!</li>
-    <% end %>
-  </ul>
+  <%= render "q/templates/public/cart" %>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 
@@ -149,9 +151,5 @@
 
     $('.dish_dialog form').bind('ajax:complete', function() {
         $(this).siblings('.loading').hide();
-    });
-
-    $('#cart').bind('ajax:beforeSend', function() {
-        $(this).find('.loading').show();
     });
 </script>

@@ -1,0 +1,37 @@
+<h1>Listing delivery_rules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bei</th>
+      <th>Rank</th>
+      <th>Delivery fee</th>
+      <th>Delivery minimum</th>
+      <th>Delivery radius</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @delivery_rules.each do |delivery_rule| %>
+      <tr>
+        <td><%= delivery_rule.name %></td>
+        <td><%= delivery_rule.bei %></td>
+        <td><%= delivery_rule.rank %></td>
+        <td><%= delivery_rule.delivery_fee %></td>
+        <td><%= delivery_rule.delivery_minimum %></td>
+        <td><%= delivery_rule.delivery_radius %></td>
+        <td>
+          <%= link_to 'Show', store_delivery_rule_path(@store, delivery_rule) %> |
+          <%= link_to 'Edit', edit_store_delivery_rule_path(@store, delivery_rule) %> |
+          <%= link_to 'Destroy', [@store, delivery_rule], method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Delivery rule', new_store_delivery_rule_path(@store) %>

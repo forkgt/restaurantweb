@@ -15,6 +15,7 @@
 //= require foundation
 //= require turbolinks
 //= require jquery_nested_form
+//= require foundation-datepicker
 
 $(function(){ $(document).foundation(); });
 

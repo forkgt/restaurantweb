@@ -3,13 +3,15 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :bei %>
-    <%= f.input :rank %>
-    <%= image_tag @category.image_url(:micro).to_s, title: @category.name if @category.image? %>
-    <%= f.input :image %>
+    <%= f.input :bei, label: "Description" %>
+    <% if current_admin.feng? %>
+        <%= f.input :rank %>
+        <%= image_tag @category.image_url(:micro).to_s, title: @category.name if @category.image? %>
+        <%= f.input :image %>
+    <% end %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "button small" %>
   </div>
 <% end %>

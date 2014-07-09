@@ -73,15 +73,13 @@
 <% end %>
 
 <script>
-    $('.dish_dialog form').bind('ajax:beforeSend', function() {
-        $(this).siblings('.loading').show();
-    });
+    $(document).ready(function(){
+        $('.dish_dialog form').bind('ajax:beforeSend', function() {
+            $(this).siblings('.loading').show();
+        });
 
-    $('.dish_dialog form').bind('ajax:complete', function() {
-        $(this).siblings('.loading').hide();
-    });
-
-    $('#cart').bind('ajax:beforeSend', function() {
-        $(this).children('.loading').show();
+        $('.dish_dialog form').bind('ajax:complete', function() {
+            $(this).siblings('.loading').hide();
+        });
     });
 </script>

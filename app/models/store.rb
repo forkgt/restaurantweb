@@ -23,10 +23,27 @@ class Store < ActiveRecord::Base
   #    end
   #  end
   #end
+  #
+  #class RemoveDeliveryRuleFromStores < ActiveRecord::Migration
+  #  def up
+  #    remove_column :stores, :delivery_fee, :decimal
+  #    remove_column :stores, :delivery_minimum, :decimal
+  #    remove_column :stores, :delivery_radius, :integer
+  #  end
+  #
+  #  def down
+  #    add_column :stores, :delivery_fee, :decimal, :default => 0, :precision => 8, :scale => 2
+  #    add_column :stores, :delivery_minimum, :decimal, :default => 0, :precision => 8, :scale => 2
+  #    add_column :stores, :delivery_radius, :integer
+  #  end
+  #end
+
 
   validates_presence_of :name
   validates :phone, presence: true, numericality: { only_integer: true }, length: { is: 10 }
   validates :fax, presence: true, numericality: { only_integer: true }, length: { is: 10 }
+
+  mount_uploader :image, AvatarUploader
 
   belongs_to :admin
 
@@ -34,6 +51,7 @@ class Store < ActiveRecord::Base
   accepts_nested_attributes_for :address
   validates_associated :address
 
+  has_many :delivery_rules, -> { order(:rank) }
   has_many :dish_features
   has_many :dish_choices
   has_many :payments

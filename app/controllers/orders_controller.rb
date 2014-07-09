@@ -5,9 +5,15 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders_of_today = @store.orders.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).includes([{cart: :cart_items }, :user])
-    @orders_of_yesterday = @store.orders.where(:created_at => Time.now.yesterday.beginning_of_day..Time.now.yesterday.end_of_day).includes([{cart: :cart_items}, :user])
-    @orders_of_this_month = @store.orders.where(:created_at => Time.now.beginning_of_month..Time.now.end_of_month).includes([{cart: :cart_items}, :user])
+    if params[:start_date].present? && params[:end_date].present?
+      sd = Time.parse params[:start_date]
+      ed = Time.parse params[:end_date]
+    else
+      sd = Time.now
+      ed = Time.now
+    end
+
+    @orders = @store.orders.where(:created_at => sd.beginning_of_day..ed.end_of_day).includes([{cart: :cart_items }, :user])
   end
 
   # GET /orders/1
@@ -30,17 +36,17 @@ class OrdersController < ApplicationController
     end
 
     # Redirect if the cart doesn't meet minimum
-    if @cart.delivery_type == 'delivery' && @cart.total_price < @store.delivery_minimum
-      redirect_to store_menus_url, notice: "The order doesn't meet minimum!"
+    if @cart.delivery_type == 'delivery' && @cart.total_price < @cart.delivery_minimum
+      redirect_to q_store_menus_url, notice: "The order doesn't meet minimum!"
       return
     end
 
     if user_signed_in?
-      current_user.build_address if @cart.delivery_type == 'delivery' && current_user.address.nil?
+      current_user.build_address(session[:user_address]) if @cart.delivery_type == 'delivery' && current_user.address.nil?
       @order = Order.new(cart: @cart, store: @store, user: current_user)
     else
       user = User.new
-      user.build_address if @cart.delivery_type == 'delivery'
+      user.build_address(session[:user_address]) if @cart.delivery_type == 'delivery'
       @order = Order.new(cart: @cart, store: @store, user: user)
     end
 
@@ -60,7 +66,16 @@ class OrdersController < ApplicationController
       @order.user.email = "guest_#{Time.now.to_i}#{rand(99)}@777pos.com"
       @order.user.password = "guest_password"
       @order.user.password_confirmation = "guest_password"
-      @order.user.skip_confirmation! # Skip sending emails
+
+      # Skip sending emails
+      # Add it if devise comfirmable is on
+      #@order.user.skip_confirmation!
+    end
+
+    # Add State and Country for validations in Model Address
+    unless @order.user.address.nil?
+      @order.user.address.state = "TX"
+      @order.user.address.country = "US"
     end
 
     # Need to validate the phone number for the order
@@ -71,8 +86,9 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        # Clear the cart in the session
+        # Clear the cart and user address in the session
         session.delete "cart_id_for_store_id_#{@order.store_id}"
+        session.delete "user_address"
 
         if @order.payment_type == 'paypal'
           # Redirect to Paypal Page

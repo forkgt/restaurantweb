@@ -50,11 +50,15 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "devise", "~> 3.1.1"
+gem 'devise', '~> 3.2.4'
 #gem "bootstrap-sass", "~> 3.0.0.0"
 #gem "zurb-foundation", "~> 4.3.2"
 gem 'foundation-rails', '~> 5.2.3.0'
+#gem 'foundation-datetimepicker-rails', '~> 0.1.3'
 gem "jquery-ui-sass-rails", "~> 4.0.3.0"
+
+# In order to show icons is foundation-datepicker
+gem 'font-awesome-sass', '~> 4.1.0'
 
 gem "simple_form", "~> 3.0.0"
 gem 'nested_form', '~> 0.3.2'
@@ -74,7 +78,11 @@ gem 'activemerchant', '~> 1.43.1'
 #gem 'rufus-scheduler', '~> 3.0.8'
 gem 'whenever', '~> 0.9.2', :require => false
 
+gem 'geocoder', '~> 1.2.2'
+
+
 gem 'bullet', '~> 4.10.0', :group => "development"
 gem 'rack-mini-profiler', '~> 0.9.1', :group => "development"
 gem 'rails-perftest', '~> 0.0.4', :group => 'test'
 gem 'ruby-prof', '~> 0.15.1', :group => 'test'
+

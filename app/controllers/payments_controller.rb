@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
   # POST /payments
   # POST /payments.json
   def create
-    @payment = @store.payments.create(payment_params)
+    @payment = @store.payments.build(payment_params)
 
     respond_to do |format|
       if @payment.save

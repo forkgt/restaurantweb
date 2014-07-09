@@ -9,11 +9,18 @@
               <%= builder.input :lastname %>
               <%= builder.input :phone %>
               <% if @cart.delivery_type == 'delivery' %>
-                  <%= builder.fields_for :address do |addr| %>
-                      <%= addr.input :address1, label: "Address" %>
-                      <%= addr.input :address2, label: "Apt / Building / Suite" %>
-                      <%= addr.input :city %>
-                      <%= addr.input :zip %>
+                  <% if @store.delivery_rules.present? %>
+                      <%= builder.fields_for :address do |addr| %>
+                          <%= addr.input :address1, label: "Address", input_html: { readonly: :readonly } %>
+                          <%= addr.input :city, input_html: { readonly: :readonly } %>
+                          <%= addr.input :zip, input_html: { readonly: :readonly } %>
+                      <% end %>
+                  <% else %>
+                      <%= builder.fields_for :address do |addr| %>
+                          <%= addr.input :address1, label: "Address" %>
+                          <%= addr.input :city %>
+                          <%= addr.input :zip %>
+                      <% end %>
                   <% end %>
               <% end %>
           <% end %>

@@ -30,7 +30,7 @@
     <% unless @order.user.address.nil? %>
         <p>
           <strong>Address:</strong><br/>
-          <%= @order.user.address.address1 + ", " + @order.user.address.address2 %><br/>
+          <%= @order.user.address.address1 %><br/>
           <%= @order.user.address.city %><br/>
         </p>
     <% end %>
@@ -43,6 +43,7 @@
           <span style="color: red; font-size:12px;"><%= ci.note %></span><br/>
       <% end %>
       <hr/>
+      Delivery: <%= number_to_currency @order.cart.delivery_fee %><br/>
       Tax: <%= number_to_currency @order.cart.tax %><br/>
       Tip: <%= number_to_currency @order.tip %><br/>
       Total: <%= number_to_currency @order.cart.total_price + @order.tip  %>
@@ -54,9 +55,8 @@
   </div>
 </div>
 
+<% if current_admin.feng? %>
+    <%= link_to 'Edit', edit_store_order_path(@store, @order) %> |
+    <%= link_to image_tag("Arrowhead-Left-24-03.png") + 'Back', store_orders_path(@store) %>
+<% end %>
 
-
-
-
-<%= link_to 'Edit', edit_store_order_path(@store, @order) %> |
-<%= link_to 'Back', store_orders_path(@store) %>

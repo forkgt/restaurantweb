@@ -1,8 +1,7 @@
 <div class="row">
   <div class="large-6 columns">
-    <h2>Edit <%= resource_name.to_s.humanize %></h2>
     <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-        <fieldset>
+        <fieldset style="background-color: #ffffff">
           <%= f.error_notification %>
           <legend>
             Edit Your Profile
@@ -35,16 +34,18 @@
           </div>
 
           <div class="row">
-            <div class="large-4 columns">
-              <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-            </div>
-            <div class="large-4 columns">
-              <%= f.input :password_confirmation, :required => false %>
-            </div>
-            <div class="large-4 columns">
-              <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+            <div class="large-12 columns">
+              <%= f.button :submit, "Update Profile", class: "button small" %>
             </div>
           </div>
+        </fieldset>
+    <% end %>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <fieldset style="background-color: #ffffff">
+          <%= f.error_notification %>
+          <legend>
+            Edit Your Address
+          </legend>
 
           <%= f.fields_for :address do |addr| %>
               <div class="row">
@@ -74,35 +75,58 @@
 
           <div class="row">
             <div class="large-12 columns">
-              <%= f.button :submit, "Update", class: "button" %>
+              <%= f.button :submit, "Update Address", class: "button small" %>
             </div>
           </div>
         </fieldset>
     <% end %>
-    <h3>Cancel my account</h3>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <fieldset style="background-color: #ffffff">
+          <%= f.error_notification %>
+          <legend>
+            Change Your Password
+          </legend>
+
+          <div class="row">
+            <div class="large-4 columns">
+              <%= f.input :password, :autocomplete => "off", :required => false %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :password_confirmation, :label => "Confirmation", :required => false %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.input :current_password, :required => true %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-12 columns">
+              <%= f.button :submit, "Update Profile", class: "button small" %>
+            </div>
+          </div>
+        </fieldset>
+    <% end %>
     <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-    <%= link_to "Back", :back %>
   </div>
   <div class="large-6 columns">
-    <h2>My Recent Orders</h2>
+    <fieldset style="background-color: #ffffff">
+      <legend>
+        Recent Orders
+      </legend>
 
-    <br/>
-    <div id="cart_message">Delivery available within 4 miles!<br/> Call us if over 4 miles.</div>
-    <br/>
-    <% current_user.orders.each do |o| %>
-        <div class="panel">
-          <%= o.id %> - <%= o.payment_type %> - - <%= o.created_at %>
-          <hr/>
-          <% o.cart.cart_items.each do |ci| %>
-              <%= ci.name %> - <%= ci.price %> <br/>
-          <% end %>
-          <hr/>
-          Total: <%= number_to_currency o.cart.total_price %>
+      <% current_user.orders.each do |o| %>
+          <p><%= "Order No." + o.id.to_s %> @ <%= o.created_at.getlocal.to_formatted_s(:short) %></p>
+          <div style="font-size: 12px;font-style: italic">
+            <% o.cart.cart_items.each do |ci| %>
+                <%= ci.name %>: <%= number_to_currency ci.price %> &times; <%= ci.quantity %> <br/>
+            <% end %>
+          </div>
           <br/>
-
-          <%= link_to "Get it again", q_store_order_path(cart_id: o.cart.id), class: "button small" %>
-        </div>
-    <% end %>
+          <p><strong style="color: #ff0000">Total: </strong><%= number_to_currency o.cart.total_price %></p>
+          <%= link_to "Get it again", new_store_order_path(@store, cart_id: o.cart.id), class: "button tiny" %>
+          <hr/>
+      <% end %>
+    </fieldset>
   </div>
 
 </div>

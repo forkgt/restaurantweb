@@ -26,7 +26,7 @@ class DishFeaturesController < ApplicationController
   # POST /dish_features
   # POST /dish_features.json
   def create
-    @dish_feature = @store.dish_features.create(dish_feature_params)
+    @dish_feature = @store.dish_features.build(dish_feature_params)
 
     respond_to do |format|
       if @dish_feature.save

@@ -10,7 +10,7 @@ Ibm::Application.routes.draw do
   end
 
   resources :stores do
-    resources :menus, :coupons, :orders, :payments, :statements, :dish_choices, :dish_features
+    resources :menus, :coupons, :orders, :payments, :statements, :dish_choices, :dish_features, :delivery_rules
   end
 
   resources :menus do
@@ -26,18 +26,21 @@ Ibm::Application.routes.draw do
   end
 
   devise_for :admins, controllers: { registrations: 'admins/registrations' }
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
 
   get "h/user_manager", "h/retrieve_store"
 
   get "q/index"
 
   #paypal vist this page through post
-  match "q/store_home",      to: "q#store_home",        via: [:get, :post]
-  get "q/store_message",     to: "q#store_message",     as: "q_store_message"
-  get "q/store_menus",       to: "q#store_menus",       as: "q_store_menus"
-  get "q/store_map",         to: "q#store_map",         as: "q_store_map"
-  post "q/paypal_notify",    to: "q#paypal_notify",     as: "q_paypal_notify"
+  match "q/store_home",             to: "q#store_home",               via: [:get, :post]
+  get "q/store_message",            to: "q#store_message",            as: "q_store_message"
+  get "q/store_menus",              to: "q#store_menus",              as: "q_store_menus"
+  get "q/store_map",                to: "q#store_map",                as: "q_store_map"
+  get "q/store_intro",              to: "q#store_intro",              as: "q_store_intro"
+  post "q/check_address",           to: "q#check_address",            as: "q_check_address"
+  post "q/reset_address",           to: "q#reset_address",            as: "q_reset_address"
+  post "q/paypal_notify",           to: "q#paypal_notify",            as: "q_paypal_notify"
 
   root 'q#store_home'
 

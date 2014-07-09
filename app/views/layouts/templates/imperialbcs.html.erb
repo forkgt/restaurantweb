@@ -44,7 +44,7 @@
       <nav class="top-bar hide-for-small" data-topbar>
         <ul class="title-area">
           <li class="name">
-            <h1><a href="index.html"><%= @store.name %></a></h1>
+            <h1><%= link_to @store.name, q_store_home_path %></h1>
           </li>
         </ul>
         <section class="top-bar-section">
@@ -52,20 +52,21 @@
             <li class="divider"></li>
             <li <%= "class=active" if controller_name == "q" && action_name == "store_home" %>><%= link_to "Welcome", q_store_home_path %></li>
             <li class="divider"></li>
-            <li <%= "class=active" if controller_name == "q" && action_name == "store_menus" %>><%= link_to "Order Online!", q_store_menus_path %></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_menus" %>><%= link_to "Order Online", q_store_menus_path %></li>
             <li class="divider"></li>
             <li <%= "class=active" if controller_name == "q" && action_name == "store_map" %>><%= link_to "Get Direction", q_store_map_path %></li>
-
+            <li class="divider"></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_intro" %>><%= link_to "About Us", q_store_intro_path %></li>
             <% if user_signed_in? %>
                 <li class="divider"></li>
-                <li><%= link_to current_user.email, edit_user_registration_path %></li>
+                <li <%= "class=active" if controller_name == "registrations" && action_name == "edit" %>><%= link_to current_user.email, edit_user_registration_path %></li>
                 <li class="divider"></li>
                 <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
             <% else %>
                 <li class="divider"></li>
-                <li><%= link_to "Sign In", new_user_session_path %></li>
+                <li <%= "class=active" if controller_name == "sessions" && action_name == "new" %>><%= link_to "Sign In", new_user_session_path %></li>
                 <li class="divider"></li>
-                <li><%= link_to "Sign Up", new_user_registration_path %></li>
+                <li <%= "class=active" if controller_name == "registrations" && action_name == "new" %>><%= link_to "Sign Up", new_user_registration_path %></li>
             <% end %>
           </ul>
         </section>
@@ -77,8 +78,9 @@
             <ul class="off-canvas-list">
               <li><label><%= @store.name %></label></li>
               <li><%= link_to "Welcome", q_store_home_path %></li>
-              <li><%= link_to "Order Online!", q_store_menus_path %></li>
+              <li><%= link_to "Order Online", q_store_menus_path %></li>
               <li><%= link_to "Get Direction", q_store_map_path %></li>
+              <li><%= link_to "About Us", q_store_intro_path %></li>
               <% if user_signed_in? %>
                   <li><%= link_to current_user.email, edit_user_registration_path %></li>
                   <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
@@ -96,11 +98,12 @@
               </div>
           <% end %>
 
-          <h1 style="color: #ffffff;background-color: #ff0000;">
-            &nbsp;&nbsp;&nbsp;We are not open yet, please check back later.<br/>
-            &nbsp;&nbsp;&nbsp;Or call us at (979) 774 7888 for more info.<br/>
-            &nbsp;&nbsp;&nbsp;Thank you!
-          </h1>
+          <% unless Rails.env == "development" %>
+              <h2 style="color: #ffffff;background-color: #ff0000;">
+                &nbsp;&nbsp;&nbsp;Our grand opening will be July 9th (Wednesday).<br/>
+                &nbsp;&nbsp;&nbsp;Online order will be acceptable then. Thank you!<br/>
+              </h2>
+          <% end %>
 
           <%= yield %>
 
@@ -111,6 +114,11 @@
       <hr />
 
       <footer class="row">
+        <div class="large-12 columns">
+          <div style="text-align: center;color: darkred;font-size: 24px;font-weight: bold;line-height: 40px;">
+            Any delivery charge is not a tip paid to your driver.<br/>Please reward your driver for awesomeness.
+          </div>
+        </div>
         <div class="large-12 columns">
           <div class="row" style="margin-top: 20px;">
             <div class="small-2 columns" style="text-align: center;">
@@ -123,13 +131,13 @@
               <%= link_to image_tag("templates/imperialbcs/twitter.png", size: "40x40"), "https://twitter.com/ImperialBCS", target: "_blank" %>
             </div>
             <div class="small-2 columns">
-              <%= link_to image_tag("templates/imperialbcs/insta.png", size: "40x40"), "#", target: "_blank" %>
+              <%= link_to image_tag("templates/imperialbcs/insta.png", size: "40x40"), "http://instagram.com/imperialbcs", target: "_blank" %>
             </div>
             <div class="small-2 columns">
-              <%= link_to image_tag("templates/imperialbcs/google-plus.png", size: "40x40"), "https://plus.google.com/u/0/109719484444658856952/posts", target: "_blank" %>
+              <%= link_to image_tag("templates/imperialbcs/google-plus.png", size: "40x40"), "https://plus.google.com/u/0/112605235291620501785/posts", target: "_blank" %>
             </div>
             <div class="small-2 columns end">
-              <%= link_to image_tag("templates/imperialbcs/yelp.png", size: "40x40"), "#", target: "_blank" %>
+              <%= link_to image_tag("templates/imperialbcs/yelp.png", size: "40x40"), "http://www.yelp.com/biz/imperial-chinese-and-sushi-bryan-2", target: "_blank" %>
             </div>
           </div>
           <div class="row" style="margin-top: 40px;">

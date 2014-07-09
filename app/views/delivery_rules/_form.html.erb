@@ -1,0 +1,16 @@
+<%= simple_form_for([@store, @delivery_rule]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :bei %>
+    <%= f.input :rank %>
+    <%= f.input :delivery_fee %>
+    <%= f.input :delivery_minimum %>
+    <%= f.input :delivery_radius %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

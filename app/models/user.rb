@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable
 
   validates :firstname, presence: true, length: { in: 2..50 },
             format: { with: FengValidators::LettersOnly.regex, message: FengValidators::LettersOnly.hint }

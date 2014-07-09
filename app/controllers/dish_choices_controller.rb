@@ -26,7 +26,7 @@ class DishChoicesController < ApplicationController
   # POST /dish_choices
   # POST /dish_choices.json
   def create
-    @dish_choice = @store.dish_choices.create(dish_choice_params)
+    @dish_choice = @store.dish_choices.build(dish_choice_params)
 
     respond_to do |format|
       if @dish_choice.save

@@ -36,7 +36,7 @@ private
     Cart.find(session["cart_id_for_store_id_#{store.id}"])
   rescue ActiveRecord::RecordNotFound
     if create
-      cart = Cart.create(store: store, delivery_fee: store.delivery_fee, delivery_type: "delivery")
+      cart = Cart.create(store: store, delivery_fee: 0, delivery_minimum: 0, delivery_type: "delivery")
       session["cart_id_for_store_id_#{store.id}"] = cart.id
       cart
     end
@@ -80,13 +80,8 @@ private
   def layout_by_resource
     if devise_controller? && resource_name == :admin && admin_signed_in?
       "admin"
-    elsif devise_controller? && resource_name == :user && action_name == :edit
-      store = Store.find_by domain: request.host
-      if store.nil?
-        "admin"
-      else
-        "templates/" + get_store_template_name
-      end
+    elsif devise_controller? && resource_name == :user
+      "templates/" + get_store_template_name
     elsif ["h", "menus", "coupons", "dish_choices", "dish_features", "payments", "categories", "dishes", "statement_items", "statements"].include?(controller_name)
       "admin"
     elsif ["cartridges", "templates", "subscriptions"].include?(controller_name)
@@ -97,7 +92,7 @@ private
       else
         "admin"
       end
-    elsif "q" == controller_name || ()
+    elsif "q" == controller_name
       "templates/" + get_store_template_name
     elsif "orders" == controller_name
       if "orders" == controller_name && ["new", "create"].include?(action_name)

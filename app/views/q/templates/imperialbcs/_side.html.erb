@@ -1,0 +1,28 @@
+<p>
+  <br/>
+  <%= @store.address.address1 %><br/>
+  (<%= @store.address.address2 %>)<br/>
+  <%= @store.address.city + ", " + @store.address.state + " " + @store.address.zip %>
+</p>
+<hr/>
+<p>
+  Tel: <%= number_to_phone(@store.phone) %><br/>
+  Fax: <%= number_to_phone(@store.fax) %>
+</p>
+<hr/>
+<p>
+  7 Days A Week<br/>
+  Business Hours:<br/>
+  <% @store.menus.first.hours.each do |h| %>
+      <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+  <% end %>
+</p>
+<hr/>
+<p>
+  <%= image_tag "templates/imperialbcs/payment_cash.png", size: "60x40" %>
+  <%= image_tag "templates/imperialbcs/payment_visa.png", size: "60x40" %>
+  <%= image_tag "templates/imperialbcs/payment_master.png", size: "60x40" %>
+  <%= image_tag "templates/imperialbcs/payment_discover.png", size: "60x40" %>
+  <%= image_tag "templates/imperialbcs/payment_amex.png", size: "60x40" %>
+  <%= image_tag "templates/imperialbcs/payment_paypal.png", size: "60x40" %>
+</p>

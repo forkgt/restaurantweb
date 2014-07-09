@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  bei: MyString
+  rank: 1
+  delivery_fee: 9.99
+  delivery_minimum: 9.99
+  delivery_radius: 1.5
+  store_id: 
+
+two:
+  name: MyString
+  bei: MyString
+  rank: 1
+  delivery_fee: 9.99
+  delivery_minimum: 9.99
+  delivery_radius: 1.5
+  store_id: 

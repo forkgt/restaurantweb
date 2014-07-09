@@ -28,7 +28,11 @@ class Cart < ActiveRecord::Base
   end
 
   def total_price
-    subtotal_price + tax + delivery_fee
+    if delivery_type == 'delivery'
+      subtotal_price + tax + delivery_fee
+    else
+      subtotal_price + tax
+    end
   end
 
 end

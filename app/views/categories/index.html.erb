@@ -5,14 +5,12 @@
 
 <%= render @categories %>
 
-<% if current_admin.feng? %>
-    <div class="panel" style="margin: 30px 0px 0px 0px;">
-      <span style="font-weight: bold;">Add New Category</span>
-      <div style="float: right;">
-        <%= link_to image_tag("Add-24-3.png"), new_menu_category_path(@menu) %>
-      </div>
-    </div>
-<% end %>
+<div class="panel" style="margin: 30px 0px 0px 0px;">
+  <span style="font-weight: bold;">Add New Category</span>
+  <div style="float: right;">
+    <%= link_to image_tag("Add-24-3.png"), new_menu_category_path(@menu) %>
+  </div>
+</div>
 
 <br/><br/>
 <%= link_to image_tag("Arrowhead-Left-24-03.png") + " Back", store_menus_path(@menu.store) %>

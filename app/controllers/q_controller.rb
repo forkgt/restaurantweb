@@ -1,11 +1,13 @@
 class QController < ApplicationController
-  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_message]
+  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_intro, :store_message, :check_address, :reset_address]
 
   def index
     #unless request.host == "www.777pos.com"
     #  redirect_to q_store_home_path
     #  return # With return, following code will be executed.
     #end
+
+    render layout: "application"
   end
 
   def store_message
@@ -15,7 +17,7 @@ class QController < ApplicationController
   end
 
   def store_home
-    @dishes = Dish.includes(category: {menu: :store}).where("stores.id = ? ", @store.id).where("dishes.image IS NOT NULL")
+    @dishes = Dish.includes(category: {menu: :store}).where("stores.id = ? ", @store.id).where("dishes.image IS NOT NULL").references(category: {menu: :store})
 
     render action: "templates/#{@template_name}/store_home"
   end
@@ -30,6 +32,64 @@ class QController < ApplicationController
   def store_map
     render action: "templates/#{@template_name}/store_map"
   end
+
+  def store_intro
+    render action: "templates/#{@template_name}/store_intro"
+  end
+
+  def check_address
+    # good
+    # not_complete
+    # not_valid
+    # too_far
+
+    if params[:address1].present? && params[:city].present? && params[:zip].present?
+
+
+      user_address_str = [params[:address1], params[:city], "TX", "US", params[:zip]].compact.join(', ')
+      store_address = @store.address
+      if store_address.geocoded?
+        distance = store_address.distance_from(user_address_str)
+
+        if distance.nan?
+          @result = "not_valid"
+        else
+          @result= "too_far"
+          @store.delivery_rules.each do |dr|
+            # If distance is larger than radius, go to a larger radius
+            # If distance is in this radius, finish now, don't go to a larger radius
+            if distance > dr.delivery_radius
+              next
+            else
+              @result = "good"
+              @cart = current_cart(@store, false)
+              @cart.update(delivery_fee: dr.delivery_fee, delivery_minimum: dr.delivery_minimum)
+              session[:user_address] = Hash[address1: params[:address1], city: params[:city], zip: params[:zip]]
+
+              break
+            end
+          end
+        end
+      end
+    else
+      @result = "not_complete"
+    end
+
+    respond_to do |format|
+      format.js { render action: "templates/#{@template_name}/check_address", template: "q/templates/public/check_address" }
+    end
+  end
+
+  def reset_address
+    session.delete "user_address"
+    @cart = current_cart(@store, false)
+    @cart.update(delivery_fee: 0, delivery_minimum: 0)
+
+    respond_to do |format|
+      format.js { render action: "templates/#{@template_name}/reset_address", template: "q/templates/public/reset_address" }
+    end
+  end
+
 
   protect_from_forgery :except => [:paypal_notify]
 

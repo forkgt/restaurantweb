@@ -30,6 +30,15 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def update
+    @store = resource.store
+    unless @store.nil?
+      @cartridge_array = @store.get_cartridge_array
+    end
+
+    super
+  end
+
   private
 
   def configure_permitted_parameters

@@ -20,7 +20,20 @@ class Address < ActiveRecord::Base
   #  end
   #end
 
-  validates_presence_of :address1, :city, :zip
+  validates_presence_of :address1, :city, :zip, :state, :country
 
   belongs_to :addressable, :polymorphic => true
+
+
+  # ========== geocoder ==========
+
+  geocoded_by :address, if: ->(obj){ obj.address.present? and obj.address.changed? }
+
+  after_validation :geocode
+
+  # Dont include address2 for geocode
+  # Descriptive address info will bring mistakes in coordinates
+  def address
+    [address1, city, state, country, zip].compact.join(', ')
+  end
 end

@@ -57,6 +57,9 @@ class CartsController < ApplicationController
     # @store is needed for rendering _cart.html.erb
     @store = @cart.store
 
+    # remove user_address from session, make sure to revalidate user address
+    session.delete "user_address"
+
     # destroying a cart with orders create problems for orders management
     if @cart.orders.empty?
       @cart.destroy
@@ -89,6 +92,6 @@ class CartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
-      params.require(:cart).permit(:delivery_type, :delivery_fee, :store_id)
+      params.require(:cart).permit(:delivery_type, :delivery_fee, :delivery_minimum, :store_id)
     end
 end

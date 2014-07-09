@@ -5,15 +5,17 @@
 <div class="row">
   <% @menus.each do |menu| %>
       <div class="large-4 columns">
-        <div class="panel" style="height: 200px;">
+        <div class="panel" style="height: 250px;">
           <P>[ ID: <%= menu.id %> ]</P>
-          <h5><%= menu.name %><span style="color: red;float: right;"><%= menu.still_open? ? "Open" : "Closed" %></span></h5>
-          <p><%= menu.bei %></p>
+          <div style="height: 50px;"><%= menu.name %><span style="color: red;float: right;"><%= menu.still_open? ? "Open" : "Closed" %></span></div>
+          <div style="height: 50px;font-size: 12px;font-style: italic;"><%= menu.bei %></div>
           <hr/>
           <div style="text-align: center;">
             <%= link_to image_tag("Details-24-3.png"), menu_categories_path(menu) %>
-            <%= link_to image_tag("Edit-24-3.png"), edit_store_menu_path(@store, menu) %>
-            <%= link_to image_tag("Garbage-24-3.png"), [@store, menu], method: :delete, :data => { confirm: 'Are you sure?' } %>
+            <% if current_admin.feng? %>
+                <%= link_to image_tag("Edit-24-3.png"), edit_store_menu_path(@store, menu) %>
+                <%= link_to image_tag("Garbage-24-3.png"), [@store, menu], method: :delete, :data => { confirm: 'Are you sure?' } %>
+            <% end %>
           </div>
         </div>
       </div>

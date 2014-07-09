@@ -6,7 +6,8 @@ class DishesController < ApplicationController
   # GET /dishes
   # GET /dishes.json
   def index
-    @dishes = @category.dishes.includes([:dish_features, :dish_choices, :category])
+    @category = Category.includes([:menu, dishes: [:dish_features, :dish_choices, :category] ]).find(params[:category_id])
+    #@dishes = @category.dishes.includes([:dish_features, :dish_choices, :category])
   end
 
   # GET /dishes/1
@@ -50,7 +51,12 @@ class DishesController < ApplicationController
     respond_to do |format|
       if @dish.update(dish_params)
         #format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully updated.' }
-        format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
+        if current_admin.feng?
+          format.html { redirect_to category_dishes_url(@category), notice: 'Dish was successfully updated.' }
+        else
+          format.html { redirect_to menu_categories_url(@category.menu), notice: 'Dish was successfully updated.' }
+        end
+
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

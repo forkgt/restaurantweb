@@ -20,14 +20,10 @@
               <%= f.input :fax %>
             </div>
             <div class="large-6 columns">
-              <%= f.input :delivery_minimum %>
+              <%= image_tag @store.image_url(:small).to_s, title: @store.name if @store.image? %>
+              <%= f.input :image %>
             </div>
-            <div class="large-6 columns">
-              <%= f.input :delivery_fee %>
-            </div>
-            <div class="large-6 columns">
-              <%= f.input :delivery_radius %>
-            </div>
+
             <div class="large-6 columns">
               <br/>
               <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button small' %>

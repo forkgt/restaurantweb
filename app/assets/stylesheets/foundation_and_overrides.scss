@@ -1325,3 +1325,8 @@ $topbar-bg-color: #555555;
 // $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 
 @import 'foundation';
+
+// Let foundation's last row columns float to the left side
+.row .columns:last-child {
+  float: left;
+}

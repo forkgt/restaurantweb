@@ -26,7 +26,7 @@ class StatementsController < ApplicationController
   # POST /statements
   # POST /statements.json
   def create
-    @statement = @store.statements.create(statement_params)
+    @statement = @store.statements.build(statement_params)
 
     respond_to do |format|
       if @statement.save

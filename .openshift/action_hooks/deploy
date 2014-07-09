@@ -56,3 +56,12 @@ else
   echo " Restoring stored assets"
   ln -sf "${STORED_ASSETS}" "${LIVE_ASSETS}"
 fi
+
+
+
+# make openshift do the precompile in the right way
+echo Now compiling assets the right way
+
+pushd ${OPENSHIFT_REPO_DIR} > /dev/null
+bundle exec rake assets:precompile RAILS_ENV=production FORCE_ASSET_PRECOMPILE=true
+popd > /dev/null

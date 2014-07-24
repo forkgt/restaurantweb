@@ -6,8 +6,8 @@
     </div>
 
     <div class="small-3 columns">
-      <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "Edit"), edit_menu_category_path(category.menu, category) %>
-      <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "Destroy"), [category.menu, category], method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to icon('pencil-square-o'), edit_menu_category_path(category.menu, category) %>
+      <%= link_to icon('trash-o'), [category.menu, category], method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
   </div>
 </div>
@@ -17,7 +17,7 @@
 
   <div class="large-6 columns" style="float: left;">
     <div style="border-bottom: 1px dashed #000000;line-height: 40px;">
-      <%= link_to image_tag("Add-24-3.png", size: "20x20", alt: "Add") + " Add New Dish", new_category_dish_path(category) %>
+      <%= link_to icon('plus') + " New Dish", new_category_dish_path(category) %>
     </div>
   </div>
 </div>

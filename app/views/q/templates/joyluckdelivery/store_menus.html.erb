@@ -14,8 +14,10 @@
   <div id="menus_nav">
     <div id="menu_tabs">
       <ul>
-        <% @store.menus.each do |menu| %>
-            <li><%= link_to menu.name, "javascript:$('.yyy').hide();$('#yyy_#{menu.id}').show();void(0);" %></li>
+        <% @menus.each do |menu| %>
+            <li>
+              <%= link_to menu.name, "javascript:$('.yyy').hide();$('#yyy_#{menu.id}').show();void(0);" %>
+            </li>
         <% end %>
       </ul>
     </div>

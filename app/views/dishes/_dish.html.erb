@@ -19,8 +19,8 @@
 
     <span style="float: right;">
     <%= number_to_currency dish.price %>
-      <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "Edit"), edit_category_dish_path(dish.category, dish) %>
-      <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "Destroy"), [dish.category, dish], method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to icon('pencil-square-o'), edit_category_dish_path(dish.category, dish) %>
+      <%= link_to icon('trash-o'), [dish.category, dish], method: :delete, data: { confirm: 'Are you sure?' } %>
     </span>
   </div>
 </div>

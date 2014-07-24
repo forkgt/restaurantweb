@@ -91,17 +91,16 @@ class QController < ApplicationController
   end
 
 
-  protect_from_forgery :except => [:paypal_notify]
+  protect_from_forgery :except => [:order_paypal_notify, :statement_paypal_notify]
 
   include ActiveMerchant::Billing::Integrations
+  if APP_CONFIG["ibm_mode"] == "test"
+    ActiveMerchant::Billing::Base.mode = :test
+  elsif APP_CONFIG['ibm_mode'] == "production"
+    ActiveMerchant::Billing::Base.mode = :production
+  end
 
-  def paypal_notify
-    if APP_CONFIG["ibm_mode"] == "test"
-      ActiveMerchant::Billing::Base.mode = :test
-    elsif APP_CONFIG['ibm_mode'] == "production"
-      ActiveMerchant::Billing::Base.mode = :production
-    end
-
+  def order_paypal_notify
     notify = Paypal::Notification.new(request.raw_post)
     order = Order.find(notify.invoice)
     if notify.acknowledge
@@ -112,13 +111,36 @@ class QController < ApplicationController
           order.updated_at = Time.now
           order.to_fax
         else
-          logger.error("Failed to verify Paypal's notification, please investigate")
+          logger.error("Failed to verify Paypal's notification for orders.")
         end
       rescue => e
         order.payment_status = 'pending'
         raise
       ensure
         order.save
+      end
+    end
+
+    render :nothing => true
+  end
+
+  def statement_paypal_notify
+    notify = Paypal::Notification.new(request.raw_post)
+    statement = Statement.find(notify.invoice)
+    if notify.acknowledge
+      begin
+        amount_in_db = Money.new (statement.total_price*100).round
+        if notify.complete? and amount_in_db == notify.amount
+          statement.payment_type = 'paypal'
+          statement.payment_status = 'paid'
+          statement.updated_at = Time.now
+        else
+          logger.error("Failed to verify Paypal's notification for statements.")
+        end
+      rescue => e
+        raise
+      ensure
+        statement.save
       end
     end
 

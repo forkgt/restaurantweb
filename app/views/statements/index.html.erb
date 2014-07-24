@@ -1,37 +1,41 @@
-<h1>Listing statements</h1>
+<h2>Statements <span style="font-size: 16px;font-style: italic;">(Total <%= @statements.size %> Statements)</span></h2>
 
 <table>
   <thead>
     <tr>
-      <th>Month</th>
+      <th>Name</th>
+      <th>Amount</th>
       <th>Payment type</th>
       <th>Payment status</th>
       <th>Invoice</th>
-      <th>Store</th>
-      <th colspan="2"></th>
-      <th></th>
+      <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
     <% @statements.each do |statement| %>
       <tr>
-        <td><%= statement.year %>/<%= statement.month %></td>
+        <td>Statement for <%= statement.year %>-<%= statement.month %></td>
+        <td><%= number_to_currency statement.total_price %></td>
         <td><%= statement.payment_type %></td>
         <td><%= statement.payment_status %></td>
         <td><%= statement.invoice %></td>
-        <td><%= statement.store.id.to_s + ". " + statement.store.name %></td>
         <td>
-          <%= link_to image_tag("Magnifying-Glass-24-3.png"), store_statement_path(@store, statement) %>
-          <%= link_to image_tag("Edit-24-3.png"), edit_store_statement_path(@store, statement) %>
-          <%= link_to image_tag("Garbage-24-3.png"), [@store, statement], method: :delete, data: { confirm: 'Are you sure?' } %>
-          <%= link_to image_tag("Details-24-3.png"), statement_statement_items_path(statement) %>
+          <% if current_admin.feng? %>
+              <%= link_to icon('file-o'), store_statement_path(@store, statement) %>
+              <%= link_to icon('pencil-square-o'), edit_store_statement_path(@store, statement) %>
+              <%= link_to icon('trash-o'), [@store, statement], method: :delete, data: { confirm: 'Are you sure?' } %>
+              <br/>
+          <% end %>
+          <%= link_to icon('list-ul') + ' Open', statement_statement_items_path(statement) %>  |
+          <%= link_to icon('credit-card') + ' Pay', statement.paypal_url %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Statement', new_store_statement_path(@store) %>
+<% if current_admin.feng? %>
+    <br/>
+    <%= link_to icon('plus') + ' New Statement', new_store_statement_path(@store) %>
+<% end %>

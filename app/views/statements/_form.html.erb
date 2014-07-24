@@ -2,15 +2,26 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :year %>
-    <%= f.input :month %>
-    <%= f.input :payment_type %>
-    <%= f.input :payment_status %>
-    <%= f.input :invoice %>
-    <%= f.association :store %>
+    <div class="row">
+      <div class="large-3 columns">
+        <%= f.input :year %>
+      </div>
+      <div class="large-3 columns">
+        <%= f.input :month %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.input :invoice %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.input :payment_type, collection: Statement::PAYMENT_TYPE_OPTIONS, as: :radio_buttons %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.input :payment_status, collection: Statement::PAYMENT_STATUS_OPTIONS, as: :radio_buttons %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'button small' %>
   </div>
 <% end %>

@@ -23,26 +23,35 @@ class Statement < ActiveRecord::Base
 
   has_many :statement_items, -> { order(:day) }, dependent: :destroy
 
+  PAYMENT_TYPE_OPTIONS = [['Cash', 'cash'], ['Paypal', 'paypal']]
+  PAYMENT_STATUS_OPTIONS = [['Not Paid', 'not_paid'], ['Paid', 'paid']]
+
   def total_price
     statement_items.to_a.sum { |item| item.total_price }
   end
 
   def paypal_url
+    if APP_CONFIG["ibm_mode"] == "test"
+      paypal_email = 'wanfenghuaian-facilitator@hotmail.com'
+    elsif APP_CONFIG['ibm_mode'] == "production"
+      paypal_email = APP_CONFIG['paypal_email']
+    end
+
     values = {
-        :business       => APP_CONFIG['paypal_email'],
-        :cancel_return  => q_paypal_cancel_url(:host => APP_CONFIG['ibm_domain']),
+        :business       => paypal_email,
+        :cancel_return  => q_store_home_url(:host => store.domain),
         :charset        => 'utf-8',
         :cmd            => '_cart',
         :currency_code  => 'USD',
         :custom         => '',
-        :image_url      => "https://meals4.me/assets/mfm_logo.png",
+        #:image_url      => "https://meals4.me/assets/mfm_logo.png",
         :invoice        => id,
         :lc             => 'US',
         :no_shipping    => 0,
         :no_note        => 1,
-        :notify_url     => q_paypal_notify_url(:host => APP_CONFIG['ibm_domain']),
+        :notify_url     => q_statement_paypal_notify_url(:host => store.domain),
         :num_cart_items => 1,
-        :return         => q_store_home_url(:host => APP_CONFIG['ibm_domain']),
+        :return         => q_store_home_url(:host => store.domain),
         :rm             => 2,
         :secret         => 'hello_token',
         :tax_cart       => 0,
@@ -56,7 +65,11 @@ class Statement < ActiveRecord::Base
                     "quantity_1" => 1,
                     "shipping_1" => 0 })
 
-    APP_CONFIG['paypal_base_url'] + "?" + values.to_query
+    if APP_CONFIG["ibm_mode"] == "test"
+      APP_CONFIG['paypal_sandbox_base_url'] + "?" + values.to_query
+    elsif APP_CONFIG['ibm_mode'] == "production"
+      APP_CONFIG['paypal_base_url'] + "?" + values.to_query
+    end
   end
 
   def self.generate_reports

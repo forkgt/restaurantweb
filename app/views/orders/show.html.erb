@@ -32,6 +32,7 @@
           <strong>Address:</strong><br/>
           <%= @order.user.address.address1 %><br/>
           <%= @order.user.address.city %><br/>
+          <%= @order.user.address.zip %>
         </p>
     <% end %>
   </div>
@@ -57,6 +58,6 @@
 
 <% if current_admin.feng? %>
     <%= link_to 'Edit', edit_store_order_path(@store, @order) %> |
-    <%= link_to image_tag("Arrowhead-Left-24-03.png") + 'Back', store_orders_path(@store) %>
+    <%= link_to icon('arrow-left') + 'Back', store_orders_path(@store) %>
 <% end %>
 

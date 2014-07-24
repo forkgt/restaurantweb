@@ -22,17 +22,17 @@
                       <% if @store.delivery_rules.present? %>
                           <%= builder.fields_for :address do |addr| %>
                               <div class="row">
-                                <div class="small-12 columns"><%= addr.input :address1, placeholder: 'Address', input_html: { readonly: :readonly } %></div>
-                                <div class="small-6 columns"><%= addr.input :city, placeholder: 'City', input_html: { readonly: :readonly } %></div>
-                                <div class="small-6 columns"><%= addr.input :zip, placeholder: 'Zip', input_html: { readonly: :readonly } %></div>
+                                <div class="small-12 columns"><%= addr.input :address1, input_html: { readonly: :readonly } %></div>
+                                <div class="small-6 columns"><%= addr.input :city, input_html: { readonly: :readonly } %></div>
+                                <div class="small-6 columns"><%= addr.input :zip, input_html: { readonly: :readonly } %></div>
                               </div>
                           <% end %>
                       <% else %>
                           <%= builder.fields_for :address do |addr| %>
                               <div class="row">
-                                <div class="small-12 columns"><%= addr.input :address1, placeholder: 'Address' %></div>
-                                <div class="small-6 columns"><%= addr.input :city, placeholder: 'City' %></div>
-                                <div class="small-6 columns"><%= addr.input :zip, placeholder: 'Zip' %></div>
+                                <div class="small-12 columns"><%= addr.input :address1 %></div>
+                                <div class="small-6 columns"><%= addr.input :city %></div>
+                                <div class="small-6 columns"><%= addr.input :zip %></div>
                               </div>
                           <% end %>
                       <% end %>
@@ -43,16 +43,16 @@
             <div class="large-6 columns">
               <div class="row">
                 <div class="small-6 columns">
-                  <%= f.input :payment_type, collection: @order.payment_types, as: :radio_buttons %>
+                  <%= f.input :payment_type, collection: Order::PAYMENT_TYPE_OPTIONS, as: :radio_buttons %>
                 </div>
                 <div class="small-6 columns">
-                  <%= f.input :tip, collection: Order::TIP_RATES, prompt: nil, selected: Order::TIP_RATES[0] %>
+                  <%= f.input :tip, collection: Order::TIP_OPTIONS, prompt: nil, selected: Order::TIP_OPTIONS[0] %>
                 </div>
                 <div class="large-6 columns"></div>
               </div>
 
               <br/>
-              <%= f.input :note, as: :text, input_html: {cols: 50, rows: 2}, placeholder: 'Special instructions' %>
+              <%= f.input :note, as: :text, input_html: {cols: 50, rows: 2}, label: 'Special instructions' %>
               <%= f.input :store_id, :as => :hidden %>
               <%= f.input :cart_id, :as => :hidden %>
               <br/>

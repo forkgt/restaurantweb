@@ -25,9 +25,9 @@
         <td><%= dish_choice.store.name %></td>
         <td><%= dish_choice.checked %></td>
         <td>
-          <%= link_to image_tag("Magnifying-Glass-24-3.png", size: "20x20", alt: "show"), store_dish_choice_path(@store, dish_choice) %>
-          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "edit"), edit_store_dish_choice_path(@store, dish_choice) %>
-          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "destroy"), [@store, dish_choice], method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to icon('file-o'), store_dish_choice_path(@store, dish_choice) %>
+          <%= link_to icon('pencil-square-o'), edit_store_dish_choice_path(@store, dish_choice) %>
+          <%= link_to icon('trash-o'), [@store, dish_choice], method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>
@@ -36,4 +36,4 @@
 
 <br>
 
-<%= link_to image_tag("Add-24-3.png", alt: "add"), new_store_dish_choice_path(@store) %>
+<%= link_to icon('plus'), new_store_dish_choice_path(@store) %>

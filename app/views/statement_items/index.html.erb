@@ -1,39 +1,44 @@
-<h1>Listing statement_items</h1>
+<h2>Statement for <%= @statement.year.to_s + "-" + @statement.month.to_s %></h2>
 
-<div class="panel callout">
-  <div class="row">
-    <div class="large-6 columns">
-      <% if @statement.payment_status == "not_paid" %>
-          Statement Status: <%= @statement.payment_status %>
+<div class="row">
+  <div class="large-2 columns">
+    <p>
+      <strong>Status:</strong><br/>
+      <strong>Total:</strong><br/>
+      <strong>Duet at:</strong>
+    </p>
+  </div>
+  <div class="large-4 columns">
+    <p>
+      <% if @statement.payment_status == 'paid' %>
+          <span style="color: green;font-weight: bold;">Paid</span>
       <% else %>
-          Statement Status: <%= @statement.payment_type + ", " + @statement.payment_status %>
+          <span style="color: #ff0000;font-weight: bold;">Not Paid</span>
       <% end %>
       <br/>
-      Statement Total:  <%= number_to_currency @statement.total_price %>
-      <br/>
-      Statement Duet at <%= @statement.year.to_s + "-" + @statement.month.to_s + "-10" %>
-    </div>
-    <div class="large-6 columns">
-      <% unless @statement.payment_status =="pending" && @statement.payment_type == "cash" %>
-          <%= link_to "Pay Cash", "#", class: "button" %>
-      <% end %>
-      <% unless @statement.payment_status == "complete" %>
-          <%= link_to "Pay Online", @statement.paypal_url, class: "button" %>
-      <% end %>
-    </div>
+      <%= number_to_currency @statement.total_price %><br/>
+      <%= @statement.year.to_s + "-" + @statement.month.to_s + "-10" %>
+    </p>
+  </div>
+  <div class="large-6 columns">
+    <% unless @statement.payment_status == "complete" %>
+        <%= link_to "Pay Online", @statement.paypal_url, class: "button small" %>
+    <% end %>
   </div>
 </div>
 
 <table>
   <thead>
     <tr>
-      <th width="100">Date</th>
-      <th width="100">Name</th>
-      <th width="100">Note</th>
+      <th width="50">Date</th>
+      <th width="150">Name</th>
+      <th width="150">Note</th>
       <th width="100">Price</th>
-      <th width="100">Quantity</th>
+      <th width="50">Qty</th>
       <th width="100">Amount</th>
-      <th width="200" colspan="3">Action</th>
+      <% if current_admin.feng? %>
+          <th width="200">Action</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -46,19 +51,25 @@
         <td><%= number_to_currency statement_item.price %></td>
         <td><%= statement_item.quantity %></td>
         <td><%= number_to_currency statement_item.total_price %></td>
-        <td><%= link_to 'Show', statement_statement_item_path(@statement, statement_item) %></td>
-        <td><%= link_to 'Edit', edit_statement_statement_item_path(@statement, statement_item) %></td>
-        <td><%= link_to 'Destroy', [@statement, statement_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_admin.feng? %>
+            <td>
+              <%= link_to icon('file-o'), statement_statement_item_path(@statement, statement_item) %>
+              <%= link_to icon('pencil-square-o'), edit_statement_statement_item_path(@statement, statement_item) %>
+              <%= link_to icon('trash-o'), [@statement, statement_item], method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+        <% end %>
       </tr>
     <% end %>
     <tr>
-      <td colspan="5"><b  style="float:right" >Total Amount:</b></td>
+      <td colspan="2">
+        <% if current_admin.feng? %>
+            <%= link_to icon('plus') + " New Statement Item", new_statement_statement_item_path(@statement) %>
+        <% end %>
+      </td>
+      <td colspan="3"><b  style="float:right" >Total:</b></td>
       <td><b><%= number_to_currency @statement.total_price %></b></td>
     </tr>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'Back To Statement', store_statements_path(@store) %> |
-<%= link_to 'New Statement item', new_statement_statement_item_path(@statement) %>
+<%= link_to icon('arrow-left') + " Back To Statements", store_statements_path(@store) %>

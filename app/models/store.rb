@@ -49,7 +49,8 @@ class Store < ActiveRecord::Base
 
   has_one :address, :as => :addressable
   accepts_nested_attributes_for :address
-  validates_associated :address
+  # If active, store could not be updated without address filled out
+  #validates_associated :address
 
   has_many :delivery_rules, -> { order(:rank) }
   has_many :dish_features

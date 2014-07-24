@@ -37,5 +37,6 @@
   <%= @dish.category %>
 </p>
 
-<%= link_to 'Edit', edit_category_dish_path(@category, @dish) %> |
-<%= link_to 'Back', category_dishes_path(@category) %>
+<%= link_to icon('arrow-left') + ' Back', category_dishes_path(@category) %> |
+<%= link_to icon('pencil-square-o') + ' Edit', edit_category_dish_path(@category, @dish) %>
+

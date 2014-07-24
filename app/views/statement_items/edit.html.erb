@@ -2,5 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', statement_statement_item_path(@statement, @statement_item) %> |
-<%= link_to 'Back', statement_statement_items_path(@statement) %>
+<%= link_to icon('arrow-left'), statement_statement_items_path(@statement) %>
+<%= link_to icon('file-o'), statement_statement_item_path(@statement, @statement_item) %>
+

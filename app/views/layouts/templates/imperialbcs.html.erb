@@ -52,7 +52,7 @@
             <li class="divider"></li>
             <li <%= "class=active" if controller_name == "q" && action_name == "store_home" %>><%= link_to "Welcome", q_store_home_path %></li>
             <li class="divider"></li>
-            <li <%= "class=active" if controller_name == "q" && action_name == "store_menus" %>><%= link_to "Order Online", q_store_menus_path %></li>
+            <li <%= "class=active" if controller_name == "q" && action_name == "store_menus" %>><%= link_to "Menu Online", q_store_menus_path %></li>
             <li class="divider"></li>
             <li <%= "class=active" if controller_name == "q" && action_name == "store_map" %>><%= link_to "Get Direction", q_store_map_path %></li>
             <li class="divider"></li>
@@ -78,7 +78,7 @@
             <ul class="off-canvas-list">
               <li><label><%= @store.name %></label></li>
               <li><%= link_to "Welcome", q_store_home_path %></li>
-              <li><%= link_to "Order Online", q_store_menus_path %></li>
+              <li><%= link_to "Menu Online", q_store_menus_path %></li>
               <li><%= link_to "Get Direction", q_store_map_path %></li>
               <li><%= link_to "About Us", q_store_intro_path %></li>
               <% if user_signed_in? %>
@@ -99,11 +99,14 @@
           <% end %>
 
           <% unless Rails.env == "development" %>
-              <h2 style="color: #ffffff;background-color: #ff0000;">
-                &nbsp;&nbsp;&nbsp;Our grand opening will be July 9th (Wednesday).<br/>
-                &nbsp;&nbsp;&nbsp;Online order will be acceptable then. Thank you!<br/>
-              </h2>
+              <h3 style="color: #ffffff;background-color: maroon;">
+                &nbsp;&nbsp;&nbsp;Dear customers, currently our order-online service is not available.<br/>
+                &nbsp;&nbsp;&nbsp;But you can still get the menu and make reservations through below link.
+              </h3>
           <% end %>
+
+          <iframe id="seatme-widget" frameborder="0" width="640" height="60" src="https://www.seatme.yelp.com/api/v3/widget.htm?restaurant_id=0ac662d7-6577-4a84-8370-3eb818fcaf6d&color=%23c41200&color-scheme=light&orientation=horizontal&mobile-prompt=false"></iframe><style type="text/css">#seatme-link a:link {text-decoration: none; color:#b3b3b3} #seatme-link a:hover {text-decoration: none; color:#066382} #seatme-link a:visited {text-decoration: none; color:#066382}</style><div id="seatme-link"><a style="font: normal 9px Helvetica Neue, Helvetica, sans-serif; margin-left:15px;" href="https://www.seatme.yelp.com/">RESTAURANT RESERVATIONS BY YELP</a></div>
+
 
           <%= yield %>
 
@@ -134,7 +137,7 @@
               <%= link_to image_tag("templates/imperialbcs/insta.png", size: "40x40"), "http://instagram.com/imperialbcs", target: "_blank" %>
             </div>
             <div class="small-2 columns">
-              <%= link_to image_tag("templates/imperialbcs/google-plus.png", size: "40x40"), "https://plus.google.com/u/0/112605235291620501785/posts", target: "_blank" %>
+              <%= link_to image_tag("templates/imperialbcs/google-plus.png", size: "40x40"), "https://google.com/+Imperialbcs", target: "_blank" %>
             </div>
             <div class="small-2 columns end">
               <%= link_to image_tag("templates/imperialbcs/yelp.png", size: "40x40"), "http://www.yelp.com/biz/imperial-chinese-and-sushi-bryan-2", target: "_blank" %>

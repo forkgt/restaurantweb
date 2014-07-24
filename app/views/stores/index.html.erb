@@ -19,9 +19,9 @@
         <td><%= store.admin.email if store.admin %></td>
         <td><%= store.phone + " / " + store.fax %></td>
         <td>
-          <%= link_to image_tag("Magnifying-Glass-24-3.png", size: "20x20", alt: "show"), store if allow? :stores, :edit, store %>
-          <%= link_to image_tag("Edit-24-3.png", size: "20x20", alt: "edit"), edit_store_path(store) if allow? :stores, :edit, store %>
-          <%= link_to image_tag("Garbage-24-3.png", size: "20x20", alt: "destroy"), store, method: :delete, data: { confirm: 'Are you sure?' } if allow? :stores, :destroy, store %>
+          <%= link_to icon('file-o'), store if allow? :stores, :edit, store %>
+          <%= link_to icon('pencil-square-o'), edit_store_path(store) if allow? :stores, :edit, store %>
+          <%= link_to icon('trash-o'), store, method: :delete, data: { confirm: 'Are you sure?' } if allow? :stores, :destroy, store %>
         </td>
       </tr>
       <tr>
@@ -43,4 +43,4 @@
 
 <br/>
 
-<%= link_to image_tag("Add-24-3.png", alt: "add"), new_store_path %>
+<%= link_to icon('plus') + " New Store", new_store_path %>

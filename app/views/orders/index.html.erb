@@ -69,10 +69,11 @@
         <td><%= order.note %></td>
         <td><%= order.user.firstname + " " + order.user.lastname %></td>
         <td>
-          <%= link_to 'Show', store_order_path(@store, order), target: "_blank" %>
+          <%= link_to icon('file-o') + ' Open', store_order_path(@store, order), target: "_blank" %>
           <% if current_admin.feng? %>
-              <%= link_to 'E', edit_store_order_path(@store, order) %>
-              <%= link_to 'X', [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %>
+              |
+              <%= link_to icon('pencil-square-o'), edit_store_order_path(@store, order) %>
+              <%= link_to icon('trash-o'), [@store, order], method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
         </td>
       </tr>

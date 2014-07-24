@@ -1,1 +1,1 @@
-$('#cart').html("<%=j render @cart, store: @store %>");
+$('#cart').html("<%=j render @cart, store: @store %>")

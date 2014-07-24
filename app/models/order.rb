@@ -42,17 +42,19 @@ class Order < ActiveRecord::Base
     super
   end
 
-  def payment_types
-    [['Cash ', 'cash'], ['PayPal ', 'paypal']]
-  end
-
-  TIP_RATES = [['Tip cash', 0], ['Tip $1.00', 1], ['Tip $2.00', 2], ['Tip $3.00', 3], ['Tip $4.00', 4], ['Tip $5.00', 5],
+  PAYMENT_TYPE_OPTIONS = [['Cash ', 'cash'], ['PayPal ', 'paypal']]
+  TIP_OPTIONS = [['Tip cash', 0], ['Tip $1.00', 1], ['Tip $2.00', 2], ['Tip $3.00', 3], ['Tip $4.00', 4], ['Tip $5.00', 5],
                ['Tip $6.00', 6], ['Tip $7.00', 7], ['Tip $8.00', 8], ['Tip $9.00', 9], ['Tip $10.00', 10]]
 
-
   def paypal_url
+    if APP_CONFIG["ibm_mode"] == "test"
+      paypal_email = 'wanfenghuaian-facilitator@hotmail.com'
+    elsif APP_CONFIG['ibm_mode'] == "production"
+      paypal_email = store.get_paypal_account
+    end
+
     values = {
-        :business       => store.get_paypal_account,
+        :business       => paypal_email,
         :cancel_return  => q_store_home_url(:host => store.domain),
         :charset        => 'utf-8',
         :cmd            => '_cart',
@@ -63,7 +65,7 @@ class Order < ActiveRecord::Base
         :lc             => 'US',
         :no_shipping    => 0,
         :no_note        => 1,
-        :notify_url     => q_paypal_notify_url(:host => store.domain),
+        :notify_url     => q_order_paypal_notify_url(:host => store.domain),
         :num_cart_items => cart.cart_items.size,
         :return         => q_store_home_url(:host => store.domain),
         :rm             => 2,

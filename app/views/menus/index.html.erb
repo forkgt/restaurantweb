@@ -11,10 +11,11 @@
           <div style="height: 50px;font-size: 12px;font-style: italic;"><%= menu.bei %></div>
           <hr/>
           <div style="text-align: center;">
-            <%= link_to image_tag("Details-24-3.png"), menu_categories_path(menu) %>
+            <%= link_to icon('list-ul') + ' Open', menu_categories_path(menu) %>
             <% if current_admin.feng? %>
-                <%= link_to image_tag("Edit-24-3.png"), edit_store_menu_path(@store, menu) %>
-                <%= link_to image_tag("Garbage-24-3.png"), [@store, menu], method: :delete, :data => { confirm: 'Are you sure?' } %>
+                |
+                <%= link_to icon('pencil-square-o'), edit_store_menu_path(@store, menu) %>
+                <%= link_to icon('trash-o'), [@store, menu], method: :delete, :data => { confirm: 'Are you sure?' } %>
             <% end %>
           </div>
         </div>
@@ -22,12 +23,9 @@
   <% end %>
   <% if current_admin.feng? %>
       <div class="large-4 columns" style="float: left;">
-        <div class="panel" style="height: 200px;">
-          <br/><br/>
-          <h5>Create New Menu</h5>
-          <hr/>
-          <div style="text-align: center;">
-            <%= link_to image_tag("Add-24-3.png").html_safe, new_store_menu_path(@store) %>
+        <div class="panel" style="height: 250px;">
+          <div style="text-align: center;margin-top: 100px;">
+            <%= link_to icon('plus') + ' New Menu'.html_safe, new_store_menu_path(@store) %>
           </div>
         </div>
       </div>

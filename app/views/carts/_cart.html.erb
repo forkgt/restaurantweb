@@ -57,11 +57,20 @@
                   <%= form_tag(q_check_address_path, :method => 'post', :remote => true) do %>
                       <table class="cart_action_table">
                         <tr>
-                          <td colspan="3"><%= text_field_tag :address1, nil, placeholder: "Address" %></td>
+                          <td colspan="3">
+                            <%= label_tag :address1 %>
+                            <%= text_field_tag :address1, nil %>
+                          </td>
                         </tr>
                         <tr>
-                          <td><%= text_field_tag :city, nil, placeholder: "City" %></td>
-                          <td><%= text_field_tag :zip, nil, placeholder: "Zip" %></td>
+                          <td>
+                            <%= label_tag :city %>
+                            <%= text_field_tag :city, nil %>
+                          </td>
+                          <td>
+                            <%= label_tag :zip %>
+                            <%= text_field_tag :zip, nil %>
+                          </td>
                           <td><span style="color: #bbbbbb">Reset</span></td>
                         </tr>
                         <tr>

@@ -7,16 +7,13 @@
       <p><strong>Avatar:</strong><%= @store.image %></p>
       <p><strong>Phone:</strong><%= @store.phone %></p>
       <p><strong>Fax:</strong><%= @store.fax %></p>
-      <p><strong>Delivery minimum:</strong><%= @store.delivery_minimum %></p>
-      <p><strong>Delivery fee:</strong><%= @store.delivery_fee %></p>
-      <p><strong>Delivery radius:</strong><%= @store.delivery_radius %></p>
       <p><strong>UUID:</strong><%= @store.uuid %></p>
       <% if @store.admin %>
           <p><strong>Admin:</strong><%= @store.admin %></p>
       <% end %>
 
-      <%= link_to image_tag("Arrowhead-Left-24-03.png"), stores_path %>
-      <%= link_to image_tag("Edit-24-3.png"), edit_store_path(@store) %>
+      <%= link_to icon('arrow-left'), stores_path %>
+      <%= link_to icon('pencil-square-o'), edit_store_path(@store) %>
     </div>
 <% end %>
 
@@ -49,15 +46,18 @@
 
 <p>
   <b>Business Hours:</b><br/>
-  <% @store.menus.first.hours.each do |h| %>
-      <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+  <% unless @store.menus.empty? %>
+      <% @store.menus.first.hours.each do |h| %>
+          <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+      <% end %>
   <% end %>
 </p>
 
 <p>
   <b>Delivery Requirements:</b><br/>
-  <!--Delivery Fee: <%= number_to_currency @store.delivery_fee %><br/>-->
-  Delivery Minimum: <%= number_to_currency @store.delivery_minimum %>
+  <% @store.delivery_rules.each do |dr| %>
+      <%= dr.name %><br/>
+  <% end %>
 </p>
 
 <p>

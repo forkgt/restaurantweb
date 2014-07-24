@@ -40,7 +40,8 @@ Ibm::Application.routes.draw do
   get "q/store_intro",              to: "q#store_intro",              as: "q_store_intro"
   post "q/check_address",           to: "q#check_address",            as: "q_check_address"
   post "q/reset_address",           to: "q#reset_address",            as: "q_reset_address"
-  post "q/paypal_notify",           to: "q#paypal_notify",            as: "q_paypal_notify"
+  post "q/order_paypal_notify",     to: "q#order_paypal_notify",      as: "q_order_paypal_notify"
+  post "q/statement_paypal_notify", to: "q#statement_paypal_notify",  as: "q_statement_paypal_notify"
 
   root 'q#store_home'
 

@@ -21,7 +21,7 @@ defaults: &defaults
   google_pwd:             <%=ENV['google_pwd']%>
 
   # Paypal Information
-  paypal_email:            production@example.com
+  paypal_email:            wanfenghuaian@hotmail.com
   paypal_secret:           production_secret
   paypal_cert_id:          production_cert_id
   paypal_base_url:         https://www.paypal.com/cgi-bin/webscr

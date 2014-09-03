@@ -16,7 +16,7 @@
       <tr>
         <td><%= store.id %>. <%= store.name %></td>
         <td><%= store.domain %></td>
-        <td><%= store.admin.email if store.admin %></td>
+        <td><%= (store.admin.firstname + " " + store.admin.lastname) if store.admin %></td>
         <td><%= store.phone + " / " + store.fax %></td>
         <td>
           <%= link_to icon('file-o'), store if allow? :stores, :edit, store %>

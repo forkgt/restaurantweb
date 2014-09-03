@@ -1,33 +1,4 @@
-<% if current_admin.feng? %>
-    <div class="panel callout">
-      <p><strong>Name:</strong><%= @store.name %></p>
-      <p><strong>Bei:</strong><%= @store.bei %></p>
-      <p><strong>Domain:</strong><%= @store.domain %></p>
-      <p><strong>Rank:</strong><%= @store.rank %></p>
-      <p><strong>Avatar:</strong><%= @store.image %></p>
-      <p><strong>Phone:</strong><%= @store.phone %></p>
-      <p><strong>Fax:</strong><%= @store.fax %></p>
-      <p><strong>UUID:</strong><%= @store.uuid %></p>
-      <% if @store.admin %>
-          <p><strong>Admin:</strong><%= @store.admin %></p>
-      <% end %>
-
-      <%= link_to icon('arrow-left'), stores_path %>
-      <%= link_to icon('pencil-square-o'), edit_store_path(@store) %>
-    </div>
-<% end %>
-
 <p id="notice"><%= notice %></p>
-
-<div data-alert class="alert-box alert radius">
-  You have statement not paid on time. Click the statement to pay.
-  <br/><br/>
-  <% @statements.each do |s| %>
-      <%= link_to "Pay statement for " + s.year.to_s + "-" + s.month.to_s, statement_statement_items_path(s), style: "color:#fff;margin-left:20px;" %>
-  <% end %>
-
-  <a href="#" class="close">&times;</a>
-</div>
 
 <p>
   <b>Store Name:</b><br/>
@@ -62,10 +33,27 @@
 
 <p>
   <b>Payment Options:</b><br/>
-  VISA, MASTER, AMERICAN EXPRESS
+  Cash, Visa, Master, Discover American Express
 </p>
 
+<% if current_admin.feng? %>
+    <div class="panel callout">
+      <p><strong>Name:</strong><%= @store.name %></p>
+      <p><strong>Bei:</strong><%= @store.bei %></p>
+      <p><strong>Domain:</strong><%= @store.domain %></p>
+      <p><strong>Rank:</strong><%= @store.rank %></p>
+      <p><strong>Avatar:</strong><%= @store.image %></p>
+      <p><strong>Phone:</strong><%= @store.phone %></p>
+      <p><strong>Fax:</strong><%= @store.fax %></p>
+      <p><strong>UUID:</strong><%= @store.uuid %></p>
+      <% if @store.admin %>
+          <p><strong>Admin:</strong><%= @store.admin.firstname + " " + @store.admin.lastname %></p>
+      <% end %>
 
+      <%= link_to icon('arrow-left'), stores_path %>
+      <%= link_to icon('pencil-square-o'), edit_store_path(@store) %>
+    </div>
+<% end %>
 
 
 

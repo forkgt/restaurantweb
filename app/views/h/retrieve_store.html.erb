@@ -1,9 +1,11 @@
-<h1>Retrieve Your Store</h1>
+<div class="row">
+  <div class="large-6 columns">
+    Retrieve Your Store<br/><br/>
+    <%= form_tag(h_retrieve_store_path, method: "get") do %>
+        <%= text_field_tag(:uuid) %>
+        <%= submit_tag("Retrieve", class: "small button") %>
+    <% end %>
 
-<%= form_tag(h_retrieve_store_path, method: "get") do %>
-    <%= text_field_tag(:uuid) %>
-    <%= submit_tag("Retrieve") %>
-<% end %>
-
-<hr/>
-<%= flash[:alert] %>
+    <%= flash[:alert] %>
+  </div>
+</div>

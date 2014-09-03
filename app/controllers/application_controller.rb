@@ -36,7 +36,8 @@ private
     Cart.find(session["cart_id_for_store_id_#{store.id}"])
   rescue ActiveRecord::RecordNotFound
     if create
-      cart = Cart.create(store: store, delivery_fee: 0, delivery_minimum: 0, delivery_type: "delivery")
+      delivery_type = store.has_delivery_service? ? "delivery" : "pick_up"
+      cart = Cart.create(store: store, delivery_fee: 0, delivery_minimum: 0, delivery_type: delivery_type)
       session["cart_id_for_store_id_#{store.id}"] = cart.id
       cart
     end

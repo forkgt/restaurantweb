@@ -16,8 +16,9 @@ class StoresController < ApplicationController
   # GET /stores/1
   # GET /stores/1.json
   def show
-    @statements = Statement.where(:payment_status => "not_paid")
-
+    # @statements = Statement.where(:payment_status => "not_paid")
+    # Check if the admin has not_paid Statements
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /stores/new

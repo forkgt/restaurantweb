@@ -7,6 +7,7 @@ class CouponsController < ApplicationController
   # GET /coupons.json
   def index
     @coupons = @store.coupons
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /coupons/1

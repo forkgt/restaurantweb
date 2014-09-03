@@ -22,7 +22,7 @@
   </div>
   <div class="large-6 columns">
     <% unless @statement.payment_status == "complete" %>
-        <%= link_to "Pay Online", @statement.paypal_url, class: "button small" %>
+        <%= link_to "Pay", @statement.paypal_url, class: "button small" %>
     <% end %>
   </div>
 </div>

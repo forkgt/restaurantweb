@@ -31,7 +31,7 @@
       <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
-          <h1><%= link_to "777POS", root_path %></h1>
+          <h1><%= link_to icon("fa fa-arrow-circle-left") + " Back to Store", root_path %></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
       </ul>
@@ -68,22 +68,22 @@
 
       <% if current_admin.store.nil? %>
           <li <%= "class=active" if controller_name == "registrations" %>>
-            <%= link_to "My Profile", edit_admin_registration_path %>
+            <%= link_to icon('fa fa-user') + " My Profile", edit_admin_registration_path %>
           </li>
           <li <%= "class=active" if action_name == "retrieve_store" %>>
-            <%= link_to "Retrieve Store", h_retrieve_store_path %>
+            <%= link_to icon('fa fa-search') + " Retrieve Store", h_retrieve_store_path %>
           </li>
       <% else %>
           <li><%= image_tag @store.image_url.to_s, title: @store.name if @store.image? %><br/><br/></li>
           <li <%= "class=active" if controller_name == "registrations" %>>
-            <%= link_to "My Profile", edit_admin_registration_path %>
+            <%= link_to icon('fa fa-user') + " My Profile", edit_admin_registration_path %>
           </li>
           <li <%= "class=active" if controller_name == "stores" %>>
-            <%= link_to "My Store", store_path(@store) %>
+            <%= link_to icon('fa fa-home') + " My Store", store_path(@store) %>
           </li>
           <% if @cartridge_array.include? "menu_manager" %>
               <li <%= "class=active" if controller_name == "menus" %>>
-                <%= link_to "My Menus", store_menus_path(@store) %>
+                <%= link_to icon('fa fa-file-text') + " Store Menus", store_menus_path(@store) %>
               </li>
               <li <%= "class=active" if controller_name == "dish_choices" %>>
                 <%= link_to "My Dish Choices", store_dish_choices_path(@store) if current_admin.feng? %>
@@ -93,19 +93,19 @@
               </li>
           <% end %>
           <li <%= "class=active" if controller_name == "coupons" %>>
-            <%= link_to "My Coupons", store_coupons_path(@store) if @cartridge_array.include? "coupon_manager" %>
+            <%= link_to icon('fa fa-money') + " Store Coupons", store_coupons_path(@store) if @cartridge_array.include? "coupon_manager" %>
           </li>
           <li <%= "class=active" if action_name == "user_manager" %>>
-            <%= link_to "My Users", h_user_manager_path if @cartridge_array.include? "user_manager" %>
+            <%= link_to icon('fa fa-users') + " Store Users", h_user_manager_path if @cartridge_array.include? "user_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "orders" %>>
-            <%= link_to "My Orders", store_orders_path(@store) if @cartridge_array.include? "order_manager" %>
+            <%= link_to icon('fa fa-cutlery') + " Store Orders", store_orders_path(@store) if @cartridge_array.include? "order_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "payments" %>>
-            <%= link_to "My Payments", store_payments_path(@store) if @cartridge_array.include? "close_manager" %>
+            <%= link_to icon('fa fa-credit-card') + " Store Payments", store_payments_path(@store) if @cartridge_array.include? "payment_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "statements" %>>
-            <%= link_to "My Statements", store_statements_path(@store) %>
+            <%= link_to icon('fa fa-bell') + " Statements", store_statements_path(@store) %>
           </li>
       <% end %>
     </ul>
@@ -118,6 +118,14 @@
         </div>
     <% end %>
     <br/>
+
+    <% if @store && @not_paid_count && @not_paid_count > 0 %>
+        <div data-alert class="alert-box alert radius" style="text-align:center;">
+          <%= link_to "You have statements to pay.", store_statements_path(@store), style: "color:#fff;" %>
+          <a href="#" class="close">&times;</a>
+        </div>
+    <% end %>
+
     <%= yield %>
   </div>
 </div>
@@ -127,14 +135,11 @@
     <hr />
     <div class="row">
       <div class="large-6 columns">
-        <p>&copy; Copyright no one at all. Go to town.</p>
+        <p>&copy; <%= Time.now.year %> - 777POS. All Rights Reserved.</p>
       </div>
       <div class="large-6 columns">
         <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#"><%= request.domain %></a></li>
-          <li><a href="#"><%= request.host %></a></li>
+          <li><a href="http://www.paypal.com" target="_blank">Paypal</a></li>
         </ul>
       </div>
     </div>

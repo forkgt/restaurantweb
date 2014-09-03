@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     end
 
     @orders = @store.orders.where(:created_at => sd.beginning_of_day..ed.end_of_day).includes([{cart: :cart_items }, :user])
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /orders/1

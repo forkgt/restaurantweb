@@ -7,6 +7,7 @@ class StatementsController < ApplicationController
   # GET /statements.json
   def index
     @statements = @store.statements
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /statements/1
@@ -28,8 +29,24 @@ class StatementsController < ApplicationController
   def create
     @statement = @store.statements.build(statement_params)
 
+    y = statement_params[:year].to_i
+    m = statement_params[:month].to_i
+    os = Statement.find_by_year_and_month_and_store_id(y, m, @store.id)
+
     respond_to do |format|
-      if @statement.save
+      if os.nil? && @statement.save
+        # Calculate Fax Fee
+        b = Time.new(y, m)
+        (1 .. Time.days_in_month(m, y)).each do |n|
+          c = Order.where(:created_at => b + (n-1).days .. b + n.days, store_id: @store.id).count
+          @statement.statement_items.create(day: n, price: 0.1, quantity: c, note: "good", name: "fax") if c > 0
+        end
+
+        # Calculate Subscription Fee
+        @store.subscriptions.each do |subscription|
+          @statement.statement_items.create(day: 1, price: subscription.subscribable.price, quantity: 1, note: "hello", name: subscription.subscribable.name)
+        end
+
         format.html { redirect_to store_statements_url(@store), notice: 'Statement was successfully created.' }
         format.json { render action: 'show', status: :created, location: @statement }
       else

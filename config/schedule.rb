@@ -22,7 +22,7 @@
 
 #every 2.minutes do
 #  runner 'Statement.ceshi', :environment => 'development'
-  runner 'Statement.generate_reports', :environment => 'production'
+#  runner 'Statement.generate_reports', :environment => 'production'
 #end
 
 #every 1.month, :at => "start of the month at 9am" do

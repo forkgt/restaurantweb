@@ -20,7 +20,14 @@
   <div id="footer_nav_small">
     &copy; <%= Time.now.year.to_s + " " + @store.name %>. All Rights Reserved.
     &bull; <a href="http://www.paypal.com">PayPal</a>
-    &bull; <a href="/Test/tsweb/admin">More</a>
+
+    <% if admin_signed_in? %>
+        &bull;<%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %>
+        &bull;<%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %>
+    <% else %>
+        &bull;<%= link_to "Sign in", new_admin_session_path %>
+        &bull;<%= link_to 'Sign up', new_admin_registration_path %>
+    <% end %>
   </div>
 </div><!--footer-->
 <!--footer end-->

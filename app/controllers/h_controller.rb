@@ -4,6 +4,7 @@ class HController < ApplicationController
   def user_manager
     @store = current_admin.store
     @cartridge_array = @store.get_cartridge_array
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
 
     @users = @store.users
   end
@@ -11,7 +12,7 @@ class HController < ApplicationController
   def retrieve_store
     @store = current_admin.store
     if @store
-      @cartridge_array = @store.get_cartridge_array
+      redirect_to @store
     else
       uuid = params[:uuid]
       if uuid
@@ -19,20 +20,14 @@ class HController < ApplicationController
         if @store.nil?
           flash[:alert] = "No such store"
         else
-
           current_admin.store = @store
           current_admin.save
-        end
 
+          @cartridge_array = @store.get_cartridge_array
+
+          redirect_to @store
+        end
       end
     end
-  end
-
-  def paypal_notify
-
-  end
-
-  def paypal_cancel
-
   end
 end

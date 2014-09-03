@@ -4,19 +4,21 @@
   <div class="form-inputs">
     <div class="row">
       <div class="large-3 columns">
-        <%= f.input :year %>
+        <%= f.input :year, collection: Statement::YEAR_OPTIONS %>
       </div>
       <div class="large-3 columns">
-        <%= f.input :month %>
+        <%= f.input :month, collection: Statement::MONTH_OPTIONS %>
+      </div>
+
+      <!-- <div class="large-6 columns">
+        <% # f.input :invoice %>
       </div>
       <div class="large-6 columns">
-        <%= f.input :invoice %>
-      </div>
+        <% # f.input :payment_type, collection: Statement::PAYMENT_TYPE_OPTIONS, as: :radio_buttons %>
+      </div> -->
+
       <div class="large-6 columns">
-        <%= f.input :payment_type, collection: Statement::PAYMENT_TYPE_OPTIONS, as: :radio_buttons %>
-      </div>
-      <div class="large-6 columns">
-        <%= f.input :payment_status, collection: Statement::PAYMENT_STATUS_OPTIONS, as: :radio_buttons %>
+        <%= f.input :payment_status, collection: Statement::PAYMENT_STATUS_OPTIONS, as: :radio_buttons, checked: Statement::PAYMENT_STATUS_OPTIONS[0] %>
       </div>
     </div>
   </div>

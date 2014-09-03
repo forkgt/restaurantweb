@@ -5,9 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Amount</th>
-      <th>Payment type</th>
+      <th>Due Date</th>
       <th>Payment status</th>
-      <th>Invoice</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -17,9 +16,14 @@
       <tr>
         <td>Statement for <%= statement.year %>-<%= statement.month %></td>
         <td><%= number_to_currency statement.total_price %></td>
-        <td><%= statement.payment_type %></td>
-        <td><%= statement.payment_status %></td>
-        <td><%= statement.invoice %></td>
+        <td><%= statement.year.to_s + "-" + statement.month.to_s + "-10" %></td>
+        <td>
+          <% if statement.payment_status == 'paid' %>
+              <span style="color: green;font-weight: bold;">Paid</span>
+          <% else %>
+              <span style="color: #ff0000;font-weight: bold;">Not Paid</span>
+          <% end %>
+        </td>
         <td>
           <% if current_admin.feng? %>
               <%= link_to icon('file-o'), store_statement_path(@store, statement) %>

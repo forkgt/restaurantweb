@@ -26,6 +26,9 @@ class QController < ApplicationController
     @cart = current_cart(@store, false)
     @menus = @store.menus.includes([{categories: {dishes: [:dish_features, :dish_choices]}}, :hours ])
 
+    # Decide if the store has at least one of the two ordering services: delivery or pick_up
+    @store_has_order_service = @store.has_delivery_service? || @store.has_pick_up_service?
+
     render action: "templates/#{@template_name}/store_menus"
   end
 
@@ -155,8 +158,8 @@ class QController < ApplicationController
     if @store.nil?
       redirect_to q_index_path
       return
-    elsif @store.status == "closed"
-      redirect_to q_store_message_path(message: "The store is currently close!")
+    elsif @store.status == "closed" && action_name != 'store_message'
+      redirect_to q_store_message_path(message: "The store is currently closed!")
       return
     else
       @template_name = get_store_template_name

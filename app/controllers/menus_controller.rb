@@ -7,6 +7,7 @@ class MenusController < ApplicationController
   # GET /menus.json
   def index
     @menus = @store.menus.includes(:hours)
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /menus/1

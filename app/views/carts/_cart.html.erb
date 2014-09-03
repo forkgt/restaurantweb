@@ -4,12 +4,20 @@
     <li id="cart_type">
       <!--Be able to edit order if not checkout page-->
       <% unless params[:controller] == "orders" %>
-          <%= link_to 'Delivery', delivery_type_cart_path(cart, delivery_type: :delivery), class: (cart.delivery_type == 'delivery') ? 'active' : nil, remote: true %>
-          <%= link_to 'Pick Up', delivery_type_cart_path(cart, delivery_type: :pick_up), class: (cart.delivery_type == 'pick_up') ? 'active' : nil, remote: true %>
+          <% if store.has_delivery_service? %>
+              <%= link_to 'Delivery', delivery_type_cart_path(cart, delivery_type: :delivery), class: (cart.delivery_type == 'delivery') ? 'active' : nil, remote: true %>
+          <% end %>
+          <% if store.has_pick_up_service? %>
+              <%= link_to 'Pick Up', delivery_type_cart_path(cart, delivery_type: :pick_up), class: (cart.delivery_type == 'pick_up') ? 'active' : nil, remote: true %>
+          <% end %>
       <% else %>
-          <%= link_to 'Delivery', 'javascript:void(0);', class: (cart.delivery_type == 'delivery') ? 'active' : nil, style: "pointer-events: none;cursor: default;" %>
-          <%= link_to 'Pick Up', 'javascript:void(0);', class: (cart.delivery_type == 'pick_up') ? 'active' : nil, style: "pointer-events: none;cursor: default;" %>
-      <% end %>
+          <% if store.has_delivery_service? %>
+              <%= link_to 'Delivery', 'javascript:void(0);', class: (cart.delivery_type == 'delivery') ? 'active' : nil, style: "pointer-events: none;cursor: default;" %>
+          <% end %>
+          <% if store.has_pick_up_service? %>
+              <%= link_to 'Pick Up', 'javascript:void(0);', class: (cart.delivery_type == 'pick_up') ? 'active' : nil, style: "pointer-events: none;cursor: default;" %>
+          <% end %>
+    <% end %>
     </li>
 
     <%= render(cart.cart_items) %>

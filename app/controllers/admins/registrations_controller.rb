@@ -26,6 +26,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     unless @store.nil?
       @cartridge_array = @store.get_cartridge_array
     end
+    @not_paid_count = Statement.where(:payment_status => "not_paid").count
 
     super
   end

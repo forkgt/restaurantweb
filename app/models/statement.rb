@@ -19,12 +19,17 @@ class Statement < ActiveRecord::Base
   # In order to use path and url
   include Rails.application.routes.url_helpers
 
+
+  validates_presence_of :month, :year, :store
+
   belongs_to :store
 
   has_many :statement_items, -> { order(:day) }, dependent: :destroy
 
   PAYMENT_TYPE_OPTIONS = [['Cash', 'cash'], ['Paypal', 'paypal']]
   PAYMENT_STATUS_OPTIONS = [['Not Paid', 'not_paid'], ['Paid', 'paid']]
+  YEAR_OPTIONS = [2014, 2015, 2016, 2017, 2018, 2019, 2020]
+  MONTH_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
   def total_price
     statement_items.to_a.sum { |item| item.total_price }
@@ -60,7 +65,7 @@ class Statement < ActiveRecord::Base
 
     values.merge!({ "amount_1" => total_price,
                     "discount_rate_1" => 0,
-                    "item_name_1" => "Statement XYZ",
+                    "item_name_1" => "#{year}-#{month} @ #{store.name}",
                     "item_number_1" => id,
                     "quantity_1" => 1,
                     "shipping_1" => 0 })

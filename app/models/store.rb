@@ -89,19 +89,12 @@ class Store < ActiveRecord::Base
   end
 
   def has_delivery_service?
-    true
-  end
-
-  def has_melivery_service?
-    false
+    get_cartridge_array.include? "delivery_service"
   end
 
   def has_pick_up_service?
-    false
+    get_cartridge_array.include? "pick_up_service"
   end
 
-  def has_express_service?
-    false
-  end
 
 end

@@ -93,6 +93,16 @@
         </fieldset>
     <% end %>
   </div>
+  <div class="large-6 columns">
+    <%= simple_form_for @store do |f| %>
+        <fieldset>
+          <legend>Admin</legend>
+          <%= f.association :admin, label_method: lambda { |admin| "#{admin.firstname} #{admin.lastname} - #{admin.phone}" } %>
+          <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button small' %>
+        </fieldset>
+    <% end %>
+  </div>
+
 </div>
 
 

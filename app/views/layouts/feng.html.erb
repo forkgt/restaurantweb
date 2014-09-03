@@ -29,7 +29,7 @@
       <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
-          <h1><%= link_to "777POS", root_path %></h1>
+          <h1><%= link_to icon("fa fa-arrow-circle-left") + " Back to Store", root_path %></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
       </ul>
@@ -79,14 +79,11 @@
     <hr />
     <div class="row">
       <div class="large-6 columns">
-        <p>&copy; Copyright no one at all. Go to town.</p>
+        <p>&copy; <%= Time.now.year %> - 777POS. All Rights Reserved.</p>
       </div>
       <div class="large-6 columns">
         <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#"><%= request.domain %></a></li>
-          <li><a href="#"><%= request.host %></a></li>
+          <li><a href="http://www.paypal.com" target="_blank">Paypal</a></li>
         </ul>
       </div>
     </div>

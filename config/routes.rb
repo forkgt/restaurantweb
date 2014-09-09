@@ -30,7 +30,7 @@ Ibm::Application.routes.draw do
 
   get "h/user_manager", "h/retrieve_store"
 
-  get "q/index"
+  get "q/index", "q/features", "q/examples", "q/pricing"
 
   #paypal vist this page through post
   match "q/store_home",             to: "q#store_home",               via: [:get, :post]

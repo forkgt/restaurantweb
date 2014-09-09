@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708193946) do
+ActiveRecord::Schema.define(version: 20140903172557) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20140708193946) do
     t.string   "bei"
     t.integer  "rank"
     t.string   "image"
-    t.decimal  "price"
-    t.integer  "interval",   default: 12
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0
+    t.integer  "interval",                           default: 12
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -256,7 +256,7 @@ ActiveRecord::Schema.define(version: 20140708193946) do
     t.integer  "day"
     t.string   "name"
     t.string   "note"
-    t.decimal  "price"
+    t.decimal  "price",        precision: 8, scale: 2, default: 0.0
     t.integer  "quantity"
     t.integer  "statement_id"
     t.datetime "created_at"

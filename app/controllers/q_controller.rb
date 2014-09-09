@@ -10,6 +10,18 @@ class QController < ApplicationController
     render layout: "application"
   end
 
+  def features
+    render layout: "application"
+  end
+
+  def examples
+    render layout: "application"
+  end
+
+  def pricing
+    render layout: "application"
+  end
+
   def store_message
     @message = params[:message]
 

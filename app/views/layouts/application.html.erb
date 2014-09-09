@@ -14,7 +14,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>777POS</title>
+  <title>777POS Online Ordering System</title>
 
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "vendor/modernizr" %>
@@ -27,7 +27,7 @@
   <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
-      <h1><%= link_to icon("fa fa-arrow-circle-left") + " Back to Store", root_path %></h1>
+      <h1><%= link_to "777POS", root_path %></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
   </ul>
@@ -36,9 +36,11 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="divider"></li>
-      <li><%= link_to "Features", q_index_path %></li>
+      <li><%= link_to "Features", q_features_path %></li>
       <li class="divider"></li>
-      <li><%= link_to "Prices", q_index_path %></li>
+      <li><%= link_to "Examples", q_examples_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Pricing", q_pricing_path %></li>
       <% if admin_signed_in? %>
           <li class="divider"></li>
           <li><%= link_to current_admin.email, edit_admin_registration_path %></li>
@@ -53,6 +55,14 @@
     </ul>
   </section>
 </nav>
+
+<div id="kitchen_pic">
+  <br/><br/><br/><br/>
+  777POS Online Ordering System
+  <br/><br/>
+  <%= link_to "Explore Powerful Features", q_features_path, class: "button" %>
+  <%= link_to "See Successful Examples", q_examples_path, class: "button" %>
+</div>
 
 <div class="row">
   <div class="large-12 columns">

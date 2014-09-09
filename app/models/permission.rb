@@ -1,19 +1,23 @@
 class Permission
   def initialize(admin)
     allow_all
-    #allow :q, [:index, :missing, :closed, :store_home, :store_menus, :store_map, :store_order, :store_order_success, :store_order_failure,
-    #           :paypal_notify, :paypal_cancel]
     #
-    #if admin
-    #  allow :stores, :index
-    #  allow :stores, [:show, :edit, :create, :destroy] do |store|
-    #    store.admin_id == admin.id
-    #  end
+    # allow :q, [:index, :features, :examples, :pricing, :store_home, :store_menus, :store_map, :store_intro, :store_message,
+    #           :order_paypal_notify, :statement_paypal_notify, :check_address, :reset_address]
     #
-    #  if admin.fengwan?
-    #    allow :stores, [:show, :edit, :create, :destroy]
-    #  end
-    #end
+    # allow :users, []
+    # allow :admins, []
+    #
+    # if admin
+    #   allow :stores, :index
+    #   allow :stores, [:show, :edit, :create, :destroy] do |store|
+    #     store.admin_id == admin.id
+    #   end
+    #
+    #   if admin.feng?
+    #     allow :stores, [:show, :edit, :create, :destroy]
+    #   end
+    # end
   end
 
   def allow?(controller, action, resource = nil)

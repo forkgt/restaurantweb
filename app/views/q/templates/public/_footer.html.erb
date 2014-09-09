@@ -25,8 +25,7 @@
         &bull;<%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %>
         &bull;<%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %>
     <% else %>
-        &bull;<%= link_to "Sign in", new_admin_session_path %>
-        &bull;<%= link_to 'Sign up', new_admin_registration_path %>
+        &bull;<%= link_to "Admin", new_admin_session_path %>
     <% end %>
   </div>
 </div><!--footer-->

@@ -28,7 +28,7 @@ Ibm::Application.routes.draw do
   devise_for :admins, controllers: { registrations: 'admins/registrations' }
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords' }
 
-  get "h/user_manager", "h/retrieve_store"
+  get "h/user_manager", "h/link_store"
 
   get "q/index", "q/features", "q/examples", "q/pricing"
 

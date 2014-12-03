@@ -1,11 +1,11 @@
-<h2>Statement for <%= @statement.year.to_s + "-" + @statement.month.to_s %></h2>
+<h2><%= t ".statements" %> @ <%= @statement.year.to_s + "-" + @statement.month.to_s %></h2>
 
 <div class="row">
   <div class="large-2 columns">
     <p>
+      <strong>Amount:</strong><br/>
+      <strong>Due at:</strong>
       <strong>Status:</strong><br/>
-      <strong>Total:</strong><br/>
-      <strong>Duet at:</strong>
     </p>
   </div>
   <div class="large-4 columns">
@@ -21,8 +21,8 @@
     </p>
   </div>
   <div class="large-6 columns">
-    <% unless @statement.payment_status == "complete" %>
-        <%= link_to "Pay", @statement.paypal_url, class: "button small" %>
+    <% unless @statement.payment_status == "paid" %>
+        <%= link_to (t ".pay"), @statement.paypal_url, class: "button small" %>
     <% end %>
   </div>
 </div>

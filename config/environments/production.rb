@@ -86,7 +86,7 @@ Ibm::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # For Devise
-  config.action_mailer.default_url_options = { :host => 'ibm-fwan.rhcloud.com' }
+  config.action_mailer.default_url_options = { :host => 'www.777pos.com' }
 
   # For Email
   config.action_mailer.delivery_method = :sendmail

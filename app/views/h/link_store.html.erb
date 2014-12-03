@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="large-6 columns">
+    <%= t ".activate_info" %><br/><br/>
+    <%= form_tag(h_link_store_path, method: "get") do %>
+        <%= text_field_tag(:uuid) %>
+        <%= submit_tag((t ".activate_btn"), class: "small button") %>
+    <% end %>
+
+    <%= flash[:alert] %>
+  </div>
+</div>

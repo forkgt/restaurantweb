@@ -79,7 +79,7 @@ class DishesController < ApplicationController
     def set_category
       @category = Category.find(params[:category_id])
       @store = @category.menu.store
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     def set_dish

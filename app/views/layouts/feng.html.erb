@@ -29,7 +29,7 @@
       <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
-          <h1><%= link_to icon("fa fa-arrow-circle-left") + " Back to Store", root_path %></h1>
+          <h1><%= link_to icon("fa fa-flag") + " Root", root_path %></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
       </ul>
@@ -55,11 +55,7 @@
   <div class="large-2 columns">
     <br/><br/>
     <ul class="side-nav">
-      <li><%= link_to "Stores", stores_path %></li>
-      <li><%= link_to "Cartridges", cartridges_path %></li>
-      <li><%= link_to "Templates", templates_path %></li>
-      <li><%= link_to "Subscriptions", subscriptions_path %></li>
-      <li><%= link_to "Users", "#" %></li>
+      <%= render 'layouts/feng_side' %>
     </ul>
   </div>
   <div class="large-10 columns">

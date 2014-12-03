@@ -58,7 +58,7 @@ gem 'foundation-rails', '~> 5.2.3.0'
 gem "jquery-ui-sass-rails", "~> 4.0.3.0"
 
 # In order to show icons is foundation-datepicker
-gem 'font-awesome-sass', '~> 4.1.0'
+gem 'font-awesome-sass', '~> 4.2.2'
 
 gem "simple_form", "~> 3.0.0"
 gem 'nested_form', '~> 0.3.2'
@@ -86,3 +86,6 @@ gem 'rack-mini-profiler', '~> 0.9.1', :group => "development"
 gem 'rails-perftest', '~> 0.0.4', :group => 'test'
 gem 'ruby-prof', '~> 0.15.1', :group => 'test'
 
+# Caching
+# gem 'actionpack-action_caching', '~> 1.1.1'
+# gem 'actionpack-page_caching', '~> 1.0.2'

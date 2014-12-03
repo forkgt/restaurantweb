@@ -7,7 +7,6 @@ class MenusController < ApplicationController
   # GET /menus.json
   def index
     @menus = @store.menus.includes(:hours)
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /menus/1
@@ -68,7 +67,7 @@ class MenusController < ApplicationController
   private
     def set_store
       @store = Store.find(params[:store_id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     def set_menu

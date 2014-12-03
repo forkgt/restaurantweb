@@ -1,5 +1,13 @@
-<p>Welcome <%= @email %>!</p>
+<p>Dear <%= @resource.firstname + " " + @resource.lastname %>,</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>
+  Welcome to 777POS! <br/>
+  You can confirm your account email through the link below: <br/>
+  <%= link_to 'Confirm my email', confirmation_url(@resource, :confirmation_token => @token) %>
+</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<p>
+  Thank you for choosing 777POS!
+</p>
+
+<p>777POS Team <br/> http://www.777pos.com<p>

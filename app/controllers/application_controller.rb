@@ -5,6 +5,42 @@ class ApplicationController < ActionController::Base
 
 
 
+  # ========== Internationalization ========================
+  before_action :set_locale
+
+private
+  def set_locale
+    I18n.locale = params[:locale] if params[:locale].present?
+  end
+  # =================================================
+
+
+
+
+
+
+
+  # ========== Devise Redirect  ========================
+  # http://stackoverflow.com/questions/24545127/setting-devise-after-sign-in-path-for-with-multiple-models
+  # https://github.com/plataformatec/devise/wiki/How-To:-Redirect-to-a-specific-page-on-successful-sign-in
+
+  def after_sign_in_path_for(resource)
+    # check for the class of the object to determine what type it is
+
+    if resource.class == Admin
+      edit_admin_registration_path
+    elsif resource.class == User
+      root_path
+    end
+  end
+  # =================================================
+
+
+
+
+
+
+
 
   # ========== Authorization ========================
   before_action :authorize
@@ -22,6 +58,12 @@ private
     end
   end
   # =================================================
+
+
+
+
+
+
 
 
 
@@ -48,6 +90,10 @@ private
 
 
 
+
+
+
+
   # ========== Deal with Subdomain ==================
   #include UrlHelper
   # =================================================
@@ -55,10 +101,17 @@ private
 
 
 
+
+
+
+
+
+
+
   # ========== Deal with Layout ==================
   layout :layout_by_resource
 
-  protected
+protected
 
   def get_store_template_name
     if session[:store_template_name].nil?

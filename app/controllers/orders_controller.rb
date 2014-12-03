@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
     end
 
     @orders = @store.orders.where(:created_at => sd.beginning_of_day..ed.end_of_day).includes([{cart: :cart_items }, :user])
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /orders/1
@@ -140,7 +139,7 @@ class OrdersController < ApplicationController
 
     def set_store
       @store = Store.find(params[:store_id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
       @template_name = get_store_template_name
     end
 

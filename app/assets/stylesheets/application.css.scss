@@ -11,8 +11,10 @@
  *= require_self
  *= require foundation_and_overrides
  *= require lib/foundation-datepicker/foundation-datepicker
- *= require font-awesome
  */
+
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
 
 #kitchen_pic {
   min-width: 100%;

@@ -23,19 +23,18 @@ class Admins::RegistrationsController < Devise::RegistrationsController
 
   def edit
     @store = resource.store
-    unless @store.nil?
-      @cartridge_array = @store.get_cartridge_array
-    end
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
+    # unless @store.nil?
+    #   @cartridge_array = @store.get_cartridge_array
+    # end
 
     super
   end
 
   def update
     @store = resource.store
-    unless @store.nil?
-      @cartridge_array = @store.get_cartridge_array
-    end
+    # unless @store.nil?
+    #   @cartridge_array = @store.get_cartridge_array
+    # end
 
     super
   end

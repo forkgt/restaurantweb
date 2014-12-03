@@ -66,7 +66,7 @@ class DishChoicesController < ApplicationController
   private
     def set_store
       @store = Store.find(params[:store_id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     # Use callbacks to share common setup or constraints between actions.

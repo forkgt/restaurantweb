@@ -31,7 +31,7 @@
       <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
-          <h1><%= link_to icon("fa fa-arrow-circle-left") + " Back to Store", root_path %></h1>
+          <h1><%= link_to icon("fa fa-arrow-circle-left") + " " + (t ".back_to_store"), root_path %></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
       </ul>
@@ -39,9 +39,13 @@
       <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
+          <li class="divider"></li>
+          <li><%= link_to "English", locale: "en" %></li>
+          <li class="divider"></li>
+          <li><%= link_to "中文", locale: "cn" %></li>
           <% if admin_signed_in? %>
               <li class="divider"></li>
-              <li><%= link_to current_admin.email, edit_admin_registration_path %></li>
+              <li><%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %></li>
               <li class="divider"></li>
               <li><%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %></li>
           <% else %>
@@ -57,71 +61,67 @@
   <div class="large-3 columns">
     <br/>
     <ul class="side-nav">
-      <% if current_admin.feng? %>
-          <li><%= link_to "Stores", stores_path %></li>
-          <li><%= link_to "Cartridges", cartridges_path %></li>
-          <li><%= link_to "Templates", templates_path %></li>
-          <li><%= link_to "Subscriptions", subscriptions_path %></li>
-          <li><%= link_to "Users", "#" %></li>
-          <li><hr/></li>
-      <% end %>
-
       <% if current_admin.store.nil? %>
           <li <%= "class=active" if controller_name == "registrations" %>>
-            <%= link_to icon('fa fa-user') + " My Profile", edit_admin_registration_path %>
+            <%= link_to icon('fa fa-user') + " " + (t ".profile_tab"), edit_admin_registration_path %>
           </li>
-          <li <%= "class=active" if action_name == "retrieve_store" %>>
-            <%= link_to icon('fa fa-search') + " Retrieve Store", h_retrieve_store_path %>
+          <li <%= "class=active" if action_name == "link_store" %>>
+            <%= link_to icon('fa fa-unlock-alt') + " " + (t ".activate_tab"), h_link_store_path %>
           </li>
       <% else %>
           <li><%= image_tag @store.image_url.to_s, title: @store.name if @store.image? %><br/><br/></li>
           <li <%= "class=active" if controller_name == "registrations" %>>
-            <%= link_to icon('fa fa-user') + " My Profile", edit_admin_registration_path %>
+            <%= link_to icon('fa fa-user') + " " + (t ".profile_tab"), edit_admin_registration_path %>
           </li>
           <li <%= "class=active" if controller_name == "stores" %>>
-            <%= link_to icon('fa fa-home') + " My Store", store_path(@store) %>
+            <%= link_to icon('fa fa-home') + " " + (t ".store_tab"), store_path(@store) %>
           </li>
-          <% if @cartridge_array.include? "menu_manager" %>
+          <% if @store.has_this_cartridge? "menu_manager" %>
               <li <%= "class=active" if controller_name == "menus" %>>
-                <%= link_to icon('fa fa-file-text') + " Store Menus", store_menus_path(@store) %>
+                <%= link_to icon('fa fa-file-text') + " " + (t ".menus_tab"), store_menus_path(@store) %>
               </li>
               <li <%= "class=active" if controller_name == "dish_choices" %>>
-                <%= link_to "My Dish Choices", store_dish_choices_path(@store) if current_admin.feng? %>
+                <%= link_to icon('fa fa-cutlery') + " " + (t ".dish_choices_tab"), store_dish_choices_path(@store) if current_admin.feng? %>
               </li>
               <li <%= "class=active" if controller_name == "dish_features" %>>
-                <%= link_to "My Dish Features", store_dish_features_path(@store) if current_admin.feng? %>
+                <%= link_to icon('fa fa-tags') + " " + (t ".dish_features_tab"), store_dish_features_path(@store) if current_admin.feng? %>
               </li>
           <% end %>
           <li <%= "class=active" if controller_name == "coupons" %>>
-            <%= link_to icon('fa fa-money') + " Store Coupons", store_coupons_path(@store) if @cartridge_array.include? "coupon_manager" %>
+            <%= link_to icon('fa fa-money') + " " + (t ".coupons_tab"), store_coupons_path(@store) if @store.has_this_cartridge? "coupon_manager" %>
           </li>
           <li <%= "class=active" if action_name == "user_manager" %>>
-            <%= link_to icon('fa fa-users') + " Store Users", h_user_manager_path if @cartridge_array.include? "user_manager" %>
+            <%= link_to icon('fa fa-users') + " " + (t ".users_tab"), h_user_manager_path if @store.has_this_cartridge? "user_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "orders" %>>
-            <%= link_to icon('fa fa-cutlery') + " Store Orders", store_orders_path(@store) if @cartridge_array.include? "order_manager" %>
+            <%= link_to icon('fa fa-line-chart') + " " + (t ".orders_tab"), store_orders_path(@store) if @store.has_this_cartridge? "order_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "payments" %>>
-            <%= link_to icon('fa fa-credit-card') + " Store Payments", store_payments_path(@store) if @cartridge_array.include? "payment_manager" %>
+            <%= link_to icon('fa fa-credit-card') + " " + (t ".payments_tab"), store_payments_path(@store) if @store.has_this_cartridge? "payment_manager" %>
           </li>
           <li <%= "class=active" if controller_name == "statements" %>>
-            <%= link_to icon('fa fa-bell') + " Statements", store_statements_path(@store) %>
+            <%= link_to icon('fa fa-bell') + " " + (t ".statements_tab"), store_statements_path(@store) %>
           </li>
+      <% end %>
+
+      <% if current_admin.feng? %>
+          <li><hr/></li>
+
+          <%= render 'layouts/feng_side' %>
       <% end %>
     </ul>
   </div>
   <div class="large-9 columns">
     <br/>
     <% flash.each do |name, msg| %>
-        <div data-alert class="alert-box round <%= name %>">
+        <div data-alert class="alert-box radius <%= name %>" style="text-align:center;">
           <%= msg %>
+          <a href="#" class="close">&times;</a>
         </div>
     <% end %>
-    <br/>
-
-    <% if @store && @not_paid_count && @not_paid_count > 0 %>
+    <% if @store && @store.has_statements_not_paid? %>
         <div data-alert class="alert-box alert radius" style="text-align:center;">
-          <%= link_to "You have statements to pay.", store_statements_path(@store), style: "color:#fff;" %>
+          <%= link_to (t ".statements_not_paid"), store_statements_path(@store), style: "color:#fff;" %>
           <a href="#" class="close">&times;</a>
         </div>
     <% end %>

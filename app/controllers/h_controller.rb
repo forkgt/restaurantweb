@@ -3,13 +3,12 @@ class HController < ApplicationController
 
   def user_manager
     @store = current_admin.store
-    @cartridge_array = @store.get_cartridge_array
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
+    # @cartridge_array = @store.get_cartridge_array
 
     @users = @store.users
   end
 
-  def retrieve_store
+  def link_store
     @store = current_admin.store
     if @store
       redirect_to @store
@@ -23,7 +22,7 @@ class HController < ApplicationController
           current_admin.store = @store
           current_admin.save
 
-          @cartridge_array = @store.get_cartridge_array
+          # @cartridge_array = @store.get_cartridge_array
 
           redirect_to @store
         end

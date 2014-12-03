@@ -1,12 +1,12 @@
-<h2>Statements <span style="font-size: 16px;font-style: italic;">(Total <%= @statements.size %> Statements)</span></h2>
+<h2><%= t ".statements" %> <span style="font-size: 16px;color:red; font-style: italic;">(<%= @statements.size %>)</span></h2>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Amount</th>
-      <th>Due Date</th>
-      <th>Payment status</th>
+      <th>Due At</th>
+      <th>Status</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
   <tbody>
     <% @statements.each do |statement| %>
       <tr>
-        <td>Statement for <%= statement.year %>-<%= statement.month %></td>
+        <td><%= t ".statements" %> @ <%= statement.year %>-<%= statement.month %></td>
         <td><%= number_to_currency statement.total_price %></td>
         <td><%= statement.year.to_s + "-" + statement.month.to_s + "-10" %></td>
         <td>
@@ -31,8 +31,10 @@
               <%= link_to icon('trash-o'), [@store, statement], method: :delete, data: { confirm: 'Are you sure?' } %>
               <br/>
           <% end %>
-          <%= link_to icon('list-ul') + ' Open', statement_statement_items_path(statement) %>  |
-          <%= link_to icon('credit-card') + ' Pay', statement.paypal_url %>
+          <%= link_to icon('list-ul') + " " + (t ".details"), statement_statement_items_path(statement) %>
+          <% unless statement.payment_status == 'paid' %>
+              | <%= link_to icon('credit-card') + " " + (t ".pay"), statement.paypal_url %>
+          <% end %>
         </td>
       </tr>
     <% end %>

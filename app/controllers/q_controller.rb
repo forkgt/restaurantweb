@@ -2,10 +2,11 @@ class QController < ApplicationController
   before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_intro, :store_message, :check_address, :reset_address]
 
   def index
-    #unless request.host == "www.777pos.com"
-    #  redirect_to q_store_home_path
-    #  return # With return, following code will be executed.
-    #end
+    # unless request.host == "www.777pos.com"
+    #   store = Store.find_by domain: request.host
+    #   redirect_to q_store_home_path(store)
+    #   return # With return, following code will be executed.
+    # end
 
     render layout: "application"
   end

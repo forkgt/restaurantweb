@@ -18,7 +18,7 @@
       </div> -->
 
       <div class="large-6 columns">
-        <%= f.input :payment_status, collection: Statement::PAYMENT_STATUS_OPTIONS, as: :radio_buttons, checked: Statement::PAYMENT_STATUS_OPTIONS[0] %>
+        <%= f.input :payment_status, collection: Statement::PAYMENT_STATUS_OPTIONS, as: :radio_buttons %>
       </div>
     </div>
   </div>

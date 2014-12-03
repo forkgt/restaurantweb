@@ -84,6 +84,10 @@ class Store < ActiveRecord::Base
     cs
   end
 
+  def has_this_cartridge?(name)
+    get_cartridge_array.include? name
+  end
+
   def get_paypal_account
     payments.find_by_name("paypal").account
   end
@@ -96,5 +100,9 @@ class Store < ActiveRecord::Base
     get_cartridge_array.include? "pick_up_service"
   end
 
+
+  def has_statements_not_paid?
+    statements.where(:payment_status => "not_paid").count > 0
+  end
 
 end

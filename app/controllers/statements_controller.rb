@@ -6,8 +6,7 @@ class StatementsController < ApplicationController
   # GET /statements
   # GET /statements.json
   def index
-    @statements = @store.statements
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
+    @statements = @store.statements.includes(:store, :statement_items)
   end
 
   # GET /statements/1
@@ -17,7 +16,7 @@ class StatementsController < ApplicationController
 
   # GET /statements/new
   def new
-    @statement = @store.statements.build
+    @statement = @store.statements.build(payment_status: "not_paid")
   end
 
   # GET /statements/1/edit
@@ -83,7 +82,7 @@ class StatementsController < ApplicationController
   private
     def set_store
       @store = Store.find(params[:store_id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     # Use callbacks to share common setup or constraints between actions.

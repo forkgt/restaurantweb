@@ -17,8 +17,6 @@ class StoresController < ApplicationController
   # GET /stores/1.json
   def show
     # @statements = Statement.where(:payment_status => "not_paid")
-    # Check if the admin has not_paid Statements
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /stores/new
@@ -84,7 +82,7 @@ class StoresController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_store
       @store = Store.find(params[:id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

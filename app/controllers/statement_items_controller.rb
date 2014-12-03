@@ -67,7 +67,7 @@ class StatementItemsController < ApplicationController
     def set_statement
       @statement = Statement.find(params[:statement_id])
       @store = @statement.store
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
       # Use callbacks to share common setup or constraints between actions.

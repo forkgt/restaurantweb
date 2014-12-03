@@ -7,7 +7,6 @@ class CouponsController < ApplicationController
   # GET /coupons.json
   def index
     @coupons = @store.coupons
-    @not_paid_count = Statement.where(:payment_status => "not_paid").count
   end
 
   # GET /coupons/1
@@ -67,7 +66,7 @@ class CouponsController < ApplicationController
   private
     def set_store
       @store = Store.find(params[:store_id])
-      @cartridge_array = @store.get_cartridge_array
+      # @cartridge_array = @store.get_cartridge_array
     end
 
     # Use callbacks to share common setup or constraints between actions.

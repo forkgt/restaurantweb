@@ -19,36 +19,36 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+cn:
   layouts:
     admin:
-      back_to_store: "Back to My Store"
-      statements_not_paid: "You have statements not paid! Click to see."
+      back_to_store: "返回我的店铺"
+      statements_not_paid: "你有未付的账单！点击查看。"
 
-      profile_tab: "My Profile"
-      activate_tab: "Activate Store"
-      store_tab: "My Store"
-      menus_tab: "Store Menus"
-      dish_choices_tab: "Dish Choices"
-      dish_features_tab: "Dish Features"
-      coupons_tab: "Store Coupons"
-      users_tab: "Store Users"
-      orders_tab: "Store Orders"
-      payments_tab: "Store Payments"
-      statements_tab: "Statements"
+      profile_tab: "我的资料"
+      activate_tab: "激活店铺"
+      store_tab: "我的店铺"
+      menus_tab: "菜单管理"
+      dish_choices_tab: "点菜选项"
+      dish_features_tab: "菜品特色"
+      coupons_tab: "优惠券管理"
+      users_tab: "顾客管理"
+      orders_tab: "订单管理"
+      payments_tab: "支付方式"
+      statements_tab: "我的账单"
 
   h:
     link_store:
-      activate_info: "Enter your activation code."
-      activate_btn: "Activate"
+      activate_info: "请输入您的激活码"
+      activate_btn: "激活"
 
   statements:
     index:
-      statements: "Statements"
-      details: "Details"
-      pay: "Pay"
+      statements: "账单"
+      details: "明细"
+      pay: "支付"
 
   statement_items:
     index:
-      statements: "Statements"
-      pay: "Pay"
+      statements: "账单"
+      pay: "支付"

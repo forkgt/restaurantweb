@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903172557) do
+ActiveRecord::Schema.define(version: 20141212084332) do
 
   create_table "addresses", force: true do |t|
     t.string   "address1"
@@ -291,6 +291,9 @@ ActiveRecord::Schema.define(version: 20140903172557) do
     t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "has_fax",    default: false,    null: false
+    t.string   "fax_usr"
+    t.string   "fax_pwd"
   end
 
   add_index "stores", ["admin_id"], name: "index_stores_on_admin_id"

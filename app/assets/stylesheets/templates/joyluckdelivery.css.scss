@@ -79,7 +79,7 @@ div#menus_nav {
   div#menu_tabs {
     ul {
       margin:10px auto;padding:0;
-      width:958px;height:160px;
+      width:958px;height:100px;
 
       li {width:290px;margin:5px 10px;list-style:none;float:left;background:#7B0B17;cursor:pointer;}
       li a {color:#7B0B17;background:#DDDDDD;padding-left:5px;width:285px;display:block;float:left;text-decoration:none;height:40px;line-height:40px;font-size:16px;font-weight:bold;}
@@ -106,7 +106,7 @@ div#menus_nav {
 // Url: /q/store_map
 // ===================================================================================
 #google_map {
-  width:598px;
+  width:650px;
   background-color:#FFFFFF;
   margin: 0px;
 }

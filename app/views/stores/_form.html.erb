@@ -19,6 +19,15 @@
             <div class="large-6 columns">
               <%= f.input :fax %>
             </div>
+            <div class="large-12 columns">
+              <%= f.input :has_fax %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :fax_usr %>
+            </div>
+            <div class="large-6 columns">
+              <%= f.input :fax_pwd %>
+            </div>
             <div class="large-6 columns">
               <%= image_tag @store.image_url(:small).to_s, title: @store.name if @store.image? %>
               <%= f.input :image %>

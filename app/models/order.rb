@@ -116,12 +116,21 @@ class Order < ActiveRecord::Base
     client = Savon.client(log: false, wsdl: APP_CONFIG["interfax_url"])  # Turn off log for security
 
     if APP_CONFIG["ibm_mode"] == "test"
-      response_interfax = client.call(:send_char_fax, :message => {'Username' => APP_CONFIG["interfax_usr"], 'Password' => APP_CONFIG["interfax_pwd"],
-                                                                   'FaxNumber' => '9790000000', 'Data' => str, 'FileType' => 'HTML'})
+      fax_number = '9790000000'
     elsif APP_CONFIG["ibm_mode"] == "production"
-      response_interfax = client.call(:send_char_fax, :message => {'Username' => APP_CONFIG["interfax_usr"], 'Password' => APP_CONFIG["interfax_pwd"],
-                                                                   'FaxNumber' => self.store.fax, 'Data' => str, 'FileType' => 'HTML'})
+      fax_number = self.store.fax
     end
+
+    if store.has_fax?
+      usr = store.fax_usr
+      pwd = store.fax_pwd
+    else
+      usr = APP_CONFIG["interfax_usr"]
+      pwd = APP_CONFIG["interfax_pwd"]
+    end
+
+    response_interfax = client.call(:send_char_fax, :message => {'Username' => usr, 'Password' => pwd,
+                                                                 'FaxNumber' => fax_number, 'Data' => str, 'FileType' => 'HTML'})
 
     if response_interfax.body[:send_char_fax_response][:send_char_fax_result].to_i > 0
       # Fax succeed

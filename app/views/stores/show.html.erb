@@ -1,39 +1,59 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Store Name:</b><br/>
-  <%= @store.name %>
+    <fieldset>
+      <legend>Store Name:</legend>
+      <%= @store.name %>
+    </fieldset>
 </p>
 
 <p>
-  <b>Store Address:</b><br/>
-  <% if @store.address.nil? %>
-      No Address On File Yet!
-  <% else %>
-      <%= @store.address.address1 + ", " + @store.address.address2  %><br/>
-      <%= @store.address.city + ", " + @store.address.state + ", " + @store.address.country %>
-  <% end %>
-</p>
-
-<p>
-  <b>Business Hours:</b><br/>
-  <% unless @store.menus.empty? %>
-      <% @store.menus.first.hours.each do |h| %>
-          <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+    <fieldset>
+      <legend>Store Address:</legend>
+      <% if @store.address.nil? %>
+          No Address On File Yet!
+      <% else %>
+          <%= @store.address.address1 + ", " + @store.address.address2  %><br/>
+          <%= @store.address.city + ", " + @store.address.state + ", " + @store.address.country %>
       <% end %>
-  <% end %>
+    </fieldset>
 </p>
 
 <p>
-  <b>Delivery Requirements:</b><br/>
-  <% @store.delivery_rules.each do |dr| %>
-      <%= dr.name %><br/>
-  <% end %>
+    <fieldset>
+      <legend>Business Hours:</legend>
+      <% unless @store.menus.empty? %>
+          <% @store.menus.first.hours.each do |h| %>
+              <%= h.name + ": " + h.open_at + " - " + h.close_at %><br/>
+          <% end %>
+      <% end %>
+    </fieldset>
+
+    <% if @store.has_this_cartridge? "close_manager" %>
+        <%= simple_form_for @store do |f| %>
+            <fieldset>
+              <legend>Store Switch</legend>
+              <%= f.input :status, as: :radio_buttons, collection: [:normal, :closed] %>
+              <%= f.button :submit, data: { disable_with: "Saving..." }, class: 'button small' %>
+            </fieldset>
+        <% end %>
+    <% end %>
 </p>
 
 <p>
-  <b>Payment Options:</b><br/>
-  Cash, Visa, Master, Discover American Express
+    <fieldset>
+      <legend>Delivery Requirements:</legend>
+      <% @store.delivery_rules.each do |dr| %>
+          <%= dr.name %><br/>
+      <% end %>
+    </fieldset>
+</p>
+
+<p>
+    <fieldset>
+      <legend>Payment Options:</legend>
+      Cash, Visa, Master, Discover, American Express
+    </fieldset>
 </p>
 
 <% if current_admin.feng? %>

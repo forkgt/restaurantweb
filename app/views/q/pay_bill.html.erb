@@ -1,0 +1,38 @@
+<br/><br/><br/><br/>
+
+<h2><%= t ".statements" %> <span style="font-size: 16px;color:red; font-style: italic;">(<%= @statements.size %>)</span></h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Due At</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @statements.each do |statement| %>
+      <tr>
+        <td><%= t ".statements" %> @ <%= statement.year %>-<%= statement.month %></td>
+        <td><%= number_to_currency statement.total_price %></td>
+        <td><%= statement.year.to_s + "-" + statement.month.to_s + "-10" %></td>
+        <td>
+          <% if statement.payment_status == 'paid' %>
+              <span style="color: green;font-weight: bold;">Paid</span>
+          <% else %>
+              <span style="color: #ff0000;font-weight: bold;">Not Paid</span>
+          <% end %>
+        </td>
+        <td>
+          <% unless statement.payment_status == 'paid' %>
+             <%= link_to icon('credit-card') + " " + (t ".pay"), statement.paypal_url %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+

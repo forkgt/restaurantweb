@@ -99,13 +99,6 @@
               </div>
           <% end %>
 
-          <% unless Rails.env == "development" %>
-              <h3 style="color: #ffffff;background-color: maroon;">
-                &nbsp;&nbsp;&nbsp;Dear customers, currently our order-online service is not available.<br/>
-                &nbsp;&nbsp;&nbsp;But you can still get the menu and make reservations through below link.
-              </h3>
-          <% end %>
-
           <iframe id="seatme-widget" frameborder="0" width="640" height="60" src="https://www.seatme.yelp.com/api/v3/widget.htm?restaurant_id=0ac662d7-6577-4a84-8370-3eb818fcaf6d&color=%23c41200&color-scheme=light&orientation=horizontal&mobile-prompt=false"></iframe><style type="text/css">#seatme-link a:link {text-decoration: none; color:#b3b3b3} #seatme-link a:hover {text-decoration: none; color:#066382} #seatme-link a:visited {text-decoration: none; color:#066382}</style><div id="seatme-link"><a style="font: normal 9px Helvetica Neue, Helvetica, sans-serif; margin-left:15px;" href="https://www.seatme.yelp.com/">RESTAURANT RESERVATIONS BY YELP</a></div>
 
           <%= yield %>
@@ -149,19 +142,23 @@
             </div>
             <div class="large-6 columns">
               <ul class="inline-list right">
-                <li><a href="http://www.paypal.com" target="_blank">PayPal</a></li>
-                <% if admin_signed_in? %>
-                    <li><%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %></li>
-                    <li><%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %></li>
-                <% else %>
-                    <li><%= link_to "Admin", new_admin_session_path %></li>
+                <li><%= link_to "Paypal", "http://www.paypal.com", target: "_blank" %></li>
+                <% if APP_CONFIG["ibm_mode"] == "test" %>
+                    <% if admin_signed_in? %>
+                        <li><%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path, target: "_blank" %></li>
+                        <li><%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %></li>
+                    <% else %>
+                        <li><%= link_to "Admin", new_admin_session_path, target: "_blank" %></li>
+                    <% end %>
                 <% end %>
               </ul>
             </div>
+            <!--
             <div class="large-12 columns" style="text-align: center;">
               Website Created and Maintained by <%= link_to "777POS.COM", "http://777pos.com" %>
               <br/><br/><br/>
             </div>
+            -->
           </div>
         </div>
       </footer>

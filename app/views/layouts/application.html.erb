@@ -26,21 +26,25 @@
 <nav class="top-bar">
   <ul class="title-area">
     <!-- Title Area -->
+    <!--
     <li class="name">
       <h1><%= link_to "777POS", root_path %></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    -->
   </ul>
 
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="divider"></li>
+      <!--
       <li><%= link_to "Features", q_features_path %></li>
       <li class="divider"></li>
       <li><%= link_to "Examples", q_examples_path %></li>
       <li class="divider"></li>
       <li><%= link_to "Pricing", q_pricing_path %></li>
+      -->
       <% if admin_signed_in? %>
           <li class="divider"></li>
           <li><%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %></li>
@@ -57,11 +61,13 @@
 </nav>
 
 <div id="kitchen_pic">
+  <!--
   <br/><br/><br/><br/>
   777POS Online Ordering System
   <br/><br/>
   <%= link_to "Explore Powerful Features", q_features_path, class: "button" %>
   <%= link_to "See Successful Examples", q_examples_path, class: "button" %>
+  -->
 </div>
 
 <div class="row">
@@ -77,6 +83,9 @@
   </div>
 </div>
 
+<br/><br/><br/>
+
+<!--
 <footer class="row">
   <div class="large-12 columns">
     <hr />
@@ -92,6 +101,7 @@
     </div>
   </div>
 </footer>
+-->
 
 <% if false %>
     <script>

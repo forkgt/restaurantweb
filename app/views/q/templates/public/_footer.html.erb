@@ -13,19 +13,21 @@
     <br />
     <%= @store.address.address1 + ", " + @store.address.address2 + ", " + @store.address.city + ", " + @store.address.state + " " + @store.address.zip %>
   </div>
+  <!--
   <div id="footer_brand">
     Website Created and Maitained by
     <a href="http://www.777pos.com">777POS</a>
   </div>
+  -->
   <div id="footer_nav_small">
     &copy; <%= Time.now.year.to_s + " " + @store.name %>. All Rights Reserved.
-    &bull; <a href="http://www.paypal.com">PayPal</a>
-
+    &bull; <%= link_to "贝宝", "http://www.paypal.com", target: "_blank" %>
+    &bull; <%= link_to "账单", q_pay_bill_path, target: "_blank" %>
     <% if admin_signed_in? %>
-        &bull;<%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %>
-        &bull;<%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %>
+        &bull; <%= link_to current_admin.firstname + " " + current_admin.lastname, edit_admin_registration_path %>
+        &bull; <%= link_to 'Sign out', destroy_admin_session_path, :method=>'delete' %>
     <% else %>
-        &bull;<%= link_to "Admin", new_admin_session_path %>
+        &bull; <%= link_to "管理", new_admin_session_path %>
     <% end %>
   </div>
 </div><!--footer-->

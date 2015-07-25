@@ -1,5 +1,5 @@
 class QController < ApplicationController
-  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_intro, :store_message, :check_address, :reset_address]
+  before_action :set_store, only: [:store_home, :store_map, :store_menus, :store_intro, :store_message, :check_address, :reset_address, :pay_bill]
 
   def index
     # unless request.host == "www.777pos.com"
@@ -22,6 +22,14 @@ class QController < ApplicationController
   def pricing
     render layout: "application"
   end
+
+  def pay_bill
+    @statements = @store.statements.includes [:statement_items]
+
+    render layout: "application"
+  end
+
+
 
   def store_message
     @message = params[:message]

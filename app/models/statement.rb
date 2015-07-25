@@ -88,7 +88,7 @@ class Statement < ActiveRecord::Base
         ns = Statement.create(year: y, month: m, payment_status: "not_paid", store: store)
         b = Time.new(y, m)
         (1 .. Time.days_in_month(m, y)).each do |n|
-          c = Order.where(:created_at => b + (n-1).days .. b + n.days, store_id: store.id).count
+          c = Order.where(:created_at => b + (n-1).days .. b + n.days, store_id: store.id, transfer_status: "good_fax").count
           ns.statement_items.create(day: n, price: 0.1, quantity: c, note: "good", name: "fax") if c > 0
         end
 

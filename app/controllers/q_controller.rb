@@ -5,7 +5,7 @@ class QController < ApplicationController
     # unless request.host == "www.777pos.com"
     #   store = Store.find_by domain: request.host
     #   redirect_to q_store_home_path(store)
-    #   return # With return, following code will be executed.
+    #   return # Without return, following code will be executed.
     # end
 
     render layout: "application"

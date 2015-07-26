@@ -1,6 +1,7 @@
 class StoresController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :only_feng_see, only: [:index, :new, :edit]
 
   # GET /stores
   # GET /stores.json
@@ -83,6 +84,13 @@ class StoresController < ApplicationController
     def set_store
       @store = Store.find(params[:id])
       # @cartridge_array = @store.get_cartridge_array
+    end
+
+    def only_feng_see
+      unless current_admin.feng?
+        redirect_to edit_admin_registration_path
+        return # Without return, following code will be executed.
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

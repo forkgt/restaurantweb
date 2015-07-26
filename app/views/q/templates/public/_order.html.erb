@@ -30,6 +30,7 @@
           <%= f.input :payment_type, collection: Order::PAYMENT_TYPE_OPTIONS, as: :radio_buttons %>
           <%= f.input :tip, collection: Order::TIP_OPTIONS, prompt: nil, selected: Order::TIP_OPTIONS[0] %>
           <%= f.input :note, as: :text, input_html: {cols: 50, rows: 2}, label: 'Special instructions' %>
+          <span style="color: #ff0000;"><span style="font-weight: bold;">Warning:</span> Please don't include Credit Card information.</span>
 
           <%= f.input :store_id, :as => :hidden %>
           <%= f.input :cart_id, :as => :hidden %>

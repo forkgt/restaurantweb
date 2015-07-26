@@ -2,7 +2,7 @@ defaults: &defaults
   # IBM Mode (test/production)
   # Used in three places: q/paypal_notify, order.paypal_url, order.to_fax
   ibm_mode:                test
-  ibm_domain:              localhost
+#  ibm_domain:              localhost
 
 #  # Dropbox Information
 #  app_key:                 ZZZZZZZZZZZZZZZZZZZ
@@ -12,7 +12,7 @@ defaults: &defaults
 #  user_id:                 ZZZZZZZZZZZZZZZZZZZ
 
   # Interfax Information
-  interfax_url:          https://ws.interfax.net/dfs.asmx?WSDL
+  interfax_url:            https://ws.interfax.net/dfs.asmx?WSDL
   interfax_usr:            ZZZZZZZZZZZZZZZZZZZ
   interfax_pwd:            ZZZZZZZZZZZZZZZZZZZ
 
